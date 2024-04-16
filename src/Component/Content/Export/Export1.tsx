@@ -3712,7 +3712,7 @@ export const ExcelExport = (props: any) => {
         worksheet.getColumn(4).width = 9.3
         worksheet.getColumn(5).width = 9.3
         worksheet.getColumn(6).width = 7.3
-        worksheet.getColumn(7).width = 6
+        worksheet.getColumn(7).width = 6.0
         worksheet.getColumn(8).width = 6
         worksheet.getColumn(9).width = 4.3
         worksheet.getColumn(10).width = 5.3
