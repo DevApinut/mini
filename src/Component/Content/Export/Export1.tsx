@@ -13,14 +13,14 @@ export const ExcelExport = (props: any) => {
     var workbook = new Workbook();
     props.Personal_Infomation.map((data: any, index: number) => {
         var worksheet = workbook.addWorksheet(`${data.Name_Personal}_${index}`, {
-            pageSetup: { paperSize: 9, orientation: 'landscape',fitToHeight: 2,fitToPage: true, }
+            pageSetup: { paperSize: 9, orientation: 'landscape', fitToHeight: 2, fitToPage: true, }
         });
 
         worksheet.properties.defaultRowHeight = 15;
         // adjust pageSetup settings afterwards
         worksheet.pageSetup.margins = {
             left: 0, right: 0,
-            top: 0.15, bottom: 0.1,
+            top: 0.4, bottom: 0.4,
             header: 0, footer: 0
         };
         worksheet.views = [{}]
@@ -29,7 +29,7 @@ export const ExcelExport = (props: any) => {
         // Set Print Area for a sheet
         worksheet.pageSetup.printArea = 'A1:Z81';
 
-        worksheet.pageSetup.scale = 80;
+        worksheet.pageSetup.scale = 77;
         worksheet.pageSetup.horizontalCentered = true;
         worksheet.pageSetup.verticalCentered = true;
 
@@ -82,7 +82,7 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('F8').value = `${new Date(work_information_romeve_deplicate[0].date_from).getDate()} ${changedate1(new Date(work_information_romeve_deplicate[0].date_from))}${(new Date(work_information_romeve_deplicate[0].date_from).getFullYear() + 543).toString().substr(-2)}`
         worksheet.getCell('I8').numFmt = '00.00 "น."';
         worksheet.getCell('I8').value = parseFloat(work_information_romeve_deplicate[0].time_from)
-        worksheet.getCell('M8').value = `${new Date(work_information_romeve_deplicate[work_information_romeve_deplicate.length-1].date_destination).getDate()} ${changedate1(new Date(work_information_romeve_deplicate[work_information_romeve_deplicate.length-1].date_destination))}${(new Date(work_information_romeve_deplicate[work_information_romeve_deplicate.length-1].date_destination).getFullYear() + 543).toString().substr(-2)}`
+        worksheet.getCell('M8').value = `${new Date(work_information_romeve_deplicate[work_information_romeve_deplicate.length - 1].date_destination).getDate()} ${changedate1(new Date(work_information_romeve_deplicate[work_information_romeve_deplicate.length - 1].date_destination))}${(new Date(work_information_romeve_deplicate[work_information_romeve_deplicate.length - 1].date_destination).getFullYear() + 543).toString().substr(-2)}`
         worksheet.getCell('R8').numFmt = '00.00 "น."';
         worksheet.getCell('R8').value = parseFloat(work_information_time_romeve_deplicate[work_information_time_romeve_deplicate.length - 1].time_destination)
         worksheet.getCell('P1').value = `${props.Detail_Work[0].budget}${props.Detail_Work[0].other_budget}`
@@ -104,7 +104,7 @@ export const ExcelExport = (props: any) => {
             }
         })
 
-        
+
 
         var index_for_work = 45
         var index_for_work_date = 45
@@ -186,6 +186,7 @@ export const ExcelExport = (props: any) => {
         worksheet.mergeCells(`C${(71 - result1.length - 5)}:R${(71 - result1.length - 4)}`)
         worksheet.getCell(`C${(71 - result1.length - 5)}`).font = { name: 'TH SarabunPSK', size: 15, italic: false, bold: false }
         worksheet.getCell(`C${(71 - result1.length - 5)}`).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true }
+        worksheet.getCell(`C${(71 - result1.length - 5)}`).border = { left: { style: 'thin' }, right: { style: 'thin' } }
 
         if (props.Detail_Work[0].type_order == "หมายเลขใบสั่ง") {
             worksheet.getCell(`C${(71 - result1.length - 3)}`).value = `ค่าเบี้ยเลี้ยง`
@@ -318,33 +319,35 @@ export const ExcelExport = (props: any) => {
             worksheet.mergeCells(`P${(71 - result1.length - 0)}:R${(71 - result1.length - 0)}`)
 
             result1.map((data1: any, index1: number) => {
-                worksheet.getCell(`C${(71 - result1.length + index1 + 1)}`).value = data1
-                worksheet.mergeCells(`C${(71 - result1.length + index1 + 1)}:E${(71 - result1.length + index1 + 1)}`)
-                worksheet.mergeCells(`G${(71 - result1.length + index1 + 1)}:H${(71 - result1.length + index1 + 1)}`)
-                worksheet.mergeCells(`L${(71 - result1.length + index1 + 1)}:O${(71 - result1.length + index1 + 1)}`)
-                worksheet.mergeCells(`P${(71 - result1.length + index1 + 1)}:R${(71 - result1.length + index1 + 1)}`)
-                worksheet.getCell(`C${(71 - result1.length + index1 + 1)}`).font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
-                worksheet.getCell(`C${(71 - result1.length + index1 + 1)}`).alignment = { vertical: 'middle', horizontal: 'left' }
-                worksheet.getCell(`I${(71 - result1.length + index1 + 1)}`).value = `¸`
-                worksheet.getCell(`I${(71 - result1.length + index1 + 1)}`).font = { name: 'Symbol', size: 16, italic: false, bold: false, }
-                worksheet.getCell(`I${(71 - result1.length + index1 + 1)}`).alignment = { vertical: 'middle', horizontal: 'center' }
-                worksheet.getCell(`J${(71 - result1.length + index1 + 1)}`).value = number_order.length
-                worksheet.getCell(`J${(71 - result1.length + index1 + 1)}`).font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
-                worksheet.getCell(`J${(71 - result1.length + index1 + 1)}`).alignment = { vertical: 'middle', horizontal: 'center' }
-                worksheet.getCell(`K${(71 - result1.length + index1 + 1)}`).value = `=`
-                worksheet.getCell(`K${(71 - result1.length + index1 + 1)}`).font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
-                worksheet.getCell(`K${(71 - result1.length + index1 + 1)}`).alignment = { vertical: 'middle', horizontal: 'center' }
-                worksheet.getCell(`P${(71 - result1.length + index1 + 1)}`).value = `บาท/ใบสั่ง`
-                worksheet.getCell(`P${(71 - result1.length + index1 + 1)}`).font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
-                worksheet.getCell(`P${(71 - result1.length + index1 + 1)}`).alignment = { vertical: 'middle', horizontal: 'center' }
-                worksheet.getCell(`L${(71 - result1.length + index1 + 1)}`).value = { formula: `G${(71 - result1.length + index1 + 1)}/J${(71 - result1.length + index1 + 1)}` }
-                worksheet.getCell(`L${(71 - result1.length + index1 + 1)}`).numFmt = '#,##0.00';
-                worksheet.getCell(`L${(71 - result1.length + index1 + 1)}`).font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
-                worksheet.getCell(`L${(71 - result1.length + index1 + 1)}`).alignment = { vertical: 'middle', horizontal: 'center' }
-                worksheet.getCell(`G${(71 - result1.length + index1 + 1)}`).value = price[index1]
-                worksheet.getCell(`G${(71 - result1.length + index1 + 1)}`).font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
-                worksheet.getCell(`G${(71 - result1.length + index1 + 1)}`).alignment = { vertical: 'middle', horizontal: 'center' }
-                worksheet.getCell(`G${(71 - result1.length + index1 + 1)}`).numFmt = '#,##0.00';
+                if (data1 != "" && data1 != null && data1 != undefined) {
+                    worksheet.getCell(`C${(71 - result1.length + index1 + 1)}`).value = data1
+                    worksheet.mergeCells(`C${(71 - result1.length + index1 + 1)}:E${(71 - result1.length + index1 + 1)}`)
+                    worksheet.mergeCells(`G${(71 - result1.length + index1 + 1)}:H${(71 - result1.length + index1 + 1)}`)
+                    worksheet.mergeCells(`L${(71 - result1.length + index1 + 1)}:O${(71 - result1.length + index1 + 1)}`)
+                    worksheet.mergeCells(`P${(71 - result1.length + index1 + 1)}:R${(71 - result1.length + index1 + 1)}`)
+                    worksheet.getCell(`C${(71 - result1.length + index1 + 1)}`).font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
+                    worksheet.getCell(`C${(71 - result1.length + index1 + 1)}`).alignment = { vertical: 'middle', horizontal: 'left' }
+                    worksheet.getCell(`I${(71 - result1.length + index1 + 1)}`).value = `¸`
+                    worksheet.getCell(`I${(71 - result1.length + index1 + 1)}`).font = { name: 'Symbol', size: 16, italic: false, bold: false, }
+                    worksheet.getCell(`I${(71 - result1.length + index1 + 1)}`).alignment = { vertical: 'middle', horizontal: 'center' }
+                    worksheet.getCell(`J${(71 - result1.length + index1 + 1)}`).value = number_order.length
+                    worksheet.getCell(`J${(71 - result1.length + index1 + 1)}`).font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
+                    worksheet.getCell(`J${(71 - result1.length + index1 + 1)}`).alignment = { vertical: 'middle', horizontal: 'center' }
+                    worksheet.getCell(`K${(71 - result1.length + index1 + 1)}`).value = `=`
+                    worksheet.getCell(`K${(71 - result1.length + index1 + 1)}`).font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
+                    worksheet.getCell(`K${(71 - result1.length + index1 + 1)}`).alignment = { vertical: 'middle', horizontal: 'center' }
+                    worksheet.getCell(`P${(71 - result1.length + index1 + 1)}`).value = `บาท/ใบสั่ง`
+                    worksheet.getCell(`P${(71 - result1.length + index1 + 1)}`).font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
+                    worksheet.getCell(`P${(71 - result1.length + index1 + 1)}`).alignment = { vertical: 'middle', horizontal: 'center' }
+                    worksheet.getCell(`L${(71 - result1.length + index1 + 1)}`).value = { formula: `G${(71 - result1.length + index1 + 1)}/J${(71 - result1.length + index1 + 1)}` }
+                    worksheet.getCell(`L${(71 - result1.length + index1 + 1)}`).numFmt = '#,##0.00';
+                    worksheet.getCell(`L${(71 - result1.length + index1 + 1)}`).font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
+                    worksheet.getCell(`L${(71 - result1.length + index1 + 1)}`).alignment = { vertical: 'middle', horizontal: 'center' }
+                    worksheet.getCell(`G${(71 - result1.length + index1 + 1)}`).value = price[index1]
+                    worksheet.getCell(`G${(71 - result1.length + index1 + 1)}`).font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
+                    worksheet.getCell(`G${(71 - result1.length + index1 + 1)}`).alignment = { vertical: 'middle', horizontal: 'center' }
+                    worksheet.getCell(`G${(71 - result1.length + index1 + 1)}`).numFmt = '#,##0.00';
+                }
             })
 
 
@@ -1584,10 +1587,10 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('C63').border = { left: { style: 'thin' } }
         worksheet.getCell('S63').border = { left: { style: 'thin' }, right: { style: 'thin' }, }
         worksheet.getCell('AA63').border = { left: { style: 'thin' }, }
-        worksheet.getCell('A64').border = { left: { style: 'thin' } }
-        worksheet.getCell('A65').border = { left: { style: 'thin' } }
-        worksheet.getCell('A66').border = { left: { style: 'thin' } }
-        worksheet.getCell('A67').border = { left: { style: 'thin' } }
+        worksheet.getCell('A64').border = { left: { style: 'thin' }, right: { style: 'thin' } }
+        worksheet.getCell('A65').border = { left: { style: 'thin' }, right: { style: 'thin' } }
+        worksheet.getCell('A66').border = { left: { style: 'thin' }, right: { style: 'thin' } }
+        worksheet.getCell('A67').border = { left: { style: 'thin' }, right: { style: 'thin' } }
         worksheet.getCell('A68').border = { left: { style: 'thin' } }
         worksheet.getCell('A69').border = { left: { style: 'thin' } }
         worksheet.getCell('A70').border = { left: { style: 'thin' } }
@@ -3692,14 +3695,14 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('AA81').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
         worksheet.getCell('AB81').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
 
-        if(count_for_work_information <=16 && props.Detail_Work[0].Continue_Command_select == "ต่อเนื่อง"){
-            worksheet.getCell(`A${count_for_work_information+1}`).value = `คำสั่งต่อเนื่องจาก ${props.Detail_Work[0].Continue_Command_number}`
-            worksheet.mergeCells(`A${count_for_work_information+1}:F${count_for_work_information+2}`)
-            worksheet.getCell(`A${count_for_work_information+1}`).font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: true, }
-            worksheet.getCell('A30').value = "เป็นงาน PM มีหมายเลขใบสั่งอยู่ด้านหลัง"  
-        }else if(count_for_work_information <=16 && props.Detail_Work[0].Continue_Command_select == "ต่อเนื่อง"){
-            worksheet.getCell(`A30`).value = `คำสั่งต่อเนื่องจาก ${props.Detail_Work[0].Continue_Command_number}`            
-        }else{
+        if (count_for_work_information <= 16 && props.Detail_Work[0].Continue_Command_select == "ต่อเนื่อง") {
+            worksheet.getCell(`A${count_for_work_information + 1}`).value = `คำสั่งต่อเนื่องจาก ${props.Detail_Work[0].Continue_Command_number}`
+            worksheet.mergeCells(`A${count_for_work_information + 1}:F${count_for_work_information + 2}`)
+            worksheet.getCell(`A${count_for_work_information + 1}`).font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: true, }
+            worksheet.getCell('A30').value = "เป็นงาน PM มีหมายเลขใบสั่งอยู่ด้านหลัง"
+        } else if (count_for_work_information <= 16 && props.Detail_Work[0].Continue_Command_select == "ต่อเนื่อง") {
+            worksheet.getCell(`A30`).value = `คำสั่งต่อเนื่องจาก ${props.Detail_Work[0].Continue_Command_number}`
+        } else {
             worksheet.getCell('A30').value = "เป็นงาน PM มีหมายเลขใบสั่งอยู่ด้านหลัง"
         }
 
@@ -3708,72 +3711,72 @@ export const ExcelExport = (props: any) => {
 
         worksheet.getColumn(1).width = 9.30
         worksheet.getColumn(2).width = 9.3
-        worksheet.getColumn(3).width = 7.3
+        worksheet.getColumn(3).width = 9.3
         worksheet.getColumn(4).width = 9.3
         worksheet.getColumn(5).width = 9.3
-        worksheet.getColumn(6).width = 7.3
-        worksheet.getColumn(7).width = 6.0
-        worksheet.getColumn(8).width = 6
+        worksheet.getColumn(6).width = 9.3
+        worksheet.getColumn(7).width = 7
+        worksheet.getColumn(8).width = 7
         worksheet.getColumn(9).width = 4.3
         worksheet.getColumn(10).width = 5.3
-        worksheet.getColumn(11).width = 7
+        worksheet.getColumn(11).width = 9
         worksheet.getColumn(12).width = 6
         worksheet.getColumn(13).width = 6
         worksheet.getColumn(14).width = 6
         worksheet.getColumn(15).width = 6
-        worksheet.getColumn(16).width = 6
+        worksheet.getColumn(16).width = 7
         worksheet.getColumn(17).width = 6
-        worksheet.getColumn(18).width = 6
-        worksheet.getColumn(19).width = 10
-        worksheet.getColumn(20).width = 6.5
+        worksheet.getColumn(18).width = 8
+        worksheet.getColumn(19).width = 14
+        worksheet.getColumn(20).width = 7
         worksheet.getColumn(21).width = 6.5
-        worksheet.getColumn(22).width = 6.3
-        worksheet.getColumn(23).width = 4.3
+        worksheet.getColumn(22).width = 10
+        worksheet.getColumn(23).width = 3.5
         worksheet.getColumn(24).width = 4.3
-        worksheet.getColumn(25).width = 4.3
+        worksheet.getColumn(25).width = 3.5
         worksheet.getColumn(26).width = 4.3
 
-        worksheet.getRow(1).height = 3.6
-        worksheet.getRow(2).height = 16.8
-        worksheet.getRow(3).height = 16.8
-        worksheet.getRow(4).height = 16.8
-        worksheet.getRow(5).height = 16.8
-        worksheet.getRow(6).height = 16.8
-        worksheet.getRow(7).height = 16.8
-        worksheet.getRow(8).height = 16.8
-        worksheet.getRow(9).height = 16.8
-        worksheet.getRow(10).height = 16.8
-        worksheet.getRow(11).height = 16.8
-        worksheet.getRow(12).height = 16.8
-        worksheet.getRow(13).height = 16.8
-        worksheet.getRow(14).height = 16.8
-        worksheet.getRow(15).height = 16.8
-        worksheet.getRow(16).height = 16.8
-        worksheet.getRow(17).height = 16.8
-        worksheet.getRow(18).height = 16.8
-        worksheet.getRow(19).height = 16.8
-        worksheet.getRow(20).height = 16.8
-        worksheet.getRow(21).height = 16.8
-        worksheet.getRow(22).height = 16.8
-        worksheet.getRow(23).height = 16.8
-        worksheet.getRow(24).height = 16.8
-        worksheet.getRow(25).height = 16.8
-        worksheet.getRow(26).height = 16.8
-        worksheet.getRow(27).height = 16.8
-        worksheet.getRow(28).height = 16.8
-        worksheet.getRow(29).height = 16.8
-        worksheet.getRow(30).height = 16.8
-        worksheet.getRow(31).height = 16.8
-        worksheet.getRow(32).height = 16.8
-        worksheet.getRow(33).height = 16.8
-        worksheet.getRow(34).height = 16.8
-        worksheet.getRow(35).height = 16.8
-        worksheet.getRow(36).height = 16.8
-        worksheet.getRow(37).height = 16.8
-        worksheet.getRow(38).height = 16.8
-        worksheet.getRow(39).height = 16.8
-        worksheet.getRow(40).height = 31.8
-        
+        worksheet.getRow(1).height = 2.6
+        worksheet.getRow(2).height = 18
+        worksheet.getRow(3).height = 18
+        worksheet.getRow(4).height = 18
+        worksheet.getRow(5).height = 18
+        worksheet.getRow(6).height = 18
+        worksheet.getRow(7).height = 18
+        worksheet.getRow(8).height = 18
+        worksheet.getRow(9).height = 18
+        worksheet.getRow(10).height = 18
+        worksheet.getRow(11).height = 18
+        worksheet.getRow(12).height = 18
+        worksheet.getRow(13).height = 18
+        worksheet.getRow(14).height = 18
+        worksheet.getRow(15).height = 18
+        worksheet.getRow(16).height = 18
+        worksheet.getRow(17).height = 18
+        worksheet.getRow(18).height = 18
+        worksheet.getRow(19).height = 18
+        worksheet.getRow(20).height = 18
+        worksheet.getRow(21).height = 18
+        worksheet.getRow(22).height = 18
+        worksheet.getRow(23).height = 18
+        worksheet.getRow(24).height = 18
+        worksheet.getRow(25).height = 18
+        worksheet.getRow(26).height = 18
+        worksheet.getRow(27).height = 18
+        worksheet.getRow(28).height = 18
+        worksheet.getRow(29).height = 18
+        worksheet.getRow(30).height = 18
+        worksheet.getRow(31).height = 18
+        worksheet.getRow(32).height = 18
+        worksheet.getRow(33).height = 18
+        worksheet.getRow(34).height = 18
+        worksheet.getRow(35).height = 14
+        worksheet.getRow(36).height = 14
+        worksheet.getRow(37).height = 18
+        worksheet.getRow(38).height = 14
+        worksheet.getRow(39).height = 18
+        worksheet.getRow(40).height = 18
+
         worksheet.getRow(41).height = 16.8
         worksheet.getRow(42).height = 16.8
         worksheet.getRow(43).height = 16.8
@@ -3816,7 +3819,7 @@ export const ExcelExport = (props: any) => {
         worksheet.getRow(80).height = 18
         worksheet.getRow(81).height = 18
 
-        
+
 
         const myBase64Image = Logo_image();
         const imageId2 = workbook.addImage({
