@@ -150,11 +150,174 @@ const Docx_export = () => {
                                 text: " Unmanned Substation",
                                 font: "Angsana New",
                             }),
+                        ], 
+                    }),
+                    new Paragraph({
+                        // alignment: AlignmentType.LEFT,
+                        tabStops: [                            
+                            {
+                                //multiply by 567 example want 5 cm * 567 = 2835
+                                type: TabStopType.CENTER,
+                                position: 5.25*567,
+                            },
+                            {
+                                type: TabStopType.LEFT,
+                                position: 6*567,
+                            },
+                            {
+                                type: TabStopType.CENTER,
+                                position: 10*567,
+                            },
+                            {
+                                type: TabStopType.LEFT,
+                                position: 12.25*567,
+                            },
+                            {
+                                type: TabStopType.CENTER,
+                                position: 14.5*567,
+                            },
+                            {
+                                type: TabStopType.LEFT,
+                                position: 16*567,
+                            },
 
+                        ], 
+                        children: [
+                            new TextRun({
+                                size: 28,
+                                text: "หน่วยงานที่ขอปฏิบัติงาน",
+                                font: "Angsana New",
+                            }),
+                            new SymbolRun({
+                                size: 28,
+                                char: "F0FE",
+                                bold: true,
+                                italics: false,
+                            }),
+                            new TextRun({
+                                size: 28,
+                                text: "กฟภ",
+                                font: "Angsana New",
+                            }),
+                            new TextRun({
+                                size: 28,
+                                text: "\tผสม\t",
+                                font: "Angsana New", 
+                                underline: {
+                                    type: UnderlineType.DOTTED,
+                                    color: "FF0000",
+                                },                            
+                            }), 
+                            new TextRun({
+                                size: 28,
+                                text: "ผู้ควบคุมงาน",
+                                font: "Angsana New",
+                            }),
+                            new TextRun({
+                                size: 28,
+                                text: "\tนาย ภูนรินทร์ แช่มนาสวน\t",
+                                font: "Angsana New", 
+                                underline: {
+                                    type: UnderlineType.DOTTED,
+                                    color: "FF0000",
+                                },                            
+                            }), 
+                            new TextRun({
+                                size: 28,
+                                text: "เบอร์โทร",
+                                font: "Angsana New",
+                            }),
+                            new TextRun({
+                                size: 28,
+                                text: "\t 0819635567\t",
+                                font: "Angsana New", 
+                                underline: {
+                                    type: UnderlineType.DOTTED,
+                                    color: "FF0000",
+                                },                            
+                            }),
+                        ], 
+                    }),
+                    new Paragraph({
+                        // alignment: AlignmentType.LEFT,
+                        tabStops: [                            
+                            {
+                                //multiply by 567 example want 5 cm * 567 = 2835
+                                type: TabStopType.CENTER,
+                                position: 4.5*567,
+                            },
+                            {
+                                type: TabStopType.LEFT,
+                                position: 6*567,
+                            },
+                            {
+                                type: TabStopType.CENTER,
+                                position: 10*567,
+                            },
+                            {
+                                type: TabStopType.LEFT,
+                                position: 12.25*567,
+                            },
+                            {
+                                type: TabStopType.CENTER,
+                                position: 14.5*567,
+                            },
+                            {
+                                type: TabStopType.LEFT,
+                                position: 16*567,
+                            },
 
-                        ],
-                        
-
+                        ], 
+                        children: [
+                            new SymbolRun({
+                                size: 28,
+                                char: "F0FE",
+                                bold: true,
+                                italics: false,
+                            }),
+                            new TextRun({
+                                size: 28,
+                                text: "หน่วยงานภายนอก",
+                                font: "Angsana New",
+                            }),                           
+                            new TextRun({
+                                size: 28,
+                                text: "\tผสม\t",
+                                font: "Angsana New", 
+                                underline: {
+                                    type: UnderlineType.DOTTED,
+                                    color: "FF0000",
+                                },                            
+                            }), 
+                            new TextRun({
+                                size: 28,
+                                text: "ผู้ควบคุมงาน",
+                                font: "Angsana New",
+                            }),
+                            new TextRun({
+                                size: 28,
+                                text: "\tนาย ภูนรินทร์ แช่มนาสวน\t",
+                                font: "Angsana New", 
+                                underline: {
+                                    type: UnderlineType.DOTTED,
+                                    color: "FF0000",
+                                },                            
+                            }), 
+                            new TextRun({
+                                size: 28,
+                                text: "เบอร์โทร",
+                                font: "Angsana New",
+                            }),
+                            new TextRun({
+                                size: 28,
+                                text: "\t 0819635567\t",
+                                font: "Angsana New", 
+                                underline: {
+                                    type: UnderlineType.DOTTED,
+                                    color: "FF0000",
+                                },                            
+                            }),
+                        ], 
                     }),
                     new Table({
                         rows: [
