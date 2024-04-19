@@ -27,7 +27,7 @@ export const ExcelExport = (props: any) => {
 
 
         // Set Print Area for a sheet
-        worksheet.pageSetup.printArea = 'A1:Z81';
+        worksheet.pageSetup.printArea = 'A1:Z83';
 
         worksheet.pageSetup.scale = 77;
         worksheet.pageSetup.horizontalCentered = true;
@@ -88,6 +88,7 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('P1').value = `${props.Detail_Work[0].budget}${props.Detail_Work[0].other_budget}`
         worksheet.getCell('C80').value = data.Name_Personal
         worksheet.getCell('C81').value = data.Position_Personal
+        worksheet.getCell('C82').value = `${new Date().getDate()} ${changedate1(new Date())}${(new Date().getFullYear() + 543).toString().substr(-2)}`
 
         var count_for_work_information = 12;
         props.Work_Infomation.map((data1: any, index1: any) => {
@@ -157,21 +158,27 @@ export const ExcelExport = (props: any) => {
             }
         })
 
-        const result = props.Additional_buy.map((item: any, index: number) => item.list_material.split(",")[1]);
-        const result1 = result.filter((item: any, index: number) => result.indexOf(item) === index);
+        const result = props.Additional_buy.map((item: any, index: number) => {            
+            if(item.Name_personal == data.Name_Personal){
+                return item.list_material.split(",")[1]
+            }            
+        })
+        const result1 = result.filter((item: any, index: number) => (result.indexOf(item) === index) && item != undefined);
         const price = result1.map((data: any) => 0)
 
+        var count_for_additional_buy = 0
         props.Additional_buy.map((data1: any, index: number) => {
             if (result1.indexOf(data1.list_material.split(",")[1]) >= 0 && data1.Name_personal == data.Name_Personal) {
-                worksheet.getCell(`I${index + 16}`).value = data1.list_material.split(",")[0]
-                worksheet.getCell(`K${index + 16}`).value = data1.list_material.split(",")[1]
-                if (data1.price == "") { } else { worksheet.getCell(`T${index + 16}`).value = parseFloat(data1.price) }
-                if (data1.vat == "") { } else { worksheet.getCell(`V${index + 16}`).value = parseFloat(data1.vat) }
-                worksheet.mergeCells(`K${index + 16}:Q${index + 16}`)
+                worksheet.getCell(`I${count_for_additional_buy + 16}`).value = data1.list_material.split(",")[0]
+                worksheet.getCell(`K${count_for_additional_buy + 16}`).value = data1.list_material.split(",")[1]
+                if (data1.price == "") { } else { worksheet.getCell(`T${count_for_additional_buy + 16}`).value = parseFloat(data1.price) }
+                if (data1.vat == "") { } else { worksheet.getCell(`V${count_for_additional_buy + 16}`).value = parseFloat(data1.vat) }
+                worksheet.mergeCells(`K${count_for_additional_buy + 16}:Q${count_for_additional_buy + 16}`)
                 price[result1.indexOf(data1.list_material.split(",")[1])] = price[result1.indexOf(data1.list_material.split(",")[1])] + parseFloat(data1.total_price)
+                count_for_additional_buy++
             }
         })
-
+        console.log(result1)
         worksheet.getCell(`C${(71 - result1.length - 7)}`).value = "จึงเรียนมาเพื่อโปรดทราบ"
         worksheet.mergeCells(`C${(71 - result1.length - 7)}:R${(71 - result1.length - 7)}`)
         worksheet.getCell(`C${(71 - result1.length - 7)}`).font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: true, }
@@ -182,7 +189,7 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell(`C${(71 - result1.length - 6)}`).font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: true, }
         worksheet.getCell(`C${(71 - result1.length - 6)}`).alignment = { vertical: 'middle', horizontal: 'center' }
 
-        worksheet.getCell(`C${(71 - result1.length - 5)}`).value = `${number_order}`
+        worksheet.getCell(`C${(71 - result1.length - 5)}`).value = `${number_order.toString()}`
         worksheet.mergeCells(`C${(71 - result1.length - 5)}:R${(71 - result1.length - 4)}`)
         worksheet.getCell(`C${(71 - result1.length - 5)}`).font = { name: 'TH SarabunPSK', size: 15, italic: false, bold: false }
         worksheet.getCell(`C${(71 - result1.length - 5)}`).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true }
@@ -591,7 +598,7 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('I79').value = "__________________________"
         worksheet.getCell('M79').value = "ผู้บังคับบัญชาชั้นต้น "
         worksheet.getCell('Q79').value = "(ลงชื่อ) "
-        worksheet.getCell('S79').value = "________________________"
+        worksheet.getCell('S79').value = "___________________________"
         worksheet.getCell('V79').value = "ผู้บังคับบัญชาหน่วยงาน"
         worksheet.getCell('B80').value = "         ("
         // worksheet.getCell('C80').value = "________________________"
@@ -600,11 +607,13 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('I80').value = "__________________________"
         worksheet.getCell('M80').value = ")"
         worksheet.getCell('R80').value = "("
-        worksheet.getCell('S80').value = "________________________"
+        worksheet.getCell('S80').value = "___________________________"
         worksheet.getCell('V80').value = ")"
         // worksheet.getCell('C81').value = "________________________"
         worksheet.getCell('I81').value = "__________________________"
-        worksheet.getCell('S81').value = "________________________"
+        worksheet.getCell('S81').value = "___________________________"
+        worksheet.getCell('I82').value = "__________________________"
+        worksheet.getCell('S82').value = "___________________________"
 
 
 
@@ -938,6 +947,9 @@ export const ExcelExport = (props: any) => {
         worksheet.mergeCells('C81:E81')
         worksheet.mergeCells('I81:L81')
         worksheet.mergeCells('S81:U81')
+        worksheet.mergeCells('C82:E82')
+        worksheet.mergeCells('I82:L82')
+        worksheet.mergeCells('S82:U82')
 
 
 
@@ -1650,27 +1662,37 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('A80').border = { left: { style: 'thin' }, }
         worksheet.getCell('Z80').border = { right: { style: 'thin' }, }
         worksheet.getCell('AA80').border = { left: { style: 'thin' }, }
-        worksheet.getCell('A81').border = { left: { style: 'thin' }, bottom: { style: 'thin' }, }
-        worksheet.getCell('B81').border = { bottom: { style: 'thin' }, }
-        worksheet.getCell('C81').border = { bottom: { style: 'thin' }, }
-        worksheet.getCell('F81').border = { bottom: { style: 'thin' }, }
-        worksheet.getCell('G81').border = { bottom: { style: 'thin' }, }
-        worksheet.getCell('H81').border = { bottom: { style: 'thin' }, }
-        worksheet.getCell('I81').border = { bottom: { style: 'thin' }, }
-        worksheet.getCell('J81').border = { bottom: { style: 'thin' }, }
-        worksheet.getCell('M81').border = { bottom: { style: 'thin' }, }
-        worksheet.getCell('N81').border = { bottom: { style: 'thin' }, }
-        worksheet.getCell('O81').border = { bottom: { style: 'thin' }, }
-        worksheet.getCell('P81').border = { bottom: { style: 'thin' }, }
-        worksheet.getCell('Q81').border = { bottom: { style: 'thin' }, }
-        worksheet.getCell('R81').border = { bottom: { style: 'thin' }, }
-        worksheet.getCell('S81').border = { bottom: { style: 'thin' }, }
-        worksheet.getCell('V81').border = { bottom: { style: 'thin' }, }
-        worksheet.getCell('W81').border = { bottom: { style: 'thin' }, }
-        worksheet.getCell('X81').border = { bottom: { style: 'thin' }, }
-        worksheet.getCell('Y81').border = { bottom: { style: 'thin' }, }
-        worksheet.getCell('Z81').border = { bottom: { style: 'thin' }, right: { style: 'thin' }, }
-        worksheet.getCell('AA81').border = { left: { style: 'thin' }, }
+        worksheet.getCell('A81').border = { left: { style: 'thin' } }
+        worksheet.getCell('A82').border = { left: { style: 'thin' } }
+        worksheet.getCell('A83').border = { left: { style: 'thin' }, bottom: { style: 'thin' }, }
+        worksheet.getCell('B83').border = { bottom: { style: 'thin' }, }
+        worksheet.getCell('C83').border = { bottom: { style: 'thin' }, }
+        worksheet.getCell('D83').border = { bottom: { style: 'thin' }, }
+        worksheet.getCell('E83').border = { bottom: { style: 'thin' }, }
+        worksheet.getCell('F83').border = { bottom: { style: 'thin' }, }
+        worksheet.getCell('G83').border = { bottom: { style: 'thin' }, }
+        worksheet.getCell('H83').border = { bottom: { style: 'thin' }, }
+        worksheet.getCell('I83').border = { bottom: { style: 'thin' }, }
+        worksheet.getCell('J83').border = { bottom: { style: 'thin' }, }
+        worksheet.getCell('K83').border = { bottom: { style: 'thin' }, }
+        worksheet.getCell('L83').border = { bottom: { style: 'thin' }, }
+        worksheet.getCell('M83').border = { bottom: { style: 'thin' }, }
+        worksheet.getCell('N83').border = { bottom: { style: 'thin' }, }
+        worksheet.getCell('O83').border = { bottom: { style: 'thin' }, }
+        worksheet.getCell('P83').border = { bottom: { style: 'thin' }, }
+        worksheet.getCell('Q83').border = { bottom: { style: 'thin' }, }
+        worksheet.getCell('R83').border = { bottom: { style: 'thin' }, }
+        worksheet.getCell('S83').border = { bottom: { style: 'thin' }, }
+        worksheet.getCell('T83').border = { bottom: { style: 'thin' }, }
+        worksheet.getCell('U83').border = { bottom: { style: 'thin' }, }
+        worksheet.getCell('V83').border = { bottom: { style: 'thin' }, }
+        worksheet.getCell('W83').border = { bottom: { style: 'thin' }, }
+        worksheet.getCell('X83').border = { bottom: { style: 'thin' }, }
+        worksheet.getCell('Y83').border = { bottom: { style: 'thin' }, }
+        worksheet.getCell('Z81').border = { right: { style: 'thin' }, }
+        worksheet.getCell('Z82').border = { right: { style: 'thin' }, }
+        worksheet.getCell('Z83').border = { bottom: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell('AA83').border = { left: { style: 'thin' }, }
 
 
 
@@ -2681,6 +2703,28 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('Z81').alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell('AA81').alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell('AB81').alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell('A82').alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell('B82').alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell('C82').alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell('F82').alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell('G82').alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell('H82').alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell('I82').alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell('J82').alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell('M82').alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell('N82').alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell('O82').alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell('P82').alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell('Q82').alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell('R82').alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell('S82').alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell('V82').alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell('W82').alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell('X82').alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell('Y82').alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell('Z82').alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell('AA82').alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell('AB82').alignment = { vertical: 'middle', horizontal: 'center' }
 
 
 
@@ -3694,6 +3738,28 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('Z81').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
         worksheet.getCell('AA81').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
         worksheet.getCell('AB81').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
+        worksheet.getCell('A82').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
+        worksheet.getCell('B82').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
+        worksheet.getCell('C82').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: true, }
+        worksheet.getCell('F82').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
+        worksheet.getCell('G82').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
+        worksheet.getCell('H82').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
+        worksheet.getCell('I82').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
+        worksheet.getCell('J82').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
+        worksheet.getCell('M82').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
+        worksheet.getCell('N82').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
+        worksheet.getCell('O82').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
+        worksheet.getCell('P82').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
+        worksheet.getCell('Q82').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
+        worksheet.getCell('R82').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
+        worksheet.getCell('S82').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
+        worksheet.getCell('V82').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
+        worksheet.getCell('W82').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
+        worksheet.getCell('X82').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
+        worksheet.getCell('Y82').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
+        worksheet.getCell('Z82').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
+        worksheet.getCell('AA82').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
+        worksheet.getCell('AB82').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
 
         if (count_for_work_information <= 16 && props.Detail_Work[0].Continue_Command_select == "ต่อเนื่อง") {
             worksheet.getCell(`A${count_for_work_information + 1}`).value = `คำสั่งต่อเนื่องจาก ${props.Detail_Work[0].Continue_Command_number}`
@@ -3720,7 +3786,7 @@ export const ExcelExport = (props: any) => {
         worksheet.getColumn(9).width = 4.3
         worksheet.getColumn(10).width = 5.3
         worksheet.getColumn(11).width = 9
-        worksheet.getColumn(12).width = 6
+        worksheet.getColumn(12).width = 7.2
         worksheet.getColumn(13).width = 6
         worksheet.getColumn(14).width = 6
         worksheet.getColumn(15).width = 6
@@ -3818,6 +3884,8 @@ export const ExcelExport = (props: any) => {
         worksheet.getRow(79).height = 18
         worksheet.getRow(80).height = 18
         worksheet.getRow(81).height = 18
+        worksheet.getRow(82).height = 18
+        worksheet.getRow(83).height = 18
 
 
 
