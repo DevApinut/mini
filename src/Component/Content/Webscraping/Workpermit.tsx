@@ -1,4 +1,5 @@
 import { useReducer } from "react"
+import { TextField, FormControl, InputLabel, Select, MenuItem } from "@mui/material"
 const Workpermit = () => {
 
     // ------------------for haddle initial state---------------------------
@@ -18,8 +19,8 @@ const Workpermit = () => {
     const [state, dispatch] = useReducer(reducer, initials)
     // --------------------------------------------------------------------
     const ADD_workpermission = (index: number) => {
-        const previouse_workpermit = [...state.work_permission_information]       
-        previouse_workpermit.splice(index, 0,initials.work_permission_information[0])
+        const previouse_workpermit = [...state.work_permission_information]
+        previouse_workpermit.splice(index, 0, initials.work_permission_information[0])
         dispatch({ type: "setstate", payload: { name: "work_permission_information", value: previouse_workpermit } })
     }
 
@@ -30,13 +31,52 @@ const Workpermit = () => {
                 <h3 className="text-center">Work permit</h3>
             </div>
             {state.work_permission_information.map((item: any, index: number) => {
-                return(
+                return (
+                    <>
+                        <div className="row my-2">
+                            <div className="mx-1 col-lg-2">
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label" size="small">สถานีไฟฟ้า</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={"age"}
+                                        label="สถานีไฟฟ้า"
+                                        size="small"                                        
+                                    // onChange={handleChange}
+                                    >
+                                        <MenuItem value={10}>Ten</MenuItem>
+                                        <MenuItem value={20}>Twenty</MenuItem>
+                                        <MenuItem value={30}>Thirty</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </div>
+                            <div className="d-flex justify-content-center col-lg-9">
+                                <TextField className="mx-1" focused label="หน่วยงานภายใน" size="small" />
+                                <TextField className="mx-1" focused label="ชื่อผู้ควบคุมงาน" size="small" />
+                                <TextField className="mx-1" focused label="เบอร์โทร" size="small" />
+                                <TextField className="mx-1" focused label="หน่วยงานภายนอก" size="small" />
+                                <TextField className="mx-1" focused label="ชื่อผู้ควบคุมงาน" size="small" />
+                                <TextField className="mx-1" focused label="เบอร์โทร" size="small" />
+                                <TextField className="mx-1" focused label="จำนวนผู้ปฏิบัติงาน" size="small" />
+                                
+                            </div>
+                            <div className="d-flex justify-content-center col-lg-1">
+                                <button className="btn btn-success" onClick={() => ADD_workpermission(index + 1)}>ADD</button>
+                                <button className="btn btn-danger" onClick={() => ADD_workpermission(index + 1)}>Del</button>
+                            </div>
 
-                    <button onClick={() => ADD_workpermission(index+1)}>test function</button>
+                        </div>
+
+
+
+
+                    </>
+
                 )
             })}
             <hr />
-        </div>
+        </div >
     )
 }
 
