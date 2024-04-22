@@ -643,7 +643,7 @@ function Reciept() {
                                     </td>
                                     <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                         <button className='btn btn-success mx-1' onClick={() => { handleforAdd(index + 1) }}>Add</button>
-                                        <button className="btn btn-danger mx-1" onClick={() => { handlefordelete(index) }}>Del</button>
+                                        {state.Personal_Infomation.length > 1 && <button className="btn btn-danger mx-1" onClick={() => { handlefordelete(index) }}>Del</button>}
                                     </td>
                                 </tr>
                             </tbody>
@@ -723,7 +723,7 @@ function Reciept() {
 
                                     <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                         <button className='btn btn-success mx-1' onClick={() => { handleforAddadditional_buy(index + 1) }}>Add</button>
-                                        <button className="btn btn-danger mx-1" onClick={() => { handlefordeleteadditional_buy(index) }}>Del</button>
+                                        {state.Additional_buy.length > 1 && <button className="btn btn-danger mx-1" onClick={() => { handlefordeleteadditional_buy(index) }}>Del</button>}
                                     </td>
                                 </tr>
                             </tbody>
@@ -842,7 +842,7 @@ function Reciept() {
                                     <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                         <div className='mx-1 d-flex justify-content-center'>
                                             <button className='btn btn-success mx-1' onClick={() => { handleforAddwork(index + 1) }}>Add</button>
-                                            <button className="btn btn-danger mx-1" onClick={() => { handlefordeletework(index) }}>Del</button>
+                                            {state.Work_Infomation.length > 1  && <button className="btn btn-danger mx-1" onClick={() => { handlefordeletework(index) }}>Del</button>}
                                         </div>
                                     </td>
                                 </tr>
@@ -929,7 +929,7 @@ function Reciept() {
                                     <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                         <div className='mx-1 d-flex justify-content-center'>
                                             <button className='btn btn-success mx-1' onClick={() => { handleforAddwork_for_work(index + 1) }}>Add</button>
-                                            <button className="btn btn-danger mx-1" onClick={() => { handlefordeletework_for_work(index) }}>Del</button>
+                                            {state.work_for_work.length >1 && <button className="btn btn-danger mx-1" onClick={() => { handlefordeletework_for_work(index) }}>Del</button>}
                                         </div>
                                     </td>
                                 </tr>
