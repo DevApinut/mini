@@ -9,7 +9,7 @@ const Workpermit = () => {
 
     // ------------------for haddle initial state---------------------------
     const initials = {
-        work_permission_information: [{ substation: "", country: "", type_substation: "", name_responsible_PEA: "", number_responsible_PEA: "", name_reponsible_corperation: "", nunber_responsible_corperation: "", number_personal: "", date_form: "", time_form: "", date_destination: "", time_destination: "", turn_off_electrical: false, turn_on_electrical: false, in_of_plan: true, out_of_plan: false, scada_decision: false, work_detail: [{}], name_permission: "", position_permission: "" }]
+        work_permission_information: [{ substation: "ระบุสถานี", country: "", type_substation: "", name_department_PEA: "", name_personal_responsible_PEA: "", number_responsible_PEA: "", name_department_corperation: "", name_reponsible_corperation: "", nunber_responsible_corperation: "", number_personal: "", date_from: "", time_from: "", date_destination: "", time_destination: "", turn_off_electrical: "ดับไฟปฏิบัติงาน", plan_work: "ตามแผน", work_detail: [{}], name_permission: "", position_permission: "" }]
     }
     const reducer = (state: any, action: any) => {
         switch (action.type) {
@@ -28,6 +28,32 @@ const Workpermit = () => {
         previouse_workpermit.splice(index, 0, initials.work_permission_information[0])
         dispatch({ type: "setstate", payload: { name: "work_permission_information", value: previouse_workpermit } })
     }
+    const DEL_workpermission = (index: number) => {
+        const previouse_workpermit = [...state.work_permission_information]
+        previouse_workpermit.splice(index, 1)
+        dispatch({ type: "setstate", payload: { name: "work_permission_information", value: previouse_workpermit } })
+    }
+    const Copy_workpermission = (index: number) => {
+        const previouse_workpermit = [...state.work_permission_information]
+        previouse_workpermit.splice(index + 1, 0, state.work_permission_information[index])
+        dispatch({ type: "setstate", payload: { name: "work_permission_information", value: previouse_workpermit } })
+    }
+
+    // --------------------------Set state for data-----------------------
+    const Set_state_data_for_workpermit_information = (name_data: any, value: any, index: number) => {
+        const previouse_workpermit = [...state.work_permission_information]
+        if (name_data == "date_from" || name_data == "date_destination" || name_data == "date_from") {
+            var data_index = { ...previouse_workpermit[index], [name_data]: value.$d }
+            console.log(222)
+        } else {
+            var data_index = { ...previouse_workpermit[index], [name_data]: value }
+        }
+
+        previouse_workpermit[index] = data_index
+        dispatch({ type: "setstate", payload: { name: "work_permission_information", value: previouse_workpermit } })
+    }
+
+
 
 
     return (
@@ -35,77 +61,78 @@ const Workpermit = () => {
             <div>
                 <h3 className="text-center">Work permit</h3>
             </div>
-            {state.work_permission_information.map((item: any, index: number) => {
+            {state.work_permission_information.map((data: any, index: number) => {
                 return (
                     <>
-                        <div className="row my-2 container">
-                            <div className="mx-1 my-1 col-lg-2">
+                        <div className="row my-2">
+                            <div className="mx-1 my-1 col-lg-2 d-flex justify-content-center align-items-center">
+                                <div className="mx-3"><h4>{index + 1}</h4></div>
                                 <FormControl fullWidth>
                                     <InputLabel id="demo-simple-select-label" size="small">สถานีไฟฟ้า</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
-                                        value={"age"}
+                                        value={state.work_permission_information[index].substation}
                                         label="สถานีไฟฟ้า"
                                         size="small"
-                                    // onChange={handleChange}
+                                        onChange={(item) => Set_state_data_for_workpermit_information("substation", item.target.value, index)}
                                     >
-                                        <MenuItem value={10}>Ten</MenuItem>
-                                        <MenuItem value={20}>Twenty</MenuItem>
-                                        <MenuItem value={30}>Thirty</MenuItem>
+                                        <MenuItem value={"ระบุสถานี"}>ระบุสถานี</MenuItem>
+                                        <MenuItem value={"โพธาราม"}>Twenty</MenuItem>
+                                        <MenuItem value={"ระนอง"}>Thirty</MenuItem>
                                     </Select>
                                 </FormControl>
                             </div>
 
-                            <TextField className="mx-1 my-1 col-lg-1" focused label="หน่วยงานภายใน" size="small" />
-                            <TextField className="mx-1 my-1 col-lg-1" focused label="ชื่อผู้ควบคุมงาน" size="small" />
-                            <TextField className="mx-1 my-1 col-lg-1" focused label="เบอร์โทร" size="small" />
-                            <TextField className="mx-1 my-1 col-lg-1" focused label="หน่วยงานภายนอก" size="small" />
-                            <TextField className="mx-1 my-1 col-lg-1" focused label="ชื่อผู้ควบคุมงาน" size="small" />
-                            <TextField className="mx-1 my-1 col-lg-1" focused label="เบอร์โทร" size="small" />
-                            <TextField className="mx-1 my-1 col-lg-1" focused label="จำนวนผู้ปฏิบัติงาน" size="small" />
+                            <TextField className="mx-1 my-1 col-lg-1" focused label="หน่วยงานภายใน" size="small" value={state.work_permission_information[index].name_department_PEA} onChange={(item) => Set_state_data_for_workpermit_information("name_department_PEA", item.target.value, index)} />
+                            <TextField className="mx-1 my-1 col-lg-2" focused label="ชื่อผู้ควบคุมงาน" size="small" value={state.work_permission_information[index].name_personal_responsible_PEA} onChange={(item) => Set_state_data_for_workpermit_information("name_personal_responsible_PEA", item.target.value, index)} />
+                            <TextField className="mx-1 my-1 col-lg-1" focused label="เบอร์โทร" size="small" value={state.work_permission_information[index].number_responsible_PEA} onChange={(item) => Set_state_data_for_workpermit_information("number_responsible_PEA", item.target.value, index)} />
+                            <TextField className="mx-1 my-1 col-lg-1" focused label="หน่วยงานภายนอก" size="small" value={state.work_permission_information[index].name_department_corperation} onChange={(item) => Set_state_data_for_workpermit_information("name_department_corperation", item.target.value, index)} />
+                            <TextField className="mx-1 my-1 col-lg-2" focused label="ชื่อผู้ควบคุมงาน" size="small" value={state.work_permission_information[index].name_reponsible_corperation} onChange={(item) => Set_state_data_for_workpermit_information("name_reponsible_corperation", item.target.value, index)} />
+                            <TextField className="mx-1 my-1 col-lg-1" focused label="เบอร์โทร" size="small" value={state.work_permission_information[index].nunber_responsible_corperation} onChange={(item) => Set_state_data_for_workpermit_information("nunber_responsible_corperation", item.target.value, index)} />
+                            <TextField className="mx-1 my-1 col-lg-1" focused label="จำนวนผู้ปฏิบัติงาน" size="small" value={state.work_permission_information[index].number_personal} onChange={(item) => Set_state_data_for_workpermit_information("number_personal", item.target.value, index)} />
 
                             <LocalizationProvider dateAdapter={newAdapter} adapterLocale='th' >
-                                    <DatePicker
-                                        label="วันที่เริ่ม"
-                                        format="DD MMMYYYY"
-                                        onChange={(newValue) => {  }}
-                                        defaultValue={dayjs(new Date())}
-                                        value={dayjs(new Date())}
-                                        slotProps={{ textField: { size: 'small' } }}
-                                        className="col-lg-1 mx-1 my-1"
-                                    />
-                                </LocalizationProvider>
+                                <DatePicker
+                                    label="วันที่เริ่ม"
+                                    format="DD MMMYYYY"
+                                    onChange={(item) => { Set_state_data_for_workpermit_information("date_from", item, index) }}
+                                    value={dayjs(new Date(state.work_permission_information[index].date_from))}
+                                    slotProps={{ textField: { size: 'small' } }}
+                                    className="col-lg-2 mx-1 my-1"
+                                />
+                            </LocalizationProvider>
 
-                            <TextField className="mx-1 col-lg-1" focused label="เวลา" size="small" />
+                            <TextField className="mx-1 col-lg-1" focused label="เวลา" size="small" value={state.work_permission_information[index].time_from}onChange={(item) => Set_state_data_for_workpermit_information("time_from", item.target.value, index)} />
                             <LocalizationProvider dateAdapter={newAdapter} adapterLocale='th' >
-                                    <DatePicker
-                                        label="วันที่สิ้นสุด"
-                                        format="DD MMMYYYY"
-                                        onChange={(newValue) => {  }}
-                                        defaultValue={dayjs(new Date())}
-                                        value={dayjs(new Date())}
-                                        slotProps={{ textField: { size: 'small' } }}
-                                        className="col-lg-1 mx-1 my-1"
-                                    />
-                                </LocalizationProvider>
+                                <DatePicker
+                                    label="วันที่สิ้นสุด"
+                                    format="DD MMMYYYY"
+                                    onChange={(item) => Set_state_data_for_workpermit_information("date_destination", item, index)}
+                                    value={dayjs(new Date(state.work_permission_information[index].date_destination))}
+                                    slotProps={{ textField: { size: 'small' } }}
+                                    className="col-lg-2 mx-1 my-1"
+                                />
+                            </LocalizationProvider>
 
-                            <TextField className="mx-1 my-1 col-lg-1" focused label="เวลา" size="small" />
+                            <TextField className="mx-1 my-1 col-lg-1" focused label="เวลา" size="small" value={state.work_permission_information[index].time_destination} onChange={(item) => Set_state_data_for_workpermit_information("time_destination", item.target.value, index)} />
+
+
                             <div className="mx-1 my-1 col-lg-2">
                                 <FormControl fullWidth>
                                     <InputLabel id="demo-simple-select-label" size="small">การดับไฟ</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
-                                        value={"ดับไฟปฏิบัติงาน"}
+                                        value={state.work_permission_information[index].turn_off_electrical}
                                         label="แผนดับไฟ"
                                         size="small"
                                         defaultValue={"ดับไฟปฏิบัติงาน"}
-                                    // onChange={handleChange}
+                                        onChange={(item) => Set_state_data_for_workpermit_information("turn_off_electrical", item.target.value, index)}
                                     >
                                         <MenuItem value={"ดับไฟปฏิบัติงาน"}>ดับไฟปฏิบัติงาน</MenuItem>
                                         <MenuItem value={"ไม่ดับไฟปฏิบัติงาน"}>ไม่ดับไฟปฏิบัติงาน</MenuItem>
-                                        
+
                                     </Select>
                                 </FormControl>
                             </div>
@@ -116,40 +143,48 @@ const Workpermit = () => {
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
-                                        value={"ตามแผน"}
+                                        value={state.work_permission_information[index].plan_work}
                                         label="แผนดับไฟ"
                                         size="small"
                                         defaultValue={"ตามแผน"}
-                                    // onChange={handleChange}
+                                        onChange={(item) => Set_state_data_for_workpermit_information("plan_work", item.target.value, index)}
                                     >
                                         <MenuItem value={"ตามแผน"}>ตามแผน</MenuItem>
                                         <MenuItem value={"นอกแผน"}>นอกแผน</MenuItem>
-                                        <MenuItem value={"กรณีฉุกเฉิน"}>กรณีฉุกเฉิน</MenuItem>                                        
+                                        <MenuItem value={"กรณีฉุกเฉิน"}>กรณีฉุกเฉิน</MenuItem>
                                     </Select>
                                 </FormControl>
                             </div>
 
-                            <TextField className="mx-1 my-1 col-lg-3" focused label="แผนการปฏิบัติงาน" size="small" />
-                            <TextField className="mx-1 my-1 col-lg-1" focused label="ผู้ขออนุญาติ" size="small" />
-                            <TextField className="mx-1 my-1 col-lg-1" focused label="ตำเเหน่ง" size="small" />
+                            
+                            <TextField className="mx-1 my-1 col-lg-2" focused label="ผู้ขออนุญาติ" size="small" value={state.work_permission_information[index].name_permission} onChange={(item) => Set_state_data_for_workpermit_information("name_permission", item.target.value, index)} />
+                            <TextField className="mx-1 my-1 col-lg-1" focused label="ตำเเหน่ง" size="small"  value={state.work_permission_information[index].position_permission}  onChange={(item) => Set_state_data_for_workpermit_information("position_permission", item.target.value, index)} />
 
 
 
-                            <div className="d-flex justify-content-center mx-4 col-lg-1">
+                            <div className="d-flex justify-content-center align-items-center mx-4 col-lg-2">
                                 <button className="btn btn-success mx-1" onClick={() => ADD_workpermission(index + 1)}>ADD</button>
-                                <button className="btn btn-danger mx-1" onClick={() => ADD_workpermission(index + 1)}>Del</button>
+                                <button className="btn btn-warning mx-1" onClick={() => Copy_workpermission(index)}>COPY</button>
+                                {state.work_permission_information.length > 1 && <button className="btn btn-danger mx-1" onClick={() => DEL_workpermission(index)}>Del</button>}
+
                             </div>
+
 
                         </div>
 
-
+                        <hr />
 
 
                     </>
 
                 )
             })}
-            <hr />
+            <div className="d-flex justify-content-center align-items-center">
+                <button className="btn btn-success mx-1" onClick={() => { }}>Save</button>
+                <button className="btn btn-warning mx-1" onClick={() => { }}>Save AS</button>
+                <button className="btn btn-primary mx-1" onClick={() => { }}>Export to Word</button>
+            </div>
+
         </div >
     )
 }

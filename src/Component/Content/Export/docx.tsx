@@ -519,7 +519,7 @@ const Docx_export = () => {
                         children: [
                             new TextRun({
                                 size: 28,
-                                text: "การขอดับไฟ",
+                                text: `การขอดับไฟ `,
                                 font: "Angsana New",
                             }),
                             new SymbolRun({
@@ -530,7 +530,7 @@ const Docx_export = () => {
                             }),
                             new TextRun({
                                 size: 28,
-                                text: "ดับไฟปฏิบัติงาน",
+                                text: ` ดับไฟปฏิบัติงาน `,
                                 font: "Angsana New",
                             }),
                             new SymbolRun({
@@ -541,23 +541,12 @@ const Docx_export = () => {
                             }),
                             new TextRun({
                                 size: 28,
-                                text: "ไม่ดับไฟปฏิบัติงาน",
+                                text: ` ไม่ดับไฟปฏิบัติงาน `,
                                 font: "Angsana New",
                             }),
                             new TextRun({
                                 size: 28,
-                                text: "งาน",
-                                font: "Angsana New",
-                            }),
-                            new SymbolRun({
-                                size: 28,
-                                char: "F0FE",
-                                bold: true,
-                                italics: false,
-                            }),
-                            new TextRun({
-                                size: 28,
-                                text: "ตามแผน",
+                                text: ` งาน `,
                                 font: "Angsana New",
                             }),
                             new SymbolRun({
@@ -568,7 +557,7 @@ const Docx_export = () => {
                             }),
                             new TextRun({
                                 size: 28,
-                                text: "นอกแผน",
+                                text: ` ตามแผน `,
                                 font: "Angsana New",
                             }),
                             new SymbolRun({
@@ -579,7 +568,18 @@ const Docx_export = () => {
                             }),
                             new TextRun({
                                 size: 28,
-                                text: "กรณีฉุกเฉิน (ศูนย์ฯ พิจารณา)",
+                                text: ` นอกแผน `,
+                                font: "Angsana New",
+                            }),
+                            new SymbolRun({
+                                size: 28,
+                                char: "F0FE",
+                                bold: true,
+                                italics: false,
+                            }),
+                            new TextRun({
+                                size: 28,
+                                text: ` กรณีฉุกเฉิน (ศูนย์ฯ พิจารณา)`,
                                 font: "Angsana New",
                             }),
                         ],
@@ -711,7 +711,7 @@ const Docx_export = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 28,
-                                                        text: " ",
+                                                        text: ` `,
                                                         font: "Angsana New",
                                                     }),
 
@@ -731,7 +731,7 @@ const Docx_export = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 28,
-                                                        text: " ",
+                                                        text: ` `,
                                                         font: "Angsana New",
                                                     }),
 
@@ -750,7 +750,7 @@ const Docx_export = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 28,
-                                                        text: " ",
+                                                        text: ` `,
                                                         font: "Angsana New",
                                                     }),
 
@@ -773,7 +773,7 @@ const Docx_export = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 28,
-                                                        text: " ",
+                                                        text: ` `,
                                                         font: "Angsana New",
                                                         bold: false,
                                                     }),
@@ -793,7 +793,7 @@ const Docx_export = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 28,
-                                                        text: " ",
+                                                        text: ` `,
                                                         font: "Angsana New",
                                                     }),
 
@@ -812,7 +812,7 @@ const Docx_export = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 28,
-                                                        text: " ",
+                                                        text: ` `,
                                                         font: "Angsana New",
                                                     }),
 
@@ -835,7 +835,7 @@ const Docx_export = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 28,
-                                                        text: "",
+                                                        text: ` `,
                                                         font: "Angsana New",
                                                     }),
 
@@ -854,7 +854,7 @@ const Docx_export = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 28,
-                                                        text: "",
+                                                        text: ` `,
                                                         font: "Angsana New",
                                                     }),
 
@@ -873,7 +873,7 @@ const Docx_export = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 28,
-                                                        text: "",
+                                                        text: ` `,
                                                         font: "Angsana New",
                                                     }),
 
@@ -896,7 +896,7 @@ const Docx_export = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 28,
-                                                        text: "",
+                                                        text: ` `,
                                                         font: "Angsana New",
                                                     }),
 
@@ -915,7 +915,7 @@ const Docx_export = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 28,
-                                                        text: "",
+                                                        text: ` `,
                                                         font: "Angsana New",
                                                     }),
 
@@ -934,7 +934,7 @@ const Docx_export = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 28,
-                                                        text: "",
+                                                        text: ` `,
                                                         font: "Angsana New",
                                                     }),
 
@@ -957,7 +957,7 @@ const Docx_export = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 28,
-                                                        text: "",
+                                                        text: ` `,
                                                         font: "Angsana New",
                                                     }),
 
@@ -976,7 +976,7 @@ const Docx_export = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 28,
-                                                        text: "",
+                                                        text: ` `,
                                                         font: "Angsana New",
                                                     }),
 
@@ -995,7 +995,7 @@ const Docx_export = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 28,
-                                                        text: "",
+                                                        text: ` `,
                                                         font: "Angsana New",
                                                     }),
 
@@ -2960,7 +2960,7 @@ const Docx_export = () => {
                             }),
                             new TextRun({
                                 size: 28,
-                                text: "ดับไฟปฏิบัติงาน",
+                                text: `  ดับไฟปฏิบัติงาน`,
                                 font: "Angsana New",
                             }),
                             new SymbolRun({
@@ -2971,7 +2971,7 @@ const Docx_export = () => {
                             }),
                             new TextRun({
                                 size: 28,
-                                text: "ไม่ดับไฟปฏิบัติงาน",
+                                text: `  ไม่ดับไฟปฏิบัติงาน`,
                                 font: "Angsana New",
                             }),
                             new TextRun({
@@ -3141,7 +3141,7 @@ const Docx_export = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 28,
-                                                        text: " ",
+                                                        text: ` `,
                                                         font: "Angsana New",
                                                     }),
 
@@ -3161,7 +3161,7 @@ const Docx_export = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 28,
-                                                        text: " ",
+                                                        text: ` `,
                                                         font: "Angsana New",
                                                     }),
 
@@ -3180,7 +3180,7 @@ const Docx_export = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 28,
-                                                        text: " ",
+                                                        text: ` `,
                                                         font: "Angsana New",
                                                     }),
 
@@ -3203,7 +3203,7 @@ const Docx_export = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 28,
-                                                        text: " ",
+                                                        text: ` `,
                                                         font: "Angsana New",
                                                         bold: false,
                                                     }),
@@ -3223,7 +3223,7 @@ const Docx_export = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 28,
-                                                        text: " ",
+                                                        text: ` `,
                                                         font: "Angsana New",
                                                     }),
 
@@ -3242,7 +3242,7 @@ const Docx_export = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 28,
-                                                        text: " ",
+                                                        text: ` `,
                                                         font: "Angsana New",
                                                     }),
 
