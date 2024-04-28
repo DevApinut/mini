@@ -12,15 +12,19 @@ import axios from "axios"
 
 const Workpermit = () => {
     // ------------------------- USe effect --------------------------------
-    useEffect(()=>{
+    useEffect(() => {
         fetch_personal_data();
-    },[])
+    }, [])
 
     // ------------------for haddle initial state---------------------------
     const initials = {
-        work_permission_information: [{ substation: "ระบุสถานี", country: "", type_substation: "", name_department_PEA: "", name_personal_responsible_PEA: "", number_responsible_PEA: "", name_department_corperation: "", name_reponsible_corperation: "", nunber_responsible_corperation: "", number_personal: "", date_from: "", time_from: "", date_destination: "", time_destination: "", turn_off_electrical: "ดับไฟปฏิบัติงาน", plan_work: "ตามแผน", work_detail: "", name_permission: "", position_permission: "" }],
-        personal_information_database:[],
-        substation_information_database:[],
+        work_permission_information: [{ index_for_select_personal: 0,index_for_select_substation: 0, substation: "ระบุสถานี", country: "", type_substation: "", name_department_PEA: "", name_personal_responsible_PEA: "", number_responsible_PEA: "", name_department_corperation: "", name_reponsible_corperation: "", nunber_responsible_corperation: "", number_personal: "", date_from: "", time_from: "", date_destination: "", time_destination: "", turn_off_electrical: "ดับไฟปฏิบัติงาน", plan_work: "ตามแผน", work_detail: "", name_permission: "", position_permission: "", name_checkbox: false }],
+        personal_information_database: [],
+        substation_information_database: [],
+        other_data: { row_for_save: 0, Name_save: "", Name_save_select: [""] },
+        personal_information: [""],
+        index_for_select_personal: 0,
+
     }
     const reducer = (state: any, action: any) => {
         switch (action.type) {
@@ -54,32 +58,125 @@ const Workpermit = () => {
     const Set_state_data_for_workpermit_information = (name_data: any, value: any, index: number) => {
         const previouse_workpermit = [...state.work_permission_information]
         if (name_data == "date_from" || name_data == "date_destination" || name_data == "date_from") {
-            var data_index = { ...previouse_workpermit[index], [name_data]: value.$d }            
+            var data_index = { ...previouse_workpermit[index], [name_data]: value.$d }
         } else {
             var data_index = { ...previouse_workpermit[index], [name_data]: value }
         }
-
         previouse_workpermit[index] = data_index
         dispatch({ type: "setstate", payload: { name: "work_permission_information", value: previouse_workpermit } })
     }
-    // ------------------------------- Axios ----------------------------
-    const fetch_personal_data =()=>{
-        axios.get('https://script.googleusercontent.com/macros/echo?user_content_key=XUS8Rv3XSN-SBx5pzchb43TQFgSzUFaWogptSSHdOrUXM47FMPLnhWrhzI8vEwaeLAWqlymg8W7Zo_2JQZVlAvR66rc-6SDrm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnDpkQ_cf_-TvNtDiHI-64_XtJdU6cdWYUAzCXhbI67wIGO5kjz_HL8W1qby3kLaYnj_WoMs570FyxJKtFszs2nCozmeKQr_3eA&lib=M9I4kW17thwagOckximhowZJDjoEhHOGb')
-        .then(res=>{            
-            dispatch({ type: "setstate", payload: { name: "personal_information_database", value: res.data.data_personal_information } })
-            dispatch({ type: "setstate", payload: { name: "substation_information_database", value: res.data.data_location } })
-        })  
+    const change_personal_information = (name_data: any, value: any, index: number) => {
+        const previouse_workpermit = [...state.work_permission_information]
+        var data_index = { ...previouse_workpermit[index], index_for_select_personal: value, name_personal_responsible_PEA: state.personal_information[parseInt(value)][1], number_responsible_PEA: state.personal_information[parseInt(value)][4], name_department_PEA: state.personal_information[parseInt(value)][3] }
+        previouse_workpermit[index] = data_index
+        dispatch({ type: "setstate", payload: { name: "work_permission_information", value: previouse_workpermit } })
     }
-              
+    const change_substation_information = (name_data: any, value: any, index: number) => {
+        const previouse_workpermit = [...state.work_permission_information]
+        var data_index = { ...previouse_workpermit[index], substation: state.substation_information_database[parseInt(value)][1] ,index_for_select_substation : value}
+        previouse_workpermit[index] = data_index
+        dispatch({ type: "setstate", payload: { name: "work_permission_information", value: previouse_workpermit } })
+    }
+    const Set_state_data_other_data = (name_data: any, value: any) => {
+        const previouse_workpermit = { ...state.other_data }
+        if (name_data == "row_for_save") {
+            if (value == "0") var data_for_set = { ...previouse_workpermit, [name_data]: value, Name_save: "ระบุรายการบันทึก" }
+            else var data_for_set = { ...previouse_workpermit, [name_data]: value, Name_save: state.other_data.Name_save_select[parseInt(value)][0] }
+        } else {
+            var data_for_set = { ...previouse_workpermit, [name_data]: value }
+        }
+        dispatch({ type: "setstate", payload: { name: "other_data", value: data_for_set } })
+    }
+    // ------------------------------- Axios ----------------------------
+    const fetch_personal_data = () => {
+        axios.get('https://script.google.com/macros/s/AKfycbx72G920yz-q7jMGDk_nUgghARF456apwxRB7e0sTvdpYmO7n3XuKefGVtgccZO3-gw/exec')
+            .then(res => {
+                dispatch({ type: "setstate", payload: { name: "personal_information_database", value: res.data.data_personal_information } })
+                dispatch({ type: "setstate", payload: { name: "substation_information_database", value: res.data.data_location } })
+                dispatch({ type: "setstate", payload: { name: "personal_information", value: res.data.data_personal_information } })
+                Set_state_data_other_data("Name_save_select", res.data.data_log_file)
+            })
+    }
+
+    const Save_data_google_sheet = () => {
+        let formData = new FormData()
+        formData.append('work_permission_information', state.other_data.work_permission_information)
+        formData.append('Name_Save', state.other_data.Name_save)
+        formData.append('row_for_save', state.other_data.row_for_save)
+        axios.post("https://script.google.com/macros/s/AKfycbx72G920yz-q7jMGDk_nUgghARF456apwxRB7e0sTvdpYmO7n3XuKefGVtgccZO3-gw/exec", formData)
+            .then((res) => {
+                alert("สำเร็จ")
+                fetch_personal_data();
+            })
+            .catch((err) => {
+
+            })
+    }
 
 
+    const Save_AS_data_google_sheet = () => {
+        let formData = new FormData()
+        formData.append('work_permission_information', JSON.stringify(state.work_permission_information))
+        formData.append('Name_Save', state.other_data.Name_save)
+        formData.append('row_for_save', "0")
+        axios.post("https://script.google.com/macros/s/AKfycbx72G920yz-q7jMGDk_nUgghARF456apwxRB7e0sTvdpYmO7n3XuKefGVtgccZO3-gw/exec", formData)
+            .then((res) => {
+                alert("สำเร็จ")
+                fetch_personal_data();
+            })
+            .catch((err) => {
 
+            })
+    }
+
+    const handle_to_del_data_google_sheet = () => {
+        let formData = new FormData()
+        formData.append('Del', 'Del')
+        formData.append('row_for_save', state.other_data.row_for_save)
+
+        axios.post("https://script.google.com/macros/s/AKfycbx72G920yz-q7jMGDk_nUgghARF456apwxRB7e0sTvdpYmO7n3XuKefGVtgccZO3-gw/exec", formData)
+            .then((res) => {
+                alert("สำเร็จ")
+                fetch_personal_data();
+            })
+            .catch((err) => {
+
+            })
+
+    }
 
     return (
         <div>
-            <div>
-                <h3 className="text-center">Work permit</h3>
+            <div className="d-flex flex-column">
+                <div>
+                    <h3 className="text-center">Work permit</h3>
+                </div>
+                <div className="d-flex justify-content-left">
+                    <TextField className="mx-1 my-1 col-lg-1" focused label="การบันทึก" size="small" value={state.other_data.Name_save} onChange={(e) => { Set_state_data_other_data("Name_save", e.target.value) }} />
+                    <div className="mx-1 my-1 col-lg-2 d-flex justify-content-center align-items-center">
+                        <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label" size="small">เลือกการบันทึก</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={state.other_data.row_for_save}
+                                label="สถานีไฟฟ้า"
+                                size="small"
+                                onChange={(item) => { Set_state_data_other_data("row_for_save", item.target.value); }}
+                            >
+                                <MenuItem key={"0_name_save"} value={"0"}>ระบุรายการบันทึก</MenuItem>
+                                {state.other_data.Name_save_select.map((data: any, index: number) => {
+                                    if (index > 0) { return <MenuItem key={`${index}_name_save`} value={`${index}`}>{data[0]}</MenuItem> }
+                                })}
+
+                            </Select>
+                        </FormControl>
+                    </div>
+                </div>
             </div>
+
+
+
             {state.work_permission_information.map((data: any, index: number) => {
                 return (
                     <>
@@ -91,20 +188,40 @@ const Workpermit = () => {
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
-                                        value={state.work_permission_information[index].substation}
+                                        value={data.index_for_select_substation}
                                         label="สถานีไฟฟ้า"
                                         size="small"
-                                        onChange={(item) => Set_state_data_for_workpermit_information("substation", item.target.value, index)}
+                                        onChange={(item) => change_substation_information("personal_information", item.target.value, index)}
                                     >
-                                        <MenuItem value={"ระบุสถานี"}>ระบุสถานี</MenuItem>
-                                        <MenuItem value={"โพธาราม"}>Twenty</MenuItem>
-                                        <MenuItem value={"ระนอง"}>Thirty</MenuItem>
+                                        <MenuItem key={"0_name_save"} value={"0"}>ระบุสถานี</MenuItem>
+                                        {state.substation_information_database.map((data: any, index: number) => {
+                                            if (index > 0) { return <MenuItem key={`${index}_substation`} value={`${index}`}>{data[1]}</MenuItem> }
+                                        })}
                                     </Select>
                                 </FormControl>
                             </div>
 
                             <TextField className="mx-1 my-1 col-lg-1" focused label="หน่วยงานภายใน" size="small" value={state.work_permission_information[index].name_department_PEA} onChange={(item) => Set_state_data_for_workpermit_information("name_department_PEA", item.target.value, index)} />
-                            <TextField className="mx-1 my-1 col-lg-2" focused label="ชื่อผู้ควบคุมงาน" size="small" value={state.work_permission_information[index].name_personal_responsible_PEA} onChange={(item) => Set_state_data_for_workpermit_information("name_personal_responsible_PEA", item.target.value, index)} />
+                            <div className="mx-1 my-1 col-lg-2 d-flex justify-content-center">
+                                <input type="checkbox" className="mx-2 align-items-center" onChange={(e) => { Set_state_data_for_workpermit_information("name_checkbox", e.target.checked, index) }} />
+                                {data.name_checkbox && <TextField focused label="ชื่อผู้ควบคุมงาน" size="small" value={state.work_permission_information[index].name_personal_responsible_PEA} onChange={(item) => Set_state_data_for_workpermit_information("name_personal_responsible_PEA", item.target.value, index)} />}
+                                {!data.name_checkbox && <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label" size="small">ชื่อผู้ควบคุมงาน</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={data.index_for_select_personal}
+                                        label="สถานีไฟฟ้า"
+                                        size="small"
+                                        onChange={(item) => change_personal_information("personal_information", item.target.value, index)}
+                                    >
+                                        <MenuItem key={"0_name_save"} value={"0"}>ระบุชื่อ</MenuItem>
+                                        {state.personal_information.map((data: any, index: number) => {
+                                            if (index > 0) { return <MenuItem key={`${index}_personal_information`} value={`${index}`}>{data[1]}</MenuItem> }
+                                        })}
+                                    </Select>
+                                </FormControl>}
+                            </div>
                             <TextField className="mx-1 my-1 col-lg-1" focused label="เบอร์โทร" size="small" value={state.work_permission_information[index].number_responsible_PEA} onChange={(item) => Set_state_data_for_workpermit_information("number_responsible_PEA", item.target.value, index)} />
                             <TextField className="mx-1 my-1 col-lg-1" focused label="หน่วยงานภายนอก" size="small" value={state.work_permission_information[index].name_department_corperation} onChange={(item) => Set_state_data_for_workpermit_information("name_department_corperation", item.target.value, index)} />
                             <TextField className="mx-1 my-1 col-lg-2" focused label="ชื่อผู้ควบคุมงาน" size="small" value={state.work_permission_information[index].name_reponsible_corperation} onChange={(item) => Set_state_data_for_workpermit_information("name_reponsible_corperation", item.target.value, index)} />
@@ -122,7 +239,7 @@ const Workpermit = () => {
                                 />
                             </LocalizationProvider>
 
-                            <TextField className="mx-1 col-lg-1" focused label="เวลา" size="small" value={state.work_permission_information[index].time_from}onChange={(item) => Set_state_data_for_workpermit_information("time_from", item.target.value, index)} />
+                            <TextField className="mx-1 col-lg-1" focused label="เวลา" size="small" value={state.work_permission_information[index].time_from} onChange={(item) => Set_state_data_for_workpermit_information("time_from", item.target.value, index)} />
                             <LocalizationProvider dateAdapter={newAdapter} adapterLocale='th' >
                                 <DatePicker
                                     label="วันที่สิ้นสุด"
@@ -175,10 +292,10 @@ const Workpermit = () => {
                                 </FormControl>
                             </div>
 
-                            
+
                             <TextField className="mx-1 my-1 col-lg-3" focused label="รายการปฏิบัติงาน" size="small" value={state.work_permission_information[index].work_detail} onChange={(item) => Set_state_data_for_workpermit_information("work_detail", item.target.value, index)} />
                             <TextField className="mx-1 my-1 col-lg-2" focused label="ผู้ขออนุญาติ" size="small" value={state.work_permission_information[index].name_permission} onChange={(item) => Set_state_data_for_workpermit_information("name_permission", item.target.value, index)} />
-                            <TextField className="mx-1 my-1 col-lg-1" focused label="ตำเเหน่ง" size="small"  value={state.work_permission_information[index].position_permission}  onChange={(item) => Set_state_data_for_workpermit_information("position_permission", item.target.value, index)} />
+                            <TextField className="mx-1 my-1 col-lg-1" focused label="ตำเเหน่ง" size="small" value={state.work_permission_information[index].position_permission} onChange={(item) => Set_state_data_for_workpermit_information("position_permission", item.target.value, index)} />
 
 
 
@@ -200,10 +317,11 @@ const Workpermit = () => {
                 )
             })}
             <div className="d-flex justify-content-center align-items-center">
-                <button className="btn btn-success mx-1" onClick={() => { }}>Save</button>
-                <button className="btn btn-warning mx-1" onClick={() => { }}>Save AS</button>
-                <button className="btn btn-primary mx-1" onClick={() => {Docx_export({...state}) }}>Export to Word</button>
-               
+                {parseInt(state.other_data.row_for_save) > 0 && <button className="btn btn-success mx-1" onClick={() => { Save_data_google_sheet() }}>Save</button>}
+                {parseInt(state.other_data.row_for_save) >= 0 &&<button className="btn btn-warning mx-1" onClick={() => { Save_AS_data_google_sheet() }}>Save AS</button>}
+                {parseInt(state.other_data.row_for_save) > 0 &&<button className="btn btn-danger mx-1" onClick={() => { handle_to_del_data_google_sheet() }}>Del</button>}
+                <button className="btn btn-primary mx-1" onClick={() => { Docx_export({ ...state }) }}>Export to Word</button>
+
             </div>
 
         </div >
