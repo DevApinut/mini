@@ -1595,7 +1595,7 @@ function App() {
           </div>
         </form>
       </div>
-      <button onClick={Docx_export}>test</button>
+
       <br></br>
       <div className='container d-flex justify-content-between'>
         <h5>ผลทดสอบ Switchgear 22/33 kV สถานีไฟฟ้า {state.Substation_Thai} &#40;{new Date(state.Year).getFullYear()}&#41; </h5>

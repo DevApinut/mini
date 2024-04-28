@@ -1,15 +1,26 @@
-import { useReducer } from "react"
+import { useEffect, useReducer } from "react"
 import { TextField, FormControl, InputLabel, Select, MenuItem } from "@mui/material"
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import newAdapter from "./Test.js";
 import dayjs from 'dayjs';
+import Docx_export from "../Export/docx"
+import axios from "axios"
+
+
+
 const Workpermit = () => {
+    // ------------------------- USe effect --------------------------------
+    useEffect(()=>{
+        fetch_personal_data();
+    },[])
 
     // ------------------for haddle initial state---------------------------
     const initials = {
-        work_permission_information: [{ substation: "ระบุสถานี", country: "", type_substation: "", name_department_PEA: "", name_personal_responsible_PEA: "", number_responsible_PEA: "", name_department_corperation: "", name_reponsible_corperation: "", nunber_responsible_corperation: "", number_personal: "", date_from: "", time_from: "", date_destination: "", time_destination: "", turn_off_electrical: "ดับไฟปฏิบัติงาน", plan_work: "ตามแผน", work_detail: [{}], name_permission: "", position_permission: "" }]
+        work_permission_information: [{ substation: "ระบุสถานี", country: "", type_substation: "", name_department_PEA: "", name_personal_responsible_PEA: "", number_responsible_PEA: "", name_department_corperation: "", name_reponsible_corperation: "", nunber_responsible_corperation: "", number_personal: "", date_from: "", time_from: "", date_destination: "", time_destination: "", turn_off_electrical: "ดับไฟปฏิบัติงาน", plan_work: "ตามแผน", work_detail: "", name_permission: "", position_permission: "" }],
+        personal_information_database:[],
+        substation_information_database:[],
     }
     const reducer = (state: any, action: any) => {
         switch (action.type) {
@@ -43,8 +54,7 @@ const Workpermit = () => {
     const Set_state_data_for_workpermit_information = (name_data: any, value: any, index: number) => {
         const previouse_workpermit = [...state.work_permission_information]
         if (name_data == "date_from" || name_data == "date_destination" || name_data == "date_from") {
-            var data_index = { ...previouse_workpermit[index], [name_data]: value.$d }
-            console.log(222)
+            var data_index = { ...previouse_workpermit[index], [name_data]: value.$d }            
         } else {
             var data_index = { ...previouse_workpermit[index], [name_data]: value }
         }
@@ -52,6 +62,15 @@ const Workpermit = () => {
         previouse_workpermit[index] = data_index
         dispatch({ type: "setstate", payload: { name: "work_permission_information", value: previouse_workpermit } })
     }
+    // ------------------------------- Axios ----------------------------
+    const fetch_personal_data =()=>{
+        axios.get('https://script.googleusercontent.com/macros/echo?user_content_key=XUS8Rv3XSN-SBx5pzchb43TQFgSzUFaWogptSSHdOrUXM47FMPLnhWrhzI8vEwaeLAWqlymg8W7Zo_2JQZVlAvR66rc-6SDrm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnDpkQ_cf_-TvNtDiHI-64_XtJdU6cdWYUAzCXhbI67wIGO5kjz_HL8W1qby3kLaYnj_WoMs570FyxJKtFszs2nCozmeKQr_3eA&lib=M9I4kW17thwagOckximhowZJDjoEhHOGb')
+        .then(res=>{            
+            dispatch({ type: "setstate", payload: { name: "personal_information_database", value: res.data.data_personal_information } })
+            dispatch({ type: "setstate", payload: { name: "substation_information_database", value: res.data.data_location } })
+        })  
+    }
+              
 
 
 
@@ -157,6 +176,7 @@ const Workpermit = () => {
                             </div>
 
                             
+                            <TextField className="mx-1 my-1 col-lg-3" focused label="รายการปฏิบัติงาน" size="small" value={state.work_permission_information[index].work_detail} onChange={(item) => Set_state_data_for_workpermit_information("work_detail", item.target.value, index)} />
                             <TextField className="mx-1 my-1 col-lg-2" focused label="ผู้ขออนุญาติ" size="small" value={state.work_permission_information[index].name_permission} onChange={(item) => Set_state_data_for_workpermit_information("name_permission", item.target.value, index)} />
                             <TextField className="mx-1 my-1 col-lg-1" focused label="ตำเเหน่ง" size="small"  value={state.work_permission_information[index].position_permission}  onChange={(item) => Set_state_data_for_workpermit_information("position_permission", item.target.value, index)} />
 
@@ -182,7 +202,8 @@ const Workpermit = () => {
             <div className="d-flex justify-content-center align-items-center">
                 <button className="btn btn-success mx-1" onClick={() => { }}>Save</button>
                 <button className="btn btn-warning mx-1" onClick={() => { }}>Save AS</button>
-                <button className="btn btn-primary mx-1" onClick={() => { }}>Export to Word</button>
+                <button className="btn btn-primary mx-1" onClick={() => {Docx_export({...state}) }}>Export to Word</button>
+               
             </div>
 
         </div >

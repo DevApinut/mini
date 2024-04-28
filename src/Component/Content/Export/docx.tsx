@@ -5,13 +5,45 @@ import { saveAs } from "file-saver";
 import { Logo_image1 } from "./Image"
 
 
-const Docx_export = () => {
+const Docx_export = (props:any) => {
     // Documents contain sections, you can have multiple sections per document, go here to learn more about sections
     // This simple example will only contain one section
-    const imageBase64Data = Logo_image1()
-    var X = [0, 1];
 
-    var data_test = X.map((data: any) => {
+
+    
+
+    const changedate = (date_recieve: any): string => {
+        let date = new Date(date_recieve)
+        const day = date.getDate();
+        let month: any = date.getMonth() + 1;
+        if (month === 1) { month = "ม.ค." }
+        else if (month === 2) { month = "ก.พ." }
+        else if (month === 3) { month = "มี.ค." }
+        else if (month === 4) { month = "เม.ย." }
+        else if (month === 5) { month = "พ.ค." }
+        else if (month === 6) { month = "มิ.ย." }
+        else if (month === 7) { month = "ก.ค." }
+        else if (month === 8) { month = "ส.ค." }
+        else if (month === 9) { month = "ก.ย." }
+        else if (month === 10) { month = "ต.ค." }
+        else if (month === 11) { month = "พ.ย." }
+        else if (month === 12) { month = "ธ.ค." }
+        return (month)
+    }
+
+    function dateDiffInDays(a:any, b:any) {
+        const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+        // Discard the time and time-zone information.
+        const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+        const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+      
+        return Math.floor((utc2 - utc1) / _MS_PER_DAY);
+      }
+
+    const imageBase64Data = Logo_image1()
+    
+
+    var data_test = props.work_permission_information.map((data: any) => {
         return [
             {
                 properties: {
@@ -109,7 +141,7 @@ const Docx_export = () => {
                             }),
                             new TextRun({
                                 size: 28,
-                                text: "\tชะอำ\t",
+                                text: `\t${data.substation}\t`,
                                 font: "Angsana New",
                                 underline: {
                                     type: UnderlineType.DOTTED,
@@ -123,7 +155,7 @@ const Docx_export = () => {
                             }),
                             new TextRun({
                                 size: 28,
-                                text: "\tต.1\t",
+                                text: `\t${data.country}\t`,
                                 font: "Angsana New",
                                 underline: {
                                     type: UnderlineType.DOTTED,
@@ -132,7 +164,7 @@ const Docx_export = () => {
                             }),
                             new SymbolRun({
                                 size: 28,
-                                char: "F0FE",
+                                char: `${data.type_substation == "Substation" ? "F0FE": "F071"}`,
                                 bold: true,
                                 italics: false,
                             }),
@@ -143,7 +175,7 @@ const Docx_export = () => {
                             }),
                             new SymbolRun({
                                 size: 28,
-                                char: "F071",
+                                char: `${data.type_substation == "Unmanned" ? "F0FE": "F071"}`,
                                 bold: true,
                                 italics: false,
                             }),
@@ -203,7 +235,7 @@ const Docx_export = () => {
                             }),
                             new TextRun({
                                 size: 28,
-                                text: "\tผสม\t",
+                                text: `\t${data.name_department_PEA}\t`,
                                 font: "Angsana New",
                                 underline: {
                                     type: UnderlineType.DOTTED,
@@ -217,7 +249,7 @@ const Docx_export = () => {
                             }),
                             new TextRun({
                                 size: 28,
-                                text: "\tนาย ภูนรินทร์ แช่มนาสวน\t",
+                                text: `\t${data.name_personal_responsible_PEA}\t`,
                                 font: "Angsana New",
                                 underline: {
                                     type: UnderlineType.DOTTED,
@@ -231,7 +263,7 @@ const Docx_export = () => {
                             }),
                             new TextRun({
                                 size: 28,
-                                text: "\t 0819635567\t",
+                                text: `\t${data.number_responsible_PEA}\t`,
                                 font: "Angsana New",
                                 underline: {
                                     type: UnderlineType.DOTTED,
@@ -284,7 +316,7 @@ const Docx_export = () => {
                             }),
                             new TextRun({
                                 size: 28,
-                                text: "\tผสม\t",
+                                text: `\t${data.name_department_corperation}\t`,
                                 font: "Angsana New",
                                 underline: {
                                     type: UnderlineType.DOTTED,
@@ -298,7 +330,7 @@ const Docx_export = () => {
                             }),
                             new TextRun({
                                 size: 28,
-                                text: "\tนาย ภูนรินทร์ แช่มนาสวน\t",
+                                text: `\t${data.name_reponsible_corperation}\t`,
                                 font: "Angsana New",
                                 underline: {
                                     type: UnderlineType.DOTTED,
@@ -312,7 +344,7 @@ const Docx_export = () => {
                             }),
                             new TextRun({
                                 size: 28,
-                                text: "\t 0819635567\t",
+                                text: `\t${data.nunber_responsible_corperation}\t`,
                                 font: "Angsana New",
                                 underline: {
                                     type: UnderlineType.DOTTED,
@@ -342,7 +374,7 @@ const Docx_export = () => {
                             }),
                             new TextRun({
                                 size: 28,
-                                text: "\t7\t",
+                                text: `\t${data.number_personal}\t`,
                                 font: "Angsana New",
                                 underline: {
                                     type: UnderlineType.DOTTED,
@@ -413,7 +445,7 @@ const Docx_export = () => {
                             }),
                             new TextRun({
                                 size: 28,
-                                text: "\t15 เม.ย.67\t",
+                                text: `\t${new Date(data.date_from).getDate()} ${changedate(data.date_from)}${(new Date(data.date_from).getFullYear() + 543).toString().substr(-2)} \t`,
                                 font: "Angsana New",
                                 underline: {
                                     type: UnderlineType.DOTTED,
@@ -427,7 +459,7 @@ const Docx_export = () => {
                             }),
                             new TextRun({
                                 size: 28,
-                                text: "\t 8.00 น.\t",
+                                text: `\t ${data.time_from} น.\t`,
                                 font: "Angsana New",
                                 underline: {
                                     type: UnderlineType.DOTTED,
@@ -451,7 +483,7 @@ const Docx_export = () => {
                             }),
                             new TextRun({
                                 size: 28,
-                                text: "\t15 เม.ย.67\t",
+                                text: `\t${new Date(data.date_destination).getDate()} ${changedate(data.date_destination)}${(new Date(data.date_destination).getFullYear() + 543).toString().substr(-2)} \t`,
                                 font: "Angsana New",
                                 underline: {
                                     type: UnderlineType.DOTTED,
@@ -465,7 +497,7 @@ const Docx_export = () => {
                             }),
                             new TextRun({
                                 size: 28,
-                                text: "\t 8.00 น.\t",
+                                text: `\t ${data.time_destination} น.\t`,
                                 font: "Angsana New",
                                 underline: {
                                     type: UnderlineType.DOTTED,
@@ -483,7 +515,7 @@ const Docx_export = () => {
                             }),
                             new TextRun({
                                 size: 28,
-                                text: "\t7\t",
+                                text: `\t${dateDiffInDays(new Date(data.date_from),new Date(data.date_destination))}\t`,
                                 font: "Angsana New",
                                 underline: {
                                     type: UnderlineType.DOTTED,
@@ -524,7 +556,7 @@ const Docx_export = () => {
                             }),
                             new SymbolRun({
                                 size: 28,
-                                char: "F0FE",
+                                char: `${data.turn_off_electrical == "ดับไฟปฏิบัติงาน" ? "F0FE": "F071"}`,
                                 bold: true,
                                 italics: false,
                             }),
@@ -535,7 +567,7 @@ const Docx_export = () => {
                             }),
                             new SymbolRun({
                                 size: 28,
-                                char: "F0FE",
+                                char: `${data.turn_off_electrical == "ไม่ดับไฟปฏิบัติงาน" ? "F0FE": "F071"}`,
                                 bold: true,
                                 italics: false,
                             }),
@@ -551,7 +583,7 @@ const Docx_export = () => {
                             }),
                             new SymbolRun({
                                 size: 28,
-                                char: "F0FE",
+                                char: `${data.plan_work == "ตามแผน" ? "F0FE": "F071"}`,
                                 bold: true,
                                 italics: false,
                             }),
@@ -562,7 +594,7 @@ const Docx_export = () => {
                             }),
                             new SymbolRun({
                                 size: 28,
-                                char: "F0FE",
+                                char: `${data.plan_work == "นอกแผน" ? "F0FE": "F071"}`,
                                 bold: true,
                                 italics: false,
                             }),
@@ -573,7 +605,7 @@ const Docx_export = () => {
                             }),
                             new SymbolRun({
                                 size: 28,
-                                char: "F0FE",
+                                char: `${data.plan_work == "กรณีฉุกเฉิน" ? "F0FE": "F071"}`,
                                 bold: true,
                                 italics: false,
                             }),
@@ -656,7 +688,7 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 25,
+                                            size: 10,
                                             type: WidthType.PERCENTAGE,
                                         },
                                     }),
@@ -676,7 +708,7 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 50,
+                                            size: 65,
                                             type: WidthType.PERCENTAGE,
                                         },
                                     }),
@@ -696,7 +728,7 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 25,
+                                            size: 10,
                                             type: WidthType.PERCENTAGE,
                                         },
                                     }),
@@ -711,7 +743,7 @@ const Docx_export = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 28,
-                                                        text: ` `,
+                                                        text: `${(data.work_detail.split(","))[0] != undefined && (data.work_detail.split(","))[0] != "" ? "1" : ""}`,
                                                         font: "Angsana New",
                                                     }),
 
@@ -719,10 +751,29 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 25,
+                                            size: 10,
                                             type: WidthType.PERCENTAGE,
                                         },
 
+                                    }),
+                                    new TableCell({
+                                        children: [
+                                            new Paragraph({
+                                                alignment: AlignmentType.LEFT,
+                                                children: [
+                                                    new TextRun({
+                                                        size: 28,
+                                                        text: `${(data.work_detail.split(","))[0] != undefined && (data.work_detail.split(","))[0] != "" ? (data.work_detail.split(","))[0] : ""}`,
+                                                        font: "Angsana New",
+                                                    }),
+
+                                                ],
+                                            })
+                                        ],
+                                        width: {
+                                            size: 65,
+                                            type: WidthType.PERCENTAGE,
+                                        },
                                     }),
                                     new TableCell({
                                         children: [
@@ -739,26 +790,7 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 50,
-                                            type: WidthType.PERCENTAGE,
-                                        },
-                                    }),
-                                    new TableCell({
-                                        children: [
-                                            new Paragraph({
-                                                alignment: AlignmentType.CENTER,
-                                                children: [
-                                                    new TextRun({
-                                                        size: 28,
-                                                        text: ` `,
-                                                        font: "Angsana New",
-                                                    }),
-
-                                                ],
-                                            })
-                                        ],
-                                        width: {
-                                            size: 25,
+                                            size: 10,
                                             type: WidthType.PERCENTAGE,
                                         },
                                     }),
@@ -773,7 +805,7 @@ const Docx_export = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 28,
-                                                        text: ` `,
+                                                        text: `${(data.work_detail.split(","))[1] != undefined && (data.work_detail.split(","))[1] != "" ? "2" : ""}`,
                                                         font: "Angsana New",
                                                         bold: false,
                                                     }),
@@ -782,7 +814,26 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 25,
+                                            size: 10,
+                                            type: WidthType.PERCENTAGE,
+                                        },
+                                    }),
+                                    new TableCell({
+                                        children: [
+                                            new Paragraph({
+                                                alignment: AlignmentType.LEFT,
+                                                children: [
+                                                    new TextRun({
+                                                        size: 28,
+                                                        text: `${(data.work_detail.split(","))[1] != undefined && (data.work_detail.split(","))[1] != "" ? (data.work_detail.split(","))[1] : ""}`,
+                                                        font: "Angsana New",
+                                                    }),
+
+                                                ],
+                                            })
+                                        ],
+                                        width: {
+                                            size: 65,
                                             type: WidthType.PERCENTAGE,
                                         },
                                     }),
@@ -801,87 +852,7 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 50,
-                                            type: WidthType.PERCENTAGE,
-                                        },
-                                    }),
-                                    new TableCell({
-                                        children: [
-                                            new Paragraph({
-                                                alignment: AlignmentType.CENTER,
-                                                children: [
-                                                    new TextRun({
-                                                        size: 28,
-                                                        text: ` `,
-                                                        font: "Angsana New",
-                                                    }),
-
-                                                ],
-                                            })
-                                        ],
-                                        width: {
-                                            size: 25,
-                                            type: WidthType.PERCENTAGE,
-                                        },
-                                    }),
-                                ],
-                            }),
-                            new TableRow({
-                                children: [
-                                    new TableCell({
-                                        children: [
-                                            new Paragraph({
-                                                alignment: AlignmentType.CENTER,
-                                                children: [
-                                                    new TextRun({
-                                                        size: 28,
-                                                        text: ` `,
-                                                        font: "Angsana New",
-                                                    }),
-
-                                                ],
-                                            })
-                                        ],
-                                        width: {
-                                            size: 25,
-                                            type: WidthType.PERCENTAGE,
-                                        },
-                                    }),
-                                    new TableCell({
-                                        children: [
-                                            new Paragraph({
-                                                alignment: AlignmentType.CENTER,
-                                                children: [
-                                                    new TextRun({
-                                                        size: 28,
-                                                        text: ` `,
-                                                        font: "Angsana New",
-                                                    }),
-
-                                                ],
-                                            })
-                                        ],
-                                        width: {
-                                            size: 50,
-                                            type: WidthType.PERCENTAGE,
-                                        },
-                                    }),
-                                    new TableCell({
-                                        children: [
-                                            new Paragraph({
-                                                alignment: AlignmentType.CENTER,
-                                                children: [
-                                                    new TextRun({
-                                                        size: 28,
-                                                        text: ` `,
-                                                        font: "Angsana New",
-                                                    }),
-
-                                                ],
-                                            })
-                                        ],
-                                        width: {
-                                            size: 25,
+                                            size: 10,
                                             type: WidthType.PERCENTAGE,
                                         },
                                     }),
@@ -896,7 +867,7 @@ const Docx_export = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 28,
-                                                        text: ` `,
+                                                        text: `${(data.work_detail.split(","))[2] != undefined && (data.work_detail.split(","))[2] != "" ? "3" : ""}`,
                                                         font: "Angsana New",
                                                     }),
 
@@ -904,7 +875,26 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 25,
+                                            size: 10,
+                                            type: WidthType.PERCENTAGE,
+                                        },
+                                    }),
+                                    new TableCell({
+                                        children: [
+                                            new Paragraph({
+                                                alignment: AlignmentType.LEFT,
+                                                children: [
+                                                    new TextRun({
+                                                        size: 28,
+                                                        text: `${(data.work_detail.split(","))[2] != undefined  && (data.work_detail.split(","))[2] != "" ? (data.work_detail.split(","))[2] : ""}`,
+                                                        font: "Angsana New",
+                                                    }),
+
+                                                ],
+                                            })
+                                        ],
+                                        width: {
+                                            size: 65,
                                             type: WidthType.PERCENTAGE,
                                         },
                                     }),
@@ -923,26 +913,7 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 50,
-                                            type: WidthType.PERCENTAGE,
-                                        },
-                                    }),
-                                    new TableCell({
-                                        children: [
-                                            new Paragraph({
-                                                alignment: AlignmentType.CENTER,
-                                                children: [
-                                                    new TextRun({
-                                                        size: 28,
-                                                        text: ` `,
-                                                        font: "Angsana New",
-                                                    }),
-
-                                                ],
-                                            })
-                                        ],
-                                        width: {
-                                            size: 25,
+                                            size: 10,
                                             type: WidthType.PERCENTAGE,
                                         },
                                     }),
@@ -957,7 +928,7 @@ const Docx_export = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 28,
-                                                        text: ` `,
+                                                        text: `${(data.work_detail.split(","))[3] != undefined && (data.work_detail.split(","))[3] != "" ? "4" : ""}`,
                                                         font: "Angsana New",
                                                     }),
 
@@ -965,7 +936,26 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 25,
+                                            size: 10,
+                                            type: WidthType.PERCENTAGE,
+                                        },
+                                    }),
+                                    new TableCell({
+                                        children: [
+                                            new Paragraph({
+                                                alignment: AlignmentType.LEFT,
+                                                children: [
+                                                    new TextRun({
+                                                        size: 28,
+                                                        text: `${(data.work_detail.split(","))[3] != undefined && (data.work_detail.split(","))[3] != "" ? (data.work_detail.split(","))[3] : ""}`,
+                                                        font: "Angsana New",
+                                                    }),
+
+                                                ],
+                                            })
+                                        ],
+                                        width: {
+                                            size: 65,
                                             type: WidthType.PERCENTAGE,
                                         },
                                     }),
@@ -984,7 +974,49 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 50,
+                                            size: 10,
+                                            type: WidthType.PERCENTAGE,
+                                        },
+                                    }),
+                                ],
+                            }),
+                            new TableRow({
+                                children: [
+                                    new TableCell({
+                                        children: [
+                                            new Paragraph({
+                                                alignment: AlignmentType.CENTER,
+                                                children: [
+                                                    new TextRun({
+                                                        size: 28,
+                                                        text: `${(data.work_detail.split(","))[4] != undefined && (data.work_detail.split(","))[4] != "" ? "5" : ""}`,
+                                                        font: "Angsana New",
+                                                    }),
+
+                                                ],
+                                            })
+                                        ],
+                                        width: {
+                                            size: 10,
+                                            type: WidthType.PERCENTAGE,
+                                        },
+                                    }),
+                                    new TableCell({
+                                        children: [
+                                            new Paragraph({
+                                                alignment: AlignmentType.LEFT,
+                                                children: [
+                                                    new TextRun({
+                                                        size: 28,
+                                                        text: `${(data.work_detail.split(","))[4] != undefined ? (data.work_detail.split(","))[4] : ""}`,
+                                                        font: "Angsana New",
+                                                    }),
+
+                                                ],
+                                            })
+                                        ],
+                                        width: {
+                                            size: 65,
                                             type: WidthType.PERCENTAGE,
                                         },
                                     }),
@@ -1003,7 +1035,7 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 25,
+                                            size: 10,
                                             type: WidthType.PERCENTAGE,
                                         },
                                     }),
@@ -1044,7 +1076,7 @@ const Docx_export = () => {
                             }),
                             new TextRun({
                                 size: 28,
-                                text: "\tอภินัทธ์ แก้วมูณี\t",
+                                text: `\t\t`,
                                 font: "Angsana New",
                                 underline: {
                                     type: UnderlineType.DOTTED,
@@ -1088,7 +1120,7 @@ const Docx_export = () => {
                             }),
                             new TextRun({
                                 size: 28,
-                                text: "\tอภินัทธ์ แก้วมูณี\t",
+                                text: `\t${data.name_permission}\t`,
                                 font: "Angsana New",
                                 underline: {
                                     type: UnderlineType.DOTTED,
@@ -1107,7 +1139,7 @@ const Docx_export = () => {
                             }),
                             new TextRun({
                                 size: 28,
-                                text: "\tวศก4\t",
+                                text: `\t${data.position_permission}\t`,
                                 font: "Angsana New",
                                 underline: {
                                     type: UnderlineType.DOTTED,
@@ -1145,7 +1177,7 @@ const Docx_export = () => {
                         children: [
                             new TextRun({
                                 size: 28,
-                                text: `\t18 เม.ย. 67`,
+                                text: `\t${(new Date()).getDate()} ${changedate(new Date())} ${(new Date().getFullYear() + 543).toString().substr(-2)}`,
                                 font: "Angsana New",
                             }),
                         ],
@@ -1278,7 +1310,7 @@ const Docx_export = () => {
                                                     }),
                                                     new SymbolRun({
                                                         size: 28,
-                                                        char: "F0FE",
+                                                        char: "F071",
                                                         bold: true,
                                                         italics: false,
                                                     }),
@@ -1393,7 +1425,7 @@ const Docx_export = () => {
                                                     }),
                                                     new SymbolRun({
                                                         size: 28,
-                                                        char: "F0FE",
+                                                        char: "F071",
                                                         bold: true,
                                                         italics: false,
                                                     }),
@@ -3086,7 +3118,7 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 25,
+                                            size: 10,
                                             type: WidthType.PERCENTAGE,
                                         },
                                     }),
@@ -3106,7 +3138,7 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 50,
+                                            size: 65,
                                             type: WidthType.PERCENTAGE,
                                         },
                                     }),
@@ -3126,7 +3158,7 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 25,
+                                            size: 10,
                                             type: WidthType.PERCENTAGE,
                                         },
                                     }),
@@ -3149,7 +3181,7 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 25,
+                                            size: 10,
                                             type: WidthType.PERCENTAGE,
                                         },
 
@@ -3169,7 +3201,7 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 50,
+                                            size: 65,
                                             type: WidthType.PERCENTAGE,
                                         },
                                     }),
@@ -3188,7 +3220,7 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 25,
+                                            size: 10,
                                             type: WidthType.PERCENTAGE,
                                         },
                                     }),
@@ -3212,7 +3244,7 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 25,
+                                            size: 10,
                                             type: WidthType.PERCENTAGE,
                                         },
                                     }),
@@ -3231,7 +3263,7 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 50,
+                                            size: 65,
                                             type: WidthType.PERCENTAGE,
                                         },
                                     }),
@@ -3250,7 +3282,7 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 25,
+                                            size: 10,
                                             type: WidthType.PERCENTAGE,
                                         },
                                     }),
@@ -3273,7 +3305,7 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 25,
+                                            size: 10,
                                             type: WidthType.PERCENTAGE,
                                         },
                                     }),
@@ -3292,7 +3324,7 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 50,
+                                            size: 65,
                                             type: WidthType.PERCENTAGE,
                                         },
                                     }),
@@ -3311,68 +3343,7 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 25,
-                                            type: WidthType.PERCENTAGE,
-                                        },
-                                    }),
-                                ],
-                            }),
-                            new TableRow({
-                                children: [
-                                    new TableCell({
-                                        children: [
-                                            new Paragraph({
-                                                alignment: AlignmentType.CENTER,
-                                                children: [
-                                                    new TextRun({
-                                                        size: 28,
-                                                        text: "",
-                                                        font: "Angsana New",
-                                                    }),
-
-                                                ],
-                                            })
-                                        ],
-                                        width: {
-                                            size: 25,
-                                            type: WidthType.PERCENTAGE,
-                                        },
-                                    }),
-                                    new TableCell({
-                                        children: [
-                                            new Paragraph({
-                                                alignment: AlignmentType.CENTER,
-                                                children: [
-                                                    new TextRun({
-                                                        size: 28,
-                                                        text: "",
-                                                        font: "Angsana New",
-                                                    }),
-
-                                                ],
-                                            })
-                                        ],
-                                        width: {
-                                            size: 50,
-                                            type: WidthType.PERCENTAGE,
-                                        },
-                                    }),
-                                    new TableCell({
-                                        children: [
-                                            new Paragraph({
-                                                alignment: AlignmentType.CENTER,
-                                                children: [
-                                                    new TextRun({
-                                                        size: 28,
-                                                        text: "",
-                                                        font: "Angsana New",
-                                                    }),
-
-                                                ],
-                                            })
-                                        ],
-                                        width: {
-                                            size: 25,
+                                            size: 10,
                                             type: WidthType.PERCENTAGE,
                                         },
                                     }),
@@ -3395,7 +3366,7 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 25,
+                                            size: 10,
                                             type: WidthType.PERCENTAGE,
                                         },
                                     }),
@@ -3414,7 +3385,7 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 50,
+                                            size: 65,
                                             type: WidthType.PERCENTAGE,
                                         },
                                     }),
@@ -3433,7 +3404,68 @@ const Docx_export = () => {
                                             })
                                         ],
                                         width: {
-                                            size: 25,
+                                            size: 10,
+                                            type: WidthType.PERCENTAGE,
+                                        },
+                                    }),
+                                ],
+                            }),
+                            new TableRow({
+                                children: [
+                                    new TableCell({
+                                        children: [
+                                            new Paragraph({
+                                                alignment: AlignmentType.CENTER,
+                                                children: [
+                                                    new TextRun({
+                                                        size: 28,
+                                                        text: "",
+                                                        font: "Angsana New",
+                                                    }),
+
+                                                ],
+                                            })
+                                        ],
+                                        width: {
+                                            size: 10,
+                                            type: WidthType.PERCENTAGE,
+                                        },
+                                    }),
+                                    new TableCell({
+                                        children: [
+                                            new Paragraph({
+                                                alignment: AlignmentType.CENTER,
+                                                children: [
+                                                    new TextRun({
+                                                        size: 28,
+                                                        text: "",
+                                                        font: "Angsana New",
+                                                    }),
+
+                                                ],
+                                            })
+                                        ],
+                                        width: {
+                                            size: 65,
+                                            type: WidthType.PERCENTAGE,
+                                        },
+                                    }),
+                                    new TableCell({
+                                        children: [
+                                            new Paragraph({
+                                                alignment: AlignmentType.CENTER,
+                                                children: [
+                                                    new TextRun({
+                                                        size: 28,
+                                                        text: "",
+                                                        font: "Angsana New",
+                                                    }),
+
+                                                ],
+                                            })
+                                        ],
+                                        width: {
+                                            size: 10,
                                             type: WidthType.PERCENTAGE,
                                         },
                                     }),
