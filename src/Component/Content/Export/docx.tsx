@@ -2484,7 +2484,7 @@ const Docx_export = (props:any) => {
 
     Packer.toBlob(doc).then((blob) => {
         console.log(blob);
-        saveAs(blob, "example.docx");
+        saveAs(blob, `${props.other_data.Name_save}.docx`);
         console.log("Document created successfully");
     });
 
