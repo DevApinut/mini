@@ -224,7 +224,7 @@ const Docx_export = (props:any) => {
                             }),
                             new SymbolRun({
                                 size: 28,
-                                char: "F0FE",
+                                char: `${data.name_department_PEA != "" ? "F0FE": "F071"}`,
                                 bold: true,
                                 italics: false,
                             }),
@@ -305,7 +305,7 @@ const Docx_export = (props:any) => {
                         children: [
                             new SymbolRun({
                                 size: 28,
-                                char: "F0FE",
+                                char: `${data.name_department_corperation != "" ? "F0FE": "F071"}`,
                                 bold: true,
                                 italics: false,
                             }),
