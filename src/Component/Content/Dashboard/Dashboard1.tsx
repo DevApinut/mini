@@ -1,73 +1,380 @@
 import Chart from 'chart.js/auto'
-import { Bar, Pie } from "react-chartjs-2";
+import { Bar, Pie, Line } from "react-chartjs-2";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import '../../../CSS/Dashboard.CSS'
+import { Link } from 'react-router-dom';
+
 
 
 const Dashboard = () => {
     Chart.register(ChartDataLabels);
+    const percentage = '75%'
+
+    const styles = {
+        progressBar: {
+            height: 250,
+            '& progress-bar': {
+                backgroundColor: 'black'
+            },
+        }
+    }
     return (
         <div className='container'>
             <div className='text-center'>
                 <h3>DashBoard</h3>
             </div>
+            <div className='w-full'>
+                <div className='w-1/4'>
+                    <div className='w-1/4 my-2 input-group'>
+                        <div className="input-group-prepend">
+                            <span className="input-group-text" id="basic-addon1">รายงานผลผระจำปี</span>
+                        </div>
+                        <input type="number" className="form-control" defaultValue="2567"placeholder="ปีการทดสอบ" aria-label="Username" aria-describedby="basic-addon1" />
+                    </div>
+                </div>
+
+            </div>
             {/* --------------------------------------รายการ Navbar เล็กสำหรับแสดงข้อมูลในภาพรวม-------------------- */}
             <div className='d-flex '>
-                <div className='border mx-2 pointer-menu' style={{ height: "20vh", width: "20vw", marginBottom: "1%", padding: "1%", borderRadius: "20px" }}>
-                    <div className='absolute top-0 left-auto'>จำนวนสถานีทั้งหมด</div>
+                <div className='pointer-menu'>
+                    <div className='absolute top-0 left-auto text-lg'>จำนวนสถานีทั้งหมด</div>
                     <div className='d-flex flex-column align-items-center size-full justify-content-center' >
                         <h5 className='text-red-600'>37</h5>
                         <h5 className='text-green-900'>สถานี</h5>
                     </div>
                     <div className='text-red-600 text-sm absolute bottom-0 left-auto'>หมายเหตุ เป็นรายงานประจำเดือน มกราคม</div>
                 </div>
-                <div className='border mx-2 pointer-menu' style={{ height: "20vh", width: "20vw", marginBottom: "1%", padding: "1%", borderRadius: "20px" }}>
-                    <div className='absolute top-0 left-auto'>อุปกรณ์ในความรับผิดชอบ</div>
+                <div className='pointer-menu'>
+                    <div className='absolute top-0 left-auto text-lg'>อุปกรณ์ในความรับผิดชอบ</div>
                     <div className='d-flex flex-column align-items-center size-full justify-content-center' >
                         <h5 className='text-red-600'>999</h5>
                         <h5 className='text-green-900'>รายการ</h5>
                     </div>
                     <div className='text-red-600 text-sm absolute bottom-0 left-auto'>หมายเหตุ เป็นรายงานประจำเดือน มกราคม</div>
                 </div>
-                <div className='border mx-2 pointer-menu' style={{ height: "20vh", width: "20vw", marginBottom: "1%", padding: "1%", borderRadius: "20px" }}>
-                    <div className='absolute top-0 left-auto'>รายการอุปกรณ์ชำรุด</div>
+                <div className='pointer-menu'>
+                    <div className='absolute top-0 left-auto text-lg'>รายการอุปกรณ์ชำรุด</div>
                     <div className='d-flex flex-column align-items-center size-full justify-content-center' >
-                        <h5 className='text-red-600'>แล้วเสร็จ 230 รายการ</h5>
-                        <h5 className='text-green-900'>ยังไม่ได้ดำเนินการ 230 รายการ</h5>
+                        <div className='flex justify-center w-full'>
+                            <div className='w-1/4'>ทั้งหมด</div>
+                            <div className='w-1/5 text-center'>12</div>
+                            <div className='w-1/4'>รายการ</div>
+                        </div>
+                        <div className='flex justify-center w-full'>
+                            <div className='w-1/4'>เเล้วเสร็จ</div>
+                            <div className='w-1/5 text-center'>12</div>
+                            <div className='w-1/4'>รายการ</div>
+                        </div>
+                        <div className='flex justify-center w-full'>
+                            <div className='w-1/4'>คงค้าง</div>
+                            <div className='w-1/5 text-center'>12</div>
+                            <div className='w-1/4'>รายการ</div>
+                        </div>
+                        {/* <h5 className='text-red-600'>แล้วเสร็จ 230 รายการ</h5>
+                        <h5 className='text-green-900'>ยังไม่ได้ดำเนินการ 230 รายการ</h5> */}
                     </div>
                     <div className='text-red-600 text-sm absolute bottom-0 left-auto'>หมายเหตุ เป็นรายงานประจำเดือน มกราคม</div>
                 </div>
-                <div className='border mx-2 pointer-menu' style={{ height: "20vh", width: "20vw", marginBottom: "1%", padding: "1%", borderRadius: "20px" }}>
-                    <div className='absolute top-0 left-auto'>รายการอุปกรณ์ชำรุด</div>
+                <div className='pointer-menu' >
+                    <div className='absolute top-0 left-auto text-lg'>ความคืบหน้าการบำรุงรักษาปี 2567</div>
                     <div className='d-flex flex-column align-items-center size-full justify-content-center' >
-                        <h5 className='text-red-600'>999</h5>
-                        <h5 className='text-green-900'>รายการ</h5>
+                        <div className='size-full h-fit'>
+                            <div className='w-3/4 text-xs mt-3'>หม้อแปลงไฟฟ้ากำลัง</div>
+                            <div className="progress w-full">
+                                <div className="progress-bar bg-success" style={{ width: `${percentage}` }}>{percentage}</div>
+                            </div>
+                        </div>
+                        <div className='size-full h-fit'>
+                            <div className='w-3/4 text-xs'>อุปกรณ์ป้องกัน 22/33 kV</div>
+                            <div className="progress w-full">
+                                <div className="progress-bar bg-primary" style={{ width: `${percentage}` }}>{percentage}</div>
+                            </div>
+                        </div>
+                        <div className='size-full h-fit'>
+                            <div className='w-3/4 text-xs '>Auto voltage regulator</div>
+                            <div className="progress w-full">
+                                <div className="progress-bar bg-warning" style={{ width: `${percentage}` }}>{percentage}</div>
+                            </div>
+                        </div>
+                        <div className='size-full'>
+                            <div className='w-3/4 text-xs '>Capacitor Bank</div>
+                            <div className="progress w-full">
+                                <div className="progress-bar bg-danger" style={{ width: `${percentage}` }}>{percentage}</div>
+                            </div>
+                        </div>
+
                     </div>
-                    <div className='text-red-600 text-sm absolute bottom-0 left-auto'>หมายเหตุ เป็นรายงานประจำเดือน มกราคม</div>
+                    {/* <div className='text-red-600 text-sm absolute bottom-0 left-auto'>หมายเหตุ เป็นรายงานประจำเดือน มกราคม</div> */}
                 </div>
             </div>
 
 
-            <div className='d-flex justify-content-center border flex-column'>
-                <h2 className='border text-center'>รายงานการบำรุงรักษาสถานีประจำปี</h2>
-                {/* <div style={{ height: "60vh", marginBottom: "1%", padding: "1%" }}> */}
-                {/* <Bar
-                        data={{
-                            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                            datasets: [
-                                {
-                                    label: '# of Votes',
-                                    data: [3, 19, 3, 5, 2, 3],
-                                    borderWidth: 1
-                                }
-                            ]
-                        }}
-                    /> */}
-                {/* </div> */}
+            <div className='d-flex justify-content-center  flex-column'>
+                <h2 className=' text-center'>รายงานการบำรุงรักษาสถานีประจำปี 2567</h2>
+
+                <div className='flex justify-center w-full'>
+                    <div className='w-1/4'>
+                        <Bar width="100%" height="100%"
+                            data={{
+                                labels: [`TP(ABB)`, `CB 22 kV(ABB)`, `CB 22 kV(Schneider)`, 'Green', 'Purple', 'Orange'],
+                                datasets: [
+                                    {
+                                        label: '# รายงานการบำรุงรักษาเเต่ละผลิตภัณฑ์ (Power transformer)',
+                                        data: [3, 19, 3, 5, 2, 3],
+                                        borderWidth: 1,
+                                        backgroundColor: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']
+                                    }
+                                ]
+                            }}
+                        />
+                    </div>
+                    <div className='w-1/4'>
+                        <Bar width="100%" height="100%"
+                            data={{
+                                labels: [`TP(ABB)`, `CB 22 kV(ABB)`, `CB 22 kV(Schneider)`, 'Green', 'Purple', 'Orange'],
+                                datasets: [
+                                    {
+                                        label: '# รายงานการบำรุงรักษาเเต่ละผลิตภัณฑ์ (AVR)',
+                                        data: [3, 19, 3, 5, 2, 3],
+                                        borderWidth: 1,
+                                        backgroundColor: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']
+                                    }
+                                ]
+                            }}
+                        />
+                    </div>
+                    <div className='w-1/4'>
+                        <Bar width="100%" height="100%"
+                            data={{
+                                labels: [`TP(ABB)`, `CB 22 kV(ABB)`, `CB 22 kV(Schneider)`, 'Green', 'Purple', 'Orange'],
+                                datasets: [
+                                    {
+                                        label: '# รายงานการบำรุงรักษาเเต่ละผลิตภัณฑ์ (CB22kV,33kV,115kV)',
+                                        data: [3, 19, 3, 5, 2, 3],
+                                        borderWidth: 1,
+                                        backgroundColor: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']
+                                    }
+                                ]
+                            }}
+                        />
+                    </div>
+                    <div className='w-1/4'>
+                        <Bar width="100%" height="100%"
+                            data={{
+                                labels: [`TP(ABB)`, `CB 22 kV(ABB)`, `CB 22 kV(Schneider)`, 'Green', 'Purple', 'Orange'],
+                                datasets: [
+                                    {
+                                        label: '# รายงานการบำรุงรักษาเเต่ละผลิตภัณฑ์ (CapacitorBank)',
+                                        data: [3, 19, 3, 5, 2, 3],
+                                        borderWidth: 1,
+                                        backgroundColor: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']
+                                    }
+                                ]
+                            }}
+                        />
+                    </div>
+
+                </div>
+
+                {/* -------------------------------------------- Power Transformer-------------------------------------- */}
+                <div className='flex justify-center'>
+                    <div className='w-1/4 h-96 bg-slate-100 mx-1'>
+                        <div className='flex justify-between h-1/6'>
+                            <div className='mx-2 my-2'>Highlight(TP)</div>
+                            <div className='mx-2 my-2'><Link className='no-underline' to={"#"}>ดูทั้งหมด</Link></div>
+                        </div>
+                        <div className='flex justify-center my-2'>
+                            <div className='flex justify-between h-1/4 border items-center w-4/5 rounded-md'>
+                                <div className='mx-2 my-2'>ปากท่อ</div>
+                                <div className='mx-2 my-2 flex flex-col items-center'>
+                                    <div><Link className='no-underline' to={"#"}>ผลการดำเนินงาน</Link></div>
+                                    <div className='text-xs'>ข้อมูลเมื่อ 1 ม.ค. 67</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='flex justify-center my-2'>
+                            <div className='flex justify-between h-1/4 border items-center w-4/5 rounded-md'>
+                                <div className='mx-2 my-2'>หัวหิน4</div>
+                                <div className='mx-2 my-2 flex flex-col items-center'>
+                                    <div ><Link className='no-underline' to={"#"}>ผลการดำเนินงาน</Link></div>
+                                    <div className='text-xs'>ข้อมูลเมื่อ 1 ม.ค. 67</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='flex justify-center my-2'>
+                            <div className='flex justify-between h-1/4 border items-center w-4/5 rounded-md'>
+                                <div className='mx-2 my-2'>ดำเนินสะดวก</div>
+                                <div className='mx-2 my-2 flex flex-col items-center'>
+                                    <div><Link className='no-underline' to={"#"}>ผลการดำเนินงาน</Link></div>
+                                    <div className='text-xs'>ข้อมูลเมื่อ 1 ม.ค. 67</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='flex justify-center my-2'>
+                            <div className='flex justify-between h-1/4 border items-center w-4/5 rounded-md'>
+                                <div className='mx-2 my-2'>โพธาราม</div>
+                                <div className='mx-2 my-2 flex flex-col items-center'>
+                                    <div ><Link className='no-underline' to={"#"}>ผลการดำเนินงาน</Link></div>
+                                    <div className='text-xs'>ข้อมูลเมื่อ 1 ม.ค. 67</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/* ----------------------------------------------- AVR ----------------------------------------- */}
+                    <div className='w-1/4 h-96 bg-slate-100 mx-1'>
+                        <div className='flex justify-between h-1/6'>
+                            <div className='mx-2 my-2'>Highlight(AVR)</div>
+                            <div className='mx-2 my-2'><Link className='no-underline' to={"#"}>ดูทั้งหมด</Link></div>
+                        </div>
+                        <div className='flex justify-center my-2'>
+                            <div className='flex justify-between h-1/4 border items-center w-4/5 rounded-md'>
+                                <div className='mx-2 my-2'>เขื่อนเพชร</div>
+                                <div className='mx-2 my-2 flex flex-col items-center'>
+                                    <div><Link className='no-underline' to={"#"}>ผลการดำเนินงาน</Link></div>
+                                    <div className='text-xs'>ข้อมูลเมื่อ 1 ม.ค. 67</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='flex justify-center my-2'>
+                            <div className='flex justify-between h-1/4 border items-center w-4/5 rounded-md'>
+                                <div className='mx-2 my-2'>หนองพลับ</div>
+                                <div className='mx-2 my-2 flex flex-col items-center'>
+                                    <div ><Link className='no-underline' to={"#"}>ผลการดำเนินงาน</Link></div>
+                                    <div className='text-xs'>ข้อมูลเมื่อ 1 ม.ค. 67</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='flex justify-center my-2'>
+                            <div className='flex justify-between h-1/4 border items-center w-4/5 rounded-md'>
+                                <div className='mx-2 my-2'>นิดา</div>
+                                <div className='mx-2 my-2 flex flex-col items-center'>
+                                    <div><Link className='no-underline' to={"#"}>ผลการดำเนินงาน</Link></div>
+                                    <div className='text-xs'>ข้อมูลเมื่อ 1 ม.ค. 67</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='flex justify-center my-2'>
+                            <div className='flex justify-between h-1/4 border items-center w-4/5 rounded-md'>
+                                <div className='mx-2 my-2'>ถ้ำธง</div>
+                                <div className='mx-2 my-2 flex flex-col items-center'>
+                                    <div ><Link className='no-underline' to={"#"}>ผลการดำเนินงาน</Link></div>
+                                    <div className='text-xs'>ข้อมูลเมื่อ 1 ม.ค. 67</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* ----------------------------------------------- Switchgear / Switchyard ----------------------------------------- */}
+                    </div>
+                    <div className='w-1/4 h-96 bg-slate-100 mx-1'>
+                        <div className='flex justify-between h-1/6'>
+                            <div className='mx-2 my-2'>Highlight(อุปกรณ์ป้องกัน)</div>
+                            <div className='mx-2 my-2'><Link className='no-underline' to={"#"}>ดูทั้งหมด</Link></div>
+                        </div>
+                        <div className='flex justify-center my-2'>
+                            <div className='flex justify-between h-1/4 border items-center w-4/5 rounded-md'>
+                                <div className='mx-2 my-2 flex flex-col items-center'>
+                                    <div>ปากท่อ</div>
+                                    <div className='text-xs'>ระบบ 22 kV</div>
+                                </div>
+                                <div className='mx-2 my-2 flex flex-col items-center'>
+                                    <div><Link className='no-underline' to={"#"}>ผลการดำเนินงาน</Link></div>
+                                    <div className='text-xs'>ข้อมูลเมื่อ 1 ม.ค. 67</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='flex justify-center my-2'>
+                            <div className='flex justify-between h-1/4 border items-center w-4/5 rounded-md'>
+                                <div className='mx-2 my-2 flex flex-col items-center'>
+                                    <div>โพธาราม1</div>
+                                    <div className='text-xs'>ระบบ 115 kV</div>
+                                </div>
+                                <div className='mx-2 my-2 flex flex-col items-center'>
+                                    <div ><Link className='no-underline' to={"#"}>ผลการดำเนินงาน</Link></div>
+                                    <div className='text-xs'>ข้อมูลเมื่อ 1 ม.ค. 67</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='flex justify-center my-2'>
+                            <div className='flex justify-between h-1/4 border items-center w-4/5 rounded-md'>
+                                <div className='mx-2 my-2 flex flex-col items-center'>
+                                    <div>ดำเนินสะดวก</div>
+                                    <div className='text-xs'>ระบบ 115 kV</div>
+                                </div>
+                                <div className='mx-2 my-2 flex flex-col items-center'>
+                                    <div><Link className='no-underline' to={"#"}>ผลการดำเนินงาน</Link></div>
+                                    <div className='text-xs'>ข้อมูลเมื่อ 1 ม.ค. 67</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='flex justify-center my-2'>
+                            <div className='flex justify-between h-1/4 border items-center w-4/5 rounded-md'>
+
+                                <div className='mx-2 my-2 flex flex-col items-center'>
+                                    <div>โพธาราม2</div>
+                                    <div className='text-xs'>ระบบ 115 kV</div>
+                                </div>
+                                <div className='mx-2 my-2 flex flex-col items-center'>
+                                    <div ><Link className='no-underline' to={"#"}>ผลการดำเนินงาน</Link></div>
+                                    <div className='text-xs'>ข้อมูลเมื่อ 1 ม.ค. 67</div>
+                                </div>
+                            </div>
+                        </div>
 
 
-                <div className='d-flex justify-content-center align-items-center border'>
+                    </div>
+                    <div className='w-1/4 h-96 bg-slate-100 mx-1'>
+                        <div className='flex justify-between h-1/6'>
+                            <div className='mx-2 my-2'>Highlight(Capacitor Bank)</div>
+                            <div className='mx-2 my-2'><Link className='no-underline' to={"#"}>ดูทั้งหมด</Link></div>
+                        </div>
+                        <div className='flex justify-center my-2'>
+                            <div className='flex justify-between h-1/4 border items-center w-4/5 rounded-md'>
+                                <div className='mx-2 my-2'>ปากท่อ</div>
+                                <div className='mx-2 my-2 flex flex-col items-center'>
+                                    <div><Link className='no-underline' to={"#"}>ผลการดำเนินงาน</Link></div>
+                                    <div className='text-xs'>ข้อมูลเมื่อ 1 ม.ค. 67</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='flex justify-center my-2'>
+                            <div className='flex justify-between h-1/4 border items-center w-4/5 rounded-md'>
+                                <div className='mx-2 my-2'>หัวหิน4</div>
+                                <div className='mx-2 my-2 flex flex-col items-center'>
+                                    <div ><Link className='no-underline' to={"#"}>ผลการดำเนินงาน</Link></div>
+                                    <div className='text-xs'>ข้อมูลเมื่อ 1 ม.ค. 67</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='flex justify-center my-2'>
+                            <div className='flex justify-between h-1/4 border items-center w-4/5 rounded-md'>
+                                <div className='mx-2 my-2'>ดำเนินสะดวก</div>
+                                <div className='mx-2 my-2 flex flex-col items-center'>
+                                    <div><Link className='no-underline' to={"#"}>ผลการดำเนินงาน</Link></div>
+                                    <div className='text-xs'>ข้อมูลเมื่อ 1 ม.ค. 67</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='flex justify-center my-2'>
+                            <div className='flex justify-between h-1/4 border items-center w-4/5 rounded-md'>
+                                <div className='mx-2 my-2'>โพธาราม</div>
+                                <div className='mx-2 my-2 flex flex-col items-center'>
+                                    <div ><Link className='no-underline' to={"#"}>ผลการดำเนินงาน</Link></div>
+                                    <div className='text-xs'>ข้อมูลเมื่อ 1 ม.ค. 67</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+
+                {/* <div className='d-flex justify-content-center align-items-center '>
                     <div className='d-flex'>
-                        <div className='table border' style={{  marginBottom: "1%", padding: "1%", borderRadius: "20px" }} >
+                        <div className='table-data' >
                             <table className='table'>
                                 <thead>
                                     <tr>
@@ -203,10 +510,11 @@ const Dashboard = () => {
                             }}
                         />
                     </div>
-                </div>
-
-
+                </div> */}
             </div>
+            <footer className='w-full h-8 bg-purple-300 flex justify-center'>
+                <div>COPY right 2023</div>
+            </footer>
         </div>
     )
 

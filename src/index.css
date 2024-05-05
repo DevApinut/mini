@@ -2,10 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components{
-  .pointer-menu{
-    @apply relative hover:cursor-pointer hover:bg-slate-200
+@layer components {
+  .pointer-menu {
+    @apply border mx-2 relative hover:cursor-pointer hover:bg-slate-200;
+    height: 20vh;
+    width: 20vw;
+    margin-bottom: 1%;
+    padding: 1%;
+    border-radius: 20px;
   }
+
+  .table-data {
+    @apply border;
+    margin-bottom: 1%;
+    padding: 1%;
+    border-radius: 20px;
+  }
+
+
+
 }
 
 body {
@@ -21,5 +36,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-
