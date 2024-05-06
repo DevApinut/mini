@@ -3,6 +3,8 @@ import { Bar, Pie, Line } from "react-chartjs-2";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import '../../../CSS/Dashboard.CSS'
 import { Link } from 'react-router-dom';
+import NavBar1 from '../Navbar/Navbar1'
+
 
 
 
@@ -20,6 +22,8 @@ const Dashboard = () => {
     }
     return (
         <div className='container'>
+            <NavBar1/>
+
             <div className='text-center'>
                 <h3>DashBoard</h3>
             </div>

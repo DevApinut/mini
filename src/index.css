@@ -18,9 +18,49 @@
     padding: 1%;
     border-radius: 20px;
   }
+  
+  .BarMenu {
+    @apply mx-2 px-1 text-white hover:text-black hover:bg-white hover:cursor-pointer hover:rounded text-center;    
+  }
+
+  .hamburger{  
+    display: none;
+  }
+
+  .Barul{
+    @apply flex justify-center m-0 items-center;
+  }
+  .subheadMenubarlogin{
+    @apply flex justify-center;
+  }
+
+  
+
+  @media only screen and (max-width: 900px) {
+    .hamburger{  
+      display: flex;
+    }
+
+    .headMenubar {
+      @apply flex flex-col absolute w-full border h-auto bg-white left-0 top-16 z-40 bg-slate-100 ;    
+    }
+    .Barul{
+      @apply flex flex-col w-full  p-0;
+    }
+    .BarMenu{
+      @apply text-black w-56  text-left  w-full my-2;  
+    }
+       
+    .subheadMenubarlogin {
+      @apply flex  justify-between z-50  bg-white my-2 w-full border rounded-xl;    
+    }
+    .login-reg{
+      @apply text-center border w-36 mx-2 rounded-xl
+    }
 
 
 
+  }
 }
 
 body {
