@@ -34,6 +34,13 @@
     @apply flex justify-center;
   }
 
+  .Subheader1{
+    @apply  border z-50 bg-slate-50 overflow-visible absolute top-6 w-56 rounded;
+  }
+  .Subheader2{
+    @apply absolute w-56 border left-52 top-3 rounded mx-2 bg-slate-50;
+  }
+
   
 
   @media only screen and (max-width: 900px) {
@@ -57,6 +64,13 @@
     .login-reg{
       @apply text-center border w-36 mx-2 rounded-xl
     }
+    .Subheader1{
+      @apply flex justify-center flex-col relative w-full;
+    }
+    .Subheader2{
+      @apply flex flex-col w-full relative m-0 left-0;
+    }
+
 
 
 

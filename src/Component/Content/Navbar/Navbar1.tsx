@@ -4,6 +4,7 @@ import { faBars, faPlay } from "@fortawesome/free-solid-svg-icons"
 const Navbar1 = () => {
     const dropdown = useRef<any>()
     const subdropdown = useRef<any>()
+    const subdropdown1 = useRef<any>()
     const [isOpen, setIsOpen] = useState(false)
     const [SubisOpen, setSubIsOpen] = useState([false, false])
 
@@ -26,11 +27,13 @@ const Navbar1 = () => {
     useEffect(() => {
         document.body.addEventListener('click', handle_outside)
         return () => document.body.removeEventListener('click', handle_outside)
-    }, [dropdown, isOpen, subdropdown])
+    }, [dropdown, isOpen, subdropdown, subdropdown1])
 
     const handle_outside = (event: any) => {
         if (dropdown.current && !dropdown.current.contains(event.target) &&
-            subdropdown.current && !subdropdown.current.contains(event.target)) {
+            subdropdown.current && !subdropdown.current.contains(event.target)
+            && subdropdown1.current && !subdropdown1.current.contains(event.target)
+        ) {
             setIsOpen(false);
             setSubIsOpen([false, false])
         }
@@ -72,11 +75,11 @@ const Navbar1 = () => {
                                     >
                                         รายงาน
                                     </div>
-                                    {isOpen && <div className=' border z-50 bg-slate-50 overflow-visible absolute top-6 w-56 rounded' ref={subdropdown}>
+                                    {isOpen && <div className='Subheader1' ref={subdropdown}>
                                         <div className="m-2 text-black hover:bg-slate-200 relative" onClick={() => sub_menu_data(0)}>
                                             PM CB 22 kV
                                             <FontAwesomeIcon icon={faPlay} className="text-slate-400 absolute right-0 top-1/4 text-sm" />
-                                            {SubisOpen[0] && <div className="absolute w-56 border left-52 top-3 rounded mx-2 bg-slate-50 "
+                                            {SubisOpen[0] && <div className="Subheader2" ref={subdropdown1}
                                             >
                                                 <div className="m-2 text-black hover:bg-slate-200 relative">ย่อย1.1</div>
                                                 <div className="m-2 text-black hover:bg-slate-200 relative">ย่อย1.1</div>
@@ -86,7 +89,7 @@ const Navbar1 = () => {
                                         <div className="m-2 text-black hover:bg-slate-200 relative" onClick={() => sub_menu_data(1)}>
                                             PM CB 115 kV
                                             <FontAwesomeIcon icon={faPlay} className="text-slate-400 absolute right-0 top-1/4 text-sm" />
-                                            {SubisOpen[1] && <div className="absolute w-56 border left-52 top-3 rounded mx-2 bg-slate-50 "
+                                            {SubisOpen[1] && <div className="Subheader2"
                                             >
                                                 <div className="m-2 text-black hover:bg-slate-200 relative">ย่อย1.2</div>
                                                 <div className="m-2 text-black hover:bg-slate-200 relative">ย่อย1.2</div>
