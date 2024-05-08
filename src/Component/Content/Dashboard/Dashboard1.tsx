@@ -4,6 +4,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import '../../../CSS/Dashboard.CSS'
 import { Link } from 'react-router-dom';
 import NavBar1 from '../Navbar/Navbar1'
+import Footer from '../Footer/Footer';
 
 
 
@@ -516,9 +517,9 @@ const Dashboard = () => {
                     </div>
                 </div> */}
             </div>
-            <footer className='w-full h-8 bg-purple-300 flex justify-center'>
-                <div>COPY right 2023</div>
-            </footer>
+
+            <Footer/>
+            
         </div>
     )
 

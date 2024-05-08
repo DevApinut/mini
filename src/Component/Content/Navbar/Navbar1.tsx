@@ -1,12 +1,17 @@
 import { useReducer, useEffect, useRef, useState } from "react"
+import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faPlay } from "@fortawesome/free-solid-svg-icons"
 const Navbar1 = () => {
     const dropdown = useRef<any>()
     const subdropdown = useRef<any>()
-    const subdropdown1 = useRef<any>()
+    
+
     const [isOpen, setIsOpen] = useState(false)
     const [SubisOpen, setSubIsOpen] = useState([false, false])
+    const [MenuresponsiveisOpen, setMenuresponsiveisOpen] = useState(false)
+
+    let menu_response = MenuresponsiveisOpen ? "toggle-active" : "active"
 
     const initials = {
         dropdows_report: "hidden"
@@ -27,15 +32,15 @@ const Navbar1 = () => {
     useEffect(() => {
         document.body.addEventListener('click', handle_outside)
         return () => document.body.removeEventListener('click', handle_outside)
-    }, [dropdown, isOpen, subdropdown, subdropdown1])
+    }, [dropdown, isOpen, subdropdown])
 
     const handle_outside = (event: any) => {
         if (dropdown.current && !dropdown.current.contains(event.target) &&
             subdropdown.current && !subdropdown.current.contains(event.target)
-            && subdropdown1.current && !subdropdown1.current.contains(event.target)
         ) {
             setIsOpen(false);
             setSubIsOpen([false, false])
+            setMenuresponsiveisOpen(false)
         }
     }
     const Active_class = () => {
@@ -47,7 +52,6 @@ const Navbar1 = () => {
         const newvalue = !SubisOpen[number]
         Array_data[number] = newvalue;
         setSubIsOpen(Array_data)
-
     }
 
     return (
@@ -64,11 +68,11 @@ const Navbar1 = () => {
 
                     </div>
 
-                    <div className=" flex justify-between w-full items-center headMenubar">
-                        <ul className="Barul h-full">
-                            <li className="BarMenu">หน้าหลัก</li>
-                            <li className="BarMenu">เกี่ยวกับฉัน</li>
-                            <li className="BarMenu relative">
+                    <div className={`${menu_response}`}>
+                        <div className="Barul h-full">
+                            <Link to={'/Homepage'} className="BarMenu no-underline">หน้าหลัก</Link>
+                            <Link to={'/Homepage'} className="BarMenu no-underline">เกี่ยวกับฉัน</Link>
+                            <div className="BarMenu relative">
                                 <div className="flex justify-center flex-col hover:cursor-pointer">
                                     <div onClick={(e) => Active_class()}
                                         ref={dropdown}
@@ -76,18 +80,18 @@ const Navbar1 = () => {
                                         รายงาน
                                     </div>
                                     {isOpen && <div className='Subheader1' ref={subdropdown}>
-                                        <div className="m-2 text-black hover:bg-slate-200 relative" onClick={() => sub_menu_data(0)}>
-                                            PM CB 22 kV
+                                        <div className="m-2 text-black hover:bg-slate-200 relative" >
+                                            <div onClick={() => sub_menu_data(0)}>PM CB 22 kV</div>
                                             <FontAwesomeIcon icon={faPlay} className="text-slate-400 absolute right-0 top-1/4 text-sm" />
-                                            {SubisOpen[0] && <div className="Subheader2" ref={subdropdown1}
+                                            {SubisOpen[0] && <div className="Subheader2"
                                             >
                                                 <div className="m-2 text-black hover:bg-slate-200 relative">ย่อย1.1</div>
                                                 <div className="m-2 text-black hover:bg-slate-200 relative">ย่อย1.1</div>
                                                 <div className="m-2 text-black hover:bg-slate-200 relative">ย่อย1.1</div>
                                             </div>}
                                         </div>
-                                        <div className="m-2 text-black hover:bg-slate-200 relative" onClick={() => sub_menu_data(1)}>
-                                            PM CB 115 kV
+                                        <div className="m-2 text-black hover:bg-slate-200 relative">
+                                            <div onClick={() => sub_menu_data(1)}>PM CB 115 kV</div>
                                             <FontAwesomeIcon icon={faPlay} className="text-slate-400 absolute right-0 top-1/4 text-sm" />
                                             {SubisOpen[1] && <div className="Subheader2"
                                             >
@@ -97,14 +101,14 @@ const Navbar1 = () => {
                                             </div>}
                                         </div>
                                         <div className="m-2 text-black hover:bg-slate-200 relative">
-                                            PM Power Transformer
-                                            <FontAwesomeIcon icon={faPlay} className="text-slate-400 absolute right-0 top-1/4 text-sm" />
+                                            <Link to={'/Dashboard'} className="no-underline text-black">DashBoard</Link>
+                                            {/* <FontAwesomeIcon icon={faPlay} className="text-slate-400 absolute right-0 top-1/4 text-sm" /> */}
                                         </div>
                                     </div>}
 
                                 </div>
-                            </li>
-                        </ul>
+                            </div>
+                        </div>
 
                         <div className="subheadMenubarlogin">
                             <div className="BarMenu login-reg">ลงชื่อเข้าใช้</div>
@@ -117,7 +121,10 @@ const Navbar1 = () => {
 
 
 
-                <FontAwesomeIcon icon={faBars} className="border text-3xl text-slate-50 p-2 rounded hover:cursor-pointer hover:text-slate-950 hover:bg-white hamburger" />
+                <FontAwesomeIcon icon={faBars} 
+                className="border text-3xl text-slate-50 p-2 rounded hover:cursor-pointer hover:text-slate-950 hover:bg-white hamburger" 
+                onClick={(e)=>{setMenuresponsiveisOpen(!MenuresponsiveisOpen)}}
+                />
 
 
 

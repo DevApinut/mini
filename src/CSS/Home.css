@@ -1,0 +1,105 @@
+@tailwind components;
+
+@layer components {
+    .Header-welcome {
+        @apply flex flex-col justify-center items-center w-full mt-4
+    }
+
+    .subHeader-welcome1 {
+        @apply text-2xl;
+        position: relative;
+        color: hsl(309, 8%, 51%);        
+        font-weight: bold !important;
+        font-family: "Anonymous Pro", monospace !important;
+        letter-spacing: 1px !important;        
+        overflow: hidden;
+        border-right: 2px solid hsl(0, 0%, 80%);
+        white-space: nowrap;
+        animation: typewriter 4s steps(44) 1s 1 normal both,
+        blinkTextCursor 500ms infinite;
+    }
+    .subHeader-welcome1:hover {
+        @apply cursor-pointer;
+        animation: pulse 2s infinite;
+        
+    }
+
+    .subHeader-welcome {
+        @apply text-sm
+    }
+
+    .Header-news {
+        @apply flex my-5 
+    }
+
+    .subHeader-news {
+        @apply mx-3  p-3 
+    }
+    .subHeader-news:hover {
+        @apply mx-3 border-b-8 border-y-lime-500 cursor-pointer
+    }
+    .container-news{
+        @apply flex 
+    }
+
+    .content-news{
+        @apply border w-1/4 h-80 my-3 rounded-lg mx-3
+    }
+    .sub-content-news{
+       @apply my-3 h-3/4 cursor-pointer 
+    }
+    .image-hover:hover{
+        animation: pulse-img 2s infinite; 
+        overflow: hidden;
+    }
+
+
+    .Head_news{
+        @apply text-lg
+    }
+    
+
+    
+
+    @keyframes typewriter {
+        from {
+            width: 0;
+        }
+
+        to {
+            width: 485px;
+        }
+    }
+
+    @keyframes blinkTextCursor {
+        from {
+            border-right-color: hsl(0, 0%, 80%);
+        }
+
+        to {
+            border-right-color: transparent;
+        }
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(0.95);
+            
+        }
+        100% {
+            transform: scale(1);            
+        }
+    }
+    @keyframes pulse-img {
+        0% {
+            transform: scale(1);            
+        }
+        100% {
+            transform: scale(1.05);            
+        }
+    }
+
+
+
+    @media only screen and (max-width: 900px) {}
+}
