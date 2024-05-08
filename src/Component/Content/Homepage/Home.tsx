@@ -10,8 +10,9 @@ import PM_substatin from '../../image/PM_substation.jpg'
 import PM_AVR from '../../image/PM_AVR.jpg'
 import Repair from '../../image/repair.jpg'
 import Powertransformer from '../../image/power_transformer.jpg'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Favicon from "react-favicon";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faPlay, faChevronRight } from "@fortawesome/free-solid-svg-icons"
@@ -20,6 +21,11 @@ const Home = () => {
 
     const navigate = useNavigate();
     const [Headernew, setHeadernew] = useState([true, false, false])
+    const [faviconUrl, setFaviconUrl] = useState("https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_favicon.png");
+
+    useEffect(() => {
+        document.title = 'หน้าหลัก | Home Page';
+    }, []);
 
     const class_select_border = Headernew.map((data: any, index: number) => {
         if (data == false) {
@@ -71,8 +77,9 @@ const Home = () => {
 
     return (
         <>
-            <Navbar1 />
 
+            <Favicon url={"https://ppim.pea.co.th/images/pea-logo.png"} />
+            <Navbar1 />
             <div className="container">
                 <Slide >
                     {slideImages.map((slideImage, index) => (
