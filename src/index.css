@@ -5,6 +5,7 @@
 @import '../src/CSS/Navbar.css';
 @import '../src/CSS/Footer.css';
 @import '../src/CSS/Home.css';
+@import '../src/CSS/Login.css';
 
 body {
   margin: 0;

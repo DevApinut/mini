@@ -1,6 +1,12 @@
 @tailwind components;
 
 @layer components {
+    .container-class-view {
+       
+        height: 100vh;
+
+    }
+    
     .Header-welcome {
         @apply flex flex-col justify-center items-center w-full mt-4
     }

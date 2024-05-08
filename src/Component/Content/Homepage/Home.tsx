@@ -12,7 +12,7 @@ import Repair from '../../image/repair.jpg'
 import Powertransformer from '../../image/power_transformer.jpg'
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Favicon from "react-favicon";
+
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faPlay, faChevronRight } from "@fortawesome/free-solid-svg-icons"
@@ -21,7 +21,6 @@ const Home = () => {
 
     const navigate = useNavigate();
     const [Headernew, setHeadernew] = useState([true, false, false])
-    const [faviconUrl, setFaviconUrl] = useState("https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_favicon.png");
 
     useEffect(() => {
         document.title = 'หน้าหลัก | Home Page';
@@ -77,249 +76,257 @@ const Home = () => {
 
     return (
         <>
+            <div className="container h-screen ">
 
-            <Favicon url={"https://ppim.pea.co.th/images/pea-logo.png"} />
-            <Navbar1 />
-            <div className="container">
-                <Slide >
-                    {slideImages.map((slideImage, index) => (
-                        <div key={index}>
-                            <div style={{ ...divStyle, 'backgroundImage': `url(${slideImage.url})` }} >
-                                {/* <span style={spanStyle}>{slideImage.caption}</span> */}
-                            </div>
+                <Navbar1 />
+                <div className="container-class-view mt-2">
+                    <div className="container ">
+                        <Slide >
+                            {slideImages.map((slideImage, index) => (
+                                <div key={index}>
+                                    <div style={{ ...divStyle, 'backgroundImage': `url(${slideImage.url})` }} >
+                                        {/* <span style={spanStyle}>{slideImage.caption}</span> */}
+                                    </div>
+                                </div>
+                            ))}
+                        </Slide>
+                        <div className="Header-welcome">
+                            <h1 className="subHeader-welcome1">แผนกสวิตช์เกียร์และหม้อแปลงไฟฟ้ากำลัง</h1>
+                            <div className="subHeader-welcome2">การไฟฟ้าส่วนภูมิภาค เขต 1 (ภาคใต้) จังหวัดเพชรบุรี</div>
                         </div>
-                    ))}
-                </Slide>
-                <div className="Header-welcome">
-                    <h1 className="subHeader-welcome1">แผนกสวิตช์เกียร์และหม้อแปลงไฟฟ้ากำลัง</h1>
-                    <div className="subHeader-welcome2">การไฟฟ้าส่วนภูมิภาค เขต 1 (ภาคใต้) จังหวัดเพชรบุรี</div>
-                </div>
-                <div>
-                    <div className="Header-news">
-                        <div className={`subHeader-news ${class_select_border[0]}`} onClick={(e) => { handle_select_header_news(0) }}>ภาพการดำเนินงาน</div>
-                        <div className={`subHeader-news ${class_select_border[1]}`} onClick={(e) => { handle_select_header_news(1) }}>ภาพกิจกรรมเพื่อสังคม</div>
-                        <div className={`subHeader-news ${class_select_border[2]}`} onClick={(e) => { handle_select_header_news(2) }}>ผลงาน/รางวัลในแผนก</div>
+                        <div>
+                            <div className="Header-news">
+                                <div className={`subHeader-news ${class_select_border[0]}`} onClick={(e) => { handle_select_header_news(0) }}>ภาพการดำเนินงาน</div>
+                                <div className={`subHeader-news ${class_select_border[1]}`} onClick={(e) => { handle_select_header_news(1) }}>ภาพกิจกรรมเพื่อสังคม</div>
+                                <div className={`subHeader-news ${class_select_border[2]}`} onClick={(e) => { handle_select_header_news(2) }}>ผลงาน/รางวัลในแผนก</div>
+                            </div>
+                            {Headernew[0] && <div className="container-news relative">
+                                <div className="content-news ">
+                                    <div className="sub-content-news">
+                                        <div className="h-full">
+                                            <img src={PM_substatin} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
+                                        </div>
+                                        <div className="flex flex-col mx-2">
+                                            <div className="Head_news">
+                                                งานบำรุงรักษาสถานีประจำปี 2567
+                                            </div>
+                                            <div className="flex justify-between my-2">
+                                                <div><Link to={"#"} className="no-underline text-slate-950 hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50 ">อ่านรายระเอียด...</Link></div>
+                                                <div className="text-sm ">ข้อมูล 8 พ.ค. 67</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="content-news ">
+                                    <div className="sub-content-news">
+                                        <div className="h-full">
+                                            <img src={PM_AVR} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
+                                        </div>
+                                        <div className="flex flex-col mx-2">
+                                            <div className="Head_news">
+                                                งานบำรุงรักษา AVR ประจำปี 2567
+                                            </div>
+                                            <div className="flex justify-between my-2">
+                                                <div><Link to={"#"} className="no-underline text-slate-950 hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50 ">อ่านรายระเอียด...</Link></div>
+                                                <div className="text-sm ">ข้อมูล 8 พ.ค. 67</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="content-news ">
+                                    <div className="sub-content-news">
+                                        <div className="h-full">
+                                            <img src={Repair} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
+                                        </div>
+                                        <div className="flex flex-col mx-2">
+                                            <div className="Head_news">
+                                                งานซ่อมแซมเเก้ไขอุปกรณ์ชำรุด
+                                            </div>
+                                            <div className="flex justify-between my-2">
+                                                <div><Link to={"#"} className="no-underline text-slate-950 hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50 ">อ่านรายระเอียด...</Link></div>
+                                                <div className="text-sm ">ข้อมูล 8 พ.ค. 67</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="content-news ">
+                                    <div className="sub-content-news">
+                                        <div className="h-full">
+                                            <img src={Powertransformer} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
+                                        </div>
+                                        <div className="flex flex-col mx-2">
+                                            <div className="Head_news">
+                                                ซ่อมรั่วหม้อแปลงไฟฟ้ากำลัง
+                                            </div>
+                                            <div className="flex justify-between my-2">
+                                                <div><Link to={"#"} className="no-underline text-slate-950 hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50 ">อ่านรายระเอียด...</Link></div>
+                                                <div className="text-sm ">ข้อมูล 8 พ.ค. 67</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="absolute right-0 bottom-1/2 ms-5">
+                                    <FontAwesomeIcon icon={faChevronRight}
+                                        className="border font-bold text-slate-950 bg-slate-50 p-2 rounded-full hover:cursor-pointer hover:text-slate-50 hover:bg-black"
+                                        onClick={(e) => { }}
+                                    />
+                                </div>
+                            </div>}
+                            {Headernew[1] && <div className="container-news relative">
+                                <div className="content-news ">
+                                    <div className="sub-content-news">
+                                        <div className="h-full">
+                                            <img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSN6mJjkb4rTsVlefy0lZm5v_Xg3-HGGQtxzvPHFjBNeA&s'} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
+                                        </div>
+                                        <div className="flex flex-col mx-2">
+                                            <div className="Head_news">
+                                                กิจกรรมปลูกป่า
+                                            </div>
+                                            <div className="flex justify-between my-2">
+                                                <div><Link to={"#"} className="no-underline text-slate-950 hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50 ">อ่านรายระเอียด...</Link></div>
+                                                <div className="text-sm ">ข้อมูล 8 พ.ค. 67</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="content-news ">
+                                    <div className="sub-content-news">
+                                        <div className="h-full">
+                                            <img src={'https://img.salehere.co.th/p/1200x0/2019/11/29/u6nxdo8goiwp.jpg'} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
+                                        </div>
+                                        <div className="flex flex-col mx-2">
+                                            <div className="Head_news">
+                                                กิจกรรมจิตรอาสา
+                                            </div>
+                                            <div className="flex justify-between my-2">
+                                                <div><Link to={"#"} className="no-underline text-slate-950 hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50 ">อ่านรายระเอียด...</Link></div>
+                                                <div className="text-sm ">ข้อมูล 8 พ.ค. 67</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="content-news ">
+                                    <div className="sub-content-news">
+                                        <div className="h-full">
+                                            <img src={'https://lh4.googleusercontent.com/proxy/TJU2n3r5pW1mki-TKGfhVIwHKQB4xc1Sk7we9Oevo3aQ_bN3s2B_wTu5g8nvm1y5ajcRBxQBrecHdJxf9YsI_lBB1ai-BT_qKswqQcMIyBSkgIb6eURkBE-lCTkw411P9L0meDBaRadnaQ'} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
+                                        </div>
+                                        <div className="flex flex-col mx-2">
+                                            <div className="Head_news">
+                                                กิจกรรม 5 ส
+                                            </div>
+                                            <div className="flex justify-between my-2">
+                                                <div><Link to={"#"} className="no-underline text-slate-950 hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50 ">อ่านรายระเอียด...</Link></div>
+                                                <div className="text-sm ">ข้อมูล 8 พ.ค. 67</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="content-news ">
+                                    <div className="sub-content-news">
+                                        <div className="h-full">
+                                            <img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0Fk1aLi2GJDMFqz8Ad0RaUFI7afpAKEbBeG9GRAER1A&s'} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
+                                        </div>
+                                        <div className="flex flex-col mx-2">
+                                            <div className="Head_news">
+                                                กิจกรรม Green office
+                                            </div>
+                                            <div className="flex justify-between my-2">
+                                                <div><Link to={"#"} className="no-underline text-slate-950 hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50 ">อ่านรายระเอียด...</Link></div>
+                                                <div className="text-sm ">ข้อมูล 8 พ.ค. 67</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="absolute right-0 bottom-1/2 ms-5">
+                                    <FontAwesomeIcon icon={faChevronRight}
+                                        className="border font-bold text-slate-950 bg-slate-50 p-2 rounded-full hover:cursor-pointer hover:text-slate-50 hover:bg-black"
+                                        onClick={(e) => { }}
+                                    />
+                                </div>
+                            </div>}
+                            {Headernew[2] && <div className="container-news relative">
+                                <div className="content-news ">
+                                    <div className="sub-content-news">
+                                        <div className="h-full">
+                                            <img src={PM_substatin} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
+                                        </div>
+                                        <div className="flex flex-col mx-2">
+                                            <div className="Head_news">
+                                                งานบำรุงรักษาสถานีประจำปี 2567
+                                            </div>
+                                            <div className="flex justify-between my-2">
+                                                <div><Link to={"#"} className="no-underline text-slate-950 hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50 ">อ่านรายระเอียด...</Link></div>
+                                                <div className="text-sm ">ข้อมูล 8 พ.ค. 67</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="content-news ">
+                                    <div className="sub-content-news">
+                                        <div className="h-full">
+                                            <img src={PM_AVR} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
+                                        </div>
+                                        <div className="flex flex-col mx-2">
+                                            <div className="Head_news">
+                                                งานบำรุงรักษา AVR ประจำปี 2567
+                                            </div>
+                                            <div className="flex justify-between my-2">
+                                                <div><Link to={"#"} className="no-underline text-slate-950 hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50 ">อ่านรายระเอียด...</Link></div>
+                                                <div className="text-sm ">ข้อมูล 8 พ.ค. 67</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="content-news ">
+                                    <div className="sub-content-news">
+                                        <div className="h-full">
+                                            <img src={Repair} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
+                                        </div>
+                                        <div className="flex flex-col mx-2">
+                                            <div className="Head_news">
+                                                งานซ่อมแซมเเก้ไขอุปกรณ์ชำรุด
+                                            </div>
+                                            <div className="flex justify-between my-2">
+                                                <div><Link to={"#"} className="no-underline text-slate-950 hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50 ">อ่านรายระเอียด...</Link></div>
+                                                <div className="text-sm ">ข้อมูล 8 พ.ค. 67</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="content-news ">
+                                    <div className="sub-content-news">
+                                        <div className="h-full">
+                                            <img src={Powertransformer} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
+                                        </div>
+                                        <div className="flex flex-col mx-2">
+                                            <div className="Head_news">
+                                                ซ่อมรั่วหม้อแปลงไฟฟ้ากำลัง
+                                            </div>
+                                            <div className="flex justify-between my-2">
+                                                <div><Link to={"#"} className="no-underline text-slate-950 hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50 ">อ่านรายระเอียด...</Link></div>
+                                                <div className="text-sm ">ข้อมูล 8 พ.ค. 67</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="absolute right-0 bottom-1/2 ms-5">
+                                    <FontAwesomeIcon icon={faChevronRight}
+                                        className="border font-bold text-slate-950 bg-slate-50 p-2 rounded-full hover:cursor-pointer hover:text-slate-50 hover:bg-black"
+                                        onClick={(e) => { }}
+                                    />
+                                </div>
+                            </div>}
+
+                        </div>
                     </div>
-                    {Headernew[0] && <div className="container-news relative">
-                        <div className="content-news ">
-                            <div className="sub-content-news">
-                                <div className="h-full">
-                                    <img src={PM_substatin} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
-                                </div>
-                                <div className="flex flex-col mx-2">
-                                    <div className="Head_news">
-                                        งานบำรุงรักษาสถานีประจำปี 2567
-                                    </div>
-                                    <div className="flex justify-between my-2">
-                                        <div><Link to={"#"} className="no-underline text-slate-950 hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50 ">อ่านรายระเอียด...</Link></div>
-                                        <div className="text-sm ">ข้อมูล 8 พ.ค. 67</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="content-news ">
-                            <div className="sub-content-news">
-                                <div className="h-full">
-                                    <img src={PM_AVR} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
-                                </div>
-                                <div className="flex flex-col mx-2">
-                                    <div className="Head_news">
-                                        งานบำรุงรักษา AVR ประจำปี 2567
-                                    </div>
-                                    <div className="flex justify-between my-2">
-                                        <div><Link to={"#"} className="no-underline text-slate-950 hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50 ">อ่านรายระเอียด...</Link></div>
-                                        <div className="text-sm ">ข้อมูล 8 พ.ค. 67</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="content-news ">
-                            <div className="sub-content-news">
-                                <div className="h-full">
-                                    <img src={Repair} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
-                                </div>
-                                <div className="flex flex-col mx-2">
-                                    <div className="Head_news">
-                                        งานซ่อมแซมเเก้ไขอุปกรณ์ชำรุด
-                                    </div>
-                                    <div className="flex justify-between my-2">
-                                        <div><Link to={"#"} className="no-underline text-slate-950 hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50 ">อ่านรายระเอียด...</Link></div>
-                                        <div className="text-sm ">ข้อมูล 8 พ.ค. 67</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="content-news ">
-                            <div className="sub-content-news">
-                                <div className="h-full">
-                                    <img src={Powertransformer} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
-                                </div>
-                                <div className="flex flex-col mx-2">
-                                    <div className="Head_news">
-                                        ซ่อมรั่วหม้อแปลงไฟฟ้ากำลัง
-                                    </div>
-                                    <div className="flex justify-between my-2">
-                                        <div><Link to={"#"} className="no-underline text-slate-950 hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50 ">อ่านรายระเอียด...</Link></div>
-                                        <div className="text-sm ">ข้อมูล 8 พ.ค. 67</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="absolute right-0 bottom-1/2 ms-5">
-                            <FontAwesomeIcon icon={faChevronRight}
-                                className="border font-bold text-slate-950 bg-slate-50 p-2 rounded-full hover:cursor-pointer hover:text-slate-50 hover:bg-black"
-                                onClick={(e) => { }}
-                            />
-                        </div>
-                    </div>}
-                    {Headernew[1] && <div className="container-news relative">
-                        <div className="content-news ">
-                            <div className="sub-content-news">
-                                <div className="h-full">
-                                    <img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSN6mJjkb4rTsVlefy0lZm5v_Xg3-HGGQtxzvPHFjBNeA&s'} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
-                                </div>
-                                <div className="flex flex-col mx-2">
-                                    <div className="Head_news">
-                                        กิจกรรมปลูกป่า
-                                    </div>
-                                    <div className="flex justify-between my-2">
-                                        <div><Link to={"#"} className="no-underline text-slate-950 hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50 ">อ่านรายระเอียด...</Link></div>
-                                        <div className="text-sm ">ข้อมูล 8 พ.ค. 67</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="content-news ">
-                            <div className="sub-content-news">
-                                <div className="h-full">
-                                    <img src={'https://img.salehere.co.th/p/1200x0/2019/11/29/u6nxdo8goiwp.jpg'} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
-                                </div>
-                                <div className="flex flex-col mx-2">
-                                    <div className="Head_news">
-                                        กิจกรรมจิตรอาสา
-                                    </div>
-                                    <div className="flex justify-between my-2">
-                                        <div><Link to={"#"} className="no-underline text-slate-950 hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50 ">อ่านรายระเอียด...</Link></div>
-                                        <div className="text-sm ">ข้อมูล 8 พ.ค. 67</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="content-news ">
-                            <div className="sub-content-news">
-                                <div className="h-full">
-                                    <img src={'https://lh4.googleusercontent.com/proxy/TJU2n3r5pW1mki-TKGfhVIwHKQB4xc1Sk7we9Oevo3aQ_bN3s2B_wTu5g8nvm1y5ajcRBxQBrecHdJxf9YsI_lBB1ai-BT_qKswqQcMIyBSkgIb6eURkBE-lCTkw411P9L0meDBaRadnaQ'} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
-                                </div>
-                                <div className="flex flex-col mx-2">
-                                    <div className="Head_news">
-                                        กิจกรรม 5 ส
-                                    </div>
-                                    <div className="flex justify-between my-2">
-                                        <div><Link to={"#"} className="no-underline text-slate-950 hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50 ">อ่านรายระเอียด...</Link></div>
-                                        <div className="text-sm ">ข้อมูล 8 พ.ค. 67</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="content-news ">
-                            <div className="sub-content-news">
-                                <div className="h-full">
-                                    <img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0Fk1aLi2GJDMFqz8Ad0RaUFI7afpAKEbBeG9GRAER1A&s'} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
-                                </div>
-                                <div className="flex flex-col mx-2">
-                                    <div className="Head_news">
-                                        กิจกรรม Green office
-                                    </div>
-                                    <div className="flex justify-between my-2">
-                                        <div><Link to={"#"} className="no-underline text-slate-950 hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50 ">อ่านรายระเอียด...</Link></div>
-                                        <div className="text-sm ">ข้อมูล 8 พ.ค. 67</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="absolute right-0 bottom-1/2 ms-5">
-                            <FontAwesomeIcon icon={faChevronRight}
-                                className="border font-bold text-slate-950 bg-slate-50 p-2 rounded-full hover:cursor-pointer hover:text-slate-50 hover:bg-black"
-                                onClick={(e) => { }}
-                            />
-                        </div>
-                    </div>}
-                    {Headernew[2] && <div className="container-news relative">
-                        <div className="content-news ">
-                            <div className="sub-content-news">
-                                <div className="h-full">
-                                    <img src={PM_substatin} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
-                                </div>
-                                <div className="flex flex-col mx-2">
-                                    <div className="Head_news">
-                                        งานบำรุงรักษาสถานีประจำปี 2567
-                                    </div>
-                                    <div className="flex justify-between my-2">
-                                        <div><Link to={"#"} className="no-underline text-slate-950 hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50 ">อ่านรายระเอียด...</Link></div>
-                                        <div className="text-sm ">ข้อมูล 8 พ.ค. 67</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="content-news ">
-                            <div className="sub-content-news">
-                                <div className="h-full">
-                                    <img src={PM_AVR} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
-                                </div>
-                                <div className="flex flex-col mx-2">
-                                    <div className="Head_news">
-                                        งานบำรุงรักษา AVR ประจำปี 2567
-                                    </div>
-                                    <div className="flex justify-between my-2">
-                                        <div><Link to={"#"} className="no-underline text-slate-950 hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50 ">อ่านรายระเอียด...</Link></div>
-                                        <div className="text-sm ">ข้อมูล 8 พ.ค. 67</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="content-news ">
-                            <div className="sub-content-news">
-                                <div className="h-full">
-                                    <img src={Repair} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
-                                </div>
-                                <div className="flex flex-col mx-2">
-                                    <div className="Head_news">
-                                        งานซ่อมแซมเเก้ไขอุปกรณ์ชำรุด
-                                    </div>
-                                    <div className="flex justify-between my-2">
-                                        <div><Link to={"#"} className="no-underline text-slate-950 hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50 ">อ่านรายระเอียด...</Link></div>
-                                        <div className="text-sm ">ข้อมูล 8 พ.ค. 67</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="content-news ">
-                            <div className="sub-content-news">
-                                <div className="h-full">
-                                    <img src={Powertransformer} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
-                                </div>
-                                <div className="flex flex-col mx-2">
-                                    <div className="Head_news">
-                                        ซ่อมรั่วหม้อแปลงไฟฟ้ากำลัง
-                                    </div>
-                                    <div className="flex justify-between my-2">
-                                        <div><Link to={"#"} className="no-underline text-slate-950 hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50 ">อ่านรายระเอียด...</Link></div>
-                                        <div className="text-sm ">ข้อมูล 8 พ.ค. 67</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="absolute right-0 bottom-1/2 ms-5">
-                            <FontAwesomeIcon icon={faChevronRight}
-                                className="border font-bold text-slate-950 bg-slate-50 p-2 rounded-full hover:cursor-pointer hover:text-slate-50 hover:bg-black"
-                                onClick={(e) => { }}
-                            />
-                        </div>
-                    </div>}
-
                 </div>
+
+                <Footer />
+
+
             </div>
-            <Footer />
+
+
         </>
     )
 }

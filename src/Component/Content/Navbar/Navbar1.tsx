@@ -2,10 +2,12 @@ import { useReducer, useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faPlay } from "@fortawesome/free-solid-svg-icons"
+import Favicon from "react-favicon";
+
 const Navbar1 = () => {
     const dropdown = useRef<any>()
     const subdropdown = useRef<any>()
-    
+
 
     const [isOpen, setIsOpen] = useState(false)
     const [SubisOpen, setSubIsOpen] = useState([false, false])
@@ -56,6 +58,7 @@ const Navbar1 = () => {
 
     return (
         <>
+            <Favicon url={"https://ppim.pea.co.th/images/pea-logo.png"} />
             <nav className="container flex justify-between  items-center top-0 relative p-2 bg-fuchsia-600">
                 <div className="w-full flex ">
                     <div className="flex justify-center flex-col items-center text-white font-bold">
@@ -111,7 +114,7 @@ const Navbar1 = () => {
                         </div>
 
                         <div className="subheadMenubarlogin">
-                            <div className="BarMenu login-reg">ลงชื่อเข้าใช้</div>
+                            <Link to={'/Login'} className="BarMenu login-reg no-underline">ลงชื่อเข้าใช้</Link>                            
                             <div className="BarMenu login-reg">สมัครสมาชิก</div>
                         </div>
 
@@ -121,9 +124,9 @@ const Navbar1 = () => {
 
 
 
-                <FontAwesomeIcon icon={faBars} 
-                className="border text-3xl text-slate-50 p-2 rounded hover:cursor-pointer hover:text-slate-950 hover:bg-white hamburger" 
-                onClick={(e)=>{setMenuresponsiveisOpen(!MenuresponsiveisOpen)}}
+                <FontAwesomeIcon icon={faBars}
+                    className="border text-3xl text-slate-50 p-2 rounded hover:cursor-pointer hover:text-slate-950 hover:bg-white hamburger"
+                    onClick={(e) => { setMenuresponsiveisOpen(!MenuresponsiveisOpen) }}
                 />
 
 

@@ -1,0 +1,35 @@
+@tailwind components;
+
+@layer components {
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    input{
+        @apply w-full rounded h-8
+    }
+   
+
+
+
+    .container-class {
+        @apply flex justify-center flex-col border ;
+        height: 100vh;
+
+    }
+    .window-login{
+        @apply flex justify-center items-center
+    }
+    .sub-window-login{
+        @apply w-1/4 h-auto border rounded-xl flex flex-col items-center justify-center bg-slate-200 
+    }
+
+    @media only screen and (max-width: 900px) {
+        .sub-window-login{
+            @apply w-full h-full
+        }
+    
+
+    }
+}
