@@ -6,16 +6,16 @@ import Footer from "../Footer/Footer";
 const Login = () => {
 
     useEffect(() => {
-        document.title = 'เข้าสู่ระบบ';
+        document.title = 'เข้าสู่ระบบ | Login';
     }, [])
     return (
         <>
 
 
-            <div className="container h-screen">
-                <div className="border container-class">
+            
+                <div className="border container-class flex flex-col">
                     <Navbar1 />
-                    <div className="h-full window-login">
+                    <div className="h-full window-login shrink container">
                         <div className="sub-window-login">
                             <div className="text-2xl my-4">ลงชื่อเข้าใช้</div>
                             <div>
@@ -34,7 +34,7 @@ const Login = () => {
                                 </div>
                                 <hr></hr>
                                 <div className="flex justify-center mb-10">
-                                    <Link to={"#"} className="mx-3 hover:text-yellow-50 
+                                    <Link to={"/Register"} className="mx-3 hover:text-yellow-50 
                                     hover:cursor-pointer no-underline">ลงทะเบียน</Link>
                                     <Link to={"#"} className="mx-3 hover:text-yellow-50 
                                     hover:cursor-pointer no-underline">ลืมรหัสผ่าน</Link>
@@ -47,7 +47,7 @@ const Login = () => {
                     <Footer />
                 </div>
 
-            </div>
+            
 
 
         </>

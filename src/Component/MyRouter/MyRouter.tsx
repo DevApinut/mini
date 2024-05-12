@@ -6,6 +6,7 @@ import Workpermit from "../Content/Webscraping/Workpermit"
 import Dashboard from "../Content/Dashboard/Dashboard1";
 import Home from "../Content/Homepage/Home";
 import Login from "../Content/Loginreg/Login";
+import Register from "../Content/Loginreg/Register";
 const Myrouter=()=>{  
     return(        
     <BrowserRouter> 
@@ -17,6 +18,7 @@ const Myrouter=()=>{
             <Route  path="/Dashboard" Component={Dashboard}/>            
             <Route  path="/Homepage" Component={Home}/>            
             <Route  path="/Login" Component={Login}/>            
+            <Route  path="/Register" Component={Register}/>            
         </Routes>       
     </BrowserRouter>
             

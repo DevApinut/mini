@@ -76,10 +76,9 @@ const Home = () => {
 
     return (
         <>
-            <div className="container h-screen ">
-
+            <div className="container flex flex-col ">
                 <Navbar1 />
-                <div className="container-class-view mt-2">
+                <div className="mt-2 shrink">
                     <div className="container ">
                         <Slide >
                             {slideImages.map((slideImage, index) => (
@@ -320,7 +319,6 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-
                 <Footer />
 
 

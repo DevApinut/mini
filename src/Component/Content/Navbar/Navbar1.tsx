@@ -114,8 +114,8 @@ const Navbar1 = () => {
                         </div>
 
                         <div className="subheadMenubarlogin">
-                            <Link to={'/Login'} className="BarMenu login-reg no-underline">ลงชื่อเข้าใช้</Link>                            
-                            <div className="BarMenu login-reg">สมัครสมาชิก</div>
+                            <Link to={'/Login'} className="BarMenu login-reg no-underline">ลงชื่อเข้าใช้</Link>  
+                            <Link to={'/Register'} className="BarMenu login-reg no-underline">สมัครสมาชิก</Link>
                         </div>
 
                     </div>

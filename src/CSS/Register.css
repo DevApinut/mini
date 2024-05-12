@@ -1,0 +1,61 @@
+@tailwind components;
+
+@layer components {
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    /* html{
+        @apply bg-green-500 ;
+        
+        
+    }
+
+    body{
+        @apply bg-green-500
+    } */
+    
+
+    input {
+        @apply w-full rounded h-8
+    }
+
+
+
+
+    .container-class {
+        @apply flex justify-center flex-col border;
+        height: 100vh;
+
+    }
+
+    .window-Register {
+        @apply flex justify-center items-center
+    }
+
+    .sub-window-Register {
+        @apply w-1/4 h-auto border rounded-xl flex flex-col items-center justify-center bg-slate-200
+    }
+    .input-register{
+        @apply mx-1
+    }
+    .group-for-input-tailwind{
+        @apply my-3 flex justify-center 
+    }
+    
+
+    @media only screen and (max-width: 900px) {
+        .input-register{
+            @apply mx-1
+        }
+        .group-for-input-tailwind{
+            @apply flex-col w-full
+        }
+        .sub-window-Register{
+            @apply w-full h-full
+        }
+    
+
+
+    }
+}
