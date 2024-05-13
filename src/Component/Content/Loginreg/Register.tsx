@@ -45,7 +45,7 @@ const Register = () => {
                             <div className="flex justify-center mb-10">
                                 <Link to={"/Login"} className="mx-3 hover:text-yellow-50 
                                     hover:cursor-pointer no-underline">เข้าสู่ระบบ</Link>
-                                <Link to={"#"} className="mx-3 hover:text-yellow-50 
+                                <Link to={"/Forgetpassword"} className="mx-3 hover:text-yellow-50 
                                     hover:cursor-pointer no-underline">ลืมรหัสผ่าน</Link>
                             </div>
 

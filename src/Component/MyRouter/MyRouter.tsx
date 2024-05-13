@@ -7,6 +7,7 @@ import Dashboard from "../Content/Dashboard/Dashboard1";
 import Home from "../Content/Homepage/Home";
 import Login from "../Content/Loginreg/Login";
 import Register from "../Content/Loginreg/Register";
+import Forgetpassword from "../Content/Loginreg/Forgetpassword";
 const Myrouter=()=>{  
     return(        
     <BrowserRouter> 
@@ -19,6 +20,7 @@ const Myrouter=()=>{
             <Route  path="/Homepage" Component={Home}/>            
             <Route  path="/Login" Component={Login}/>            
             <Route  path="/Register" Component={Register}/>            
+            <Route  path="/Forgetpassword" Component={Forgetpassword}/>            
         </Routes>       
     </BrowserRouter>
             

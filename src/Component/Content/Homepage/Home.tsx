@@ -47,7 +47,7 @@ const Home = () => {
         justifyContent: 'center',
         backgroundSize: '100% 100%',
         backgroundRepeat: "no-repeat",
-        height: '40vh',
+        height: '25vw',
         marginTop: "5px"
     }
     const slideImages = [
@@ -164,12 +164,13 @@ const Home = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="absolute right-0 bottom-1/2 ms-5">
+                                <div className="symbolofdata">
                                     <FontAwesomeIcon icon={faChevronRight}
                                         className="border font-bold text-slate-950 bg-slate-50 p-2 rounded-full hover:cursor-pointer hover:text-slate-50 hover:bg-black"
                                         onClick={(e) => { }}
                                     />
                                 </div>
+                                <div className="read_other">อ่านเพิ่มเติม</div>
                             </div>}
                             {Headernew[1] && <div className="container-news relative">
                                 <div className="content-news ">
@@ -236,12 +237,13 @@ const Home = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="absolute right-0 bottom-1/2 ms-5">
+                                <div className="symbolofdata">
                                     <FontAwesomeIcon icon={faChevronRight}
                                         className="border font-bold text-slate-950 bg-slate-50 p-2 rounded-full hover:cursor-pointer hover:text-slate-50 hover:bg-black"
                                         onClick={(e) => { }}
                                     />
                                 </div>
+                                <div className="read_other">อ่านเพิ่มเติม</div>
                             </div>}
                             {Headernew[2] && <div className="container-news relative">
                                 <div className="content-news ">
@@ -308,12 +310,14 @@ const Home = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="absolute right-0 bottom-1/2 ms-5">
+                                
+                                <div className="symbolofdata">
                                     <FontAwesomeIcon icon={faChevronRight}
                                         className="border font-bold text-slate-950 bg-slate-50 p-2 rounded-full hover:cursor-pointer hover:text-slate-50 hover:bg-black"
                                         onClick={(e) => { }}
                                     />
                                 </div>
+                                <div className="read_other">อ่านเพิ่มเติม</div>
                             </div>}
 
                         </div>

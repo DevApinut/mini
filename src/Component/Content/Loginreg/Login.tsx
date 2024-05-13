@@ -36,7 +36,7 @@ const Login = () => {
                                 <div className="flex justify-center mb-10">
                                     <Link to={"/Register"} className="mx-3 hover:text-yellow-50 
                                     hover:cursor-pointer no-underline">ลงทะเบียน</Link>
-                                    <Link to={"#"} className="mx-3 hover:text-yellow-50 
+                                    <Link to={"/Forgetpassword"} className="mx-3 hover:text-yellow-50 
                                     hover:cursor-pointer no-underline">ลืมรหัสผ่าน</Link>
                                 </div>
 

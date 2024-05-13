@@ -8,13 +8,21 @@
 @import '../src/CSS/Login.css';
 @import '../src/CSS/Register.css';
 
+html{
+  @apply h-full flex flex-col
+}
+
 body {
+  @apply  h-full;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+#root{
+  @apply h-full flex flex-col 
 }
 
 code {
