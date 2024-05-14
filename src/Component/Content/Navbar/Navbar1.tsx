@@ -74,7 +74,7 @@ const Navbar1 = () => {
                     <div className={`${menu_response}`}>
                         <div className="Barul h-full">
                             <Link to={'/Homepage'} className="BarMenu no-underline">หน้าหลัก</Link>
-                            <Link to={'/Homepage'} className="BarMenu no-underline">เกี่ยวกับฉัน</Link>
+                            <Link to={'/About'} className="BarMenu no-underline">เกี่ยวกับฉัน</Link>
                             <div className="BarMenu relative">
                                 <div className="flex justify-center flex-col hover:cursor-pointer">
                                     <div onClick={(e) => Active_class()}

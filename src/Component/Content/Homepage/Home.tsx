@@ -99,13 +99,13 @@ const Home = () => {
                                 <div className={`subHeader-news ${class_select_border[1]}`} onClick={(e) => { handle_select_header_news(1) }}>ภาพกิจกรรมเพื่อสังคม</div>
                                 <div className={`subHeader-news ${class_select_border[2]}`} onClick={(e) => { handle_select_header_news(2) }}>ผลงาน/รางวัลในแผนก</div>
                             </div>
-                            {Headernew[0] && <div className="container-news relative">
-                                <div className="content-news ">
+                            {Headernew[0] && <div className="container-news relative flex justify-center">
+                                <div className="content-news border">
                                     <div className="sub-content-news">
-                                        <div className="h-full">
+                                        <div className="h-44">
                                             <img src={PM_substatin} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
                                         </div>
-                                        <div className="flex flex-col mx-2">
+                                        <div className="flex flex-col mx-2 h-2/4 ">
                                             <div className="Head_news">
                                                 งานบำรุงรักษาสถานีประจำปี 2567
                                             </div>
@@ -118,7 +118,7 @@ const Home = () => {
                                 </div>
                                 <div className="content-news ">
                                     <div className="sub-content-news">
-                                        <div className="h-full">
+                                        <div className="h-44">
                                             <img src={PM_AVR} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
                                         </div>
                                         <div className="flex flex-col mx-2">
@@ -134,7 +134,7 @@ const Home = () => {
                                 </div>
                                 <div className="content-news ">
                                     <div className="sub-content-news">
-                                        <div className="h-full">
+                                        <div className="h-44">
                                             <img src={Repair} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
                                         </div>
                                         <div className="flex flex-col mx-2">
@@ -150,7 +150,7 @@ const Home = () => {
                                 </div>
                                 <div className="content-news ">
                                     <div className="sub-content-news">
-                                        <div className="h-full">
+                                        <div className="h-44">
                                             <img src={Powertransformer} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
                                         </div>
                                         <div className="flex flex-col mx-2">
@@ -172,10 +172,10 @@ const Home = () => {
                                 </div>
                                 <div className="read_other">อ่านเพิ่มเติม</div>
                             </div>}
-                            {Headernew[1] && <div className="container-news relative">
+                            {Headernew[1] && <div className="container-news relative flex justify-center">
                                 <div className="content-news ">
                                     <div className="sub-content-news">
-                                        <div className="h-full">
+                                        <div className="h-44">
                                             <img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSN6mJjkb4rTsVlefy0lZm5v_Xg3-HGGQtxzvPHFjBNeA&s'} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
                                         </div>
                                         <div className="flex flex-col mx-2">
@@ -191,7 +191,7 @@ const Home = () => {
                                 </div>
                                 <div className="content-news ">
                                     <div className="sub-content-news">
-                                        <div className="h-full">
+                                        <div className="h-44">
                                             <img src={'https://img.salehere.co.th/p/1200x0/2019/11/29/u6nxdo8goiwp.jpg'} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
                                         </div>
                                         <div className="flex flex-col mx-2">
@@ -207,7 +207,7 @@ const Home = () => {
                                 </div>
                                 <div className="content-news ">
                                     <div className="sub-content-news">
-                                        <div className="h-full">
+                                        <div className="h-44">
                                             <img src={'https://lh4.googleusercontent.com/proxy/TJU2n3r5pW1mki-TKGfhVIwHKQB4xc1Sk7we9Oevo3aQ_bN3s2B_wTu5g8nvm1y5ajcRBxQBrecHdJxf9YsI_lBB1ai-BT_qKswqQcMIyBSkgIb6eURkBE-lCTkw411P9L0meDBaRadnaQ'} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
                                         </div>
                                         <div className="flex flex-col mx-2">
@@ -223,7 +223,7 @@ const Home = () => {
                                 </div>
                                 <div className="content-news ">
                                     <div className="sub-content-news">
-                                        <div className="h-full">
+                                        <div className="h-44">
                                             <img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0Fk1aLi2GJDMFqz8Ad0RaUFI7afpAKEbBeG9GRAER1A&s'} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
                                         </div>
                                         <div className="flex flex-col mx-2">
@@ -245,10 +245,10 @@ const Home = () => {
                                 </div>
                                 <div className="read_other">อ่านเพิ่มเติม</div>
                             </div>}
-                            {Headernew[2] && <div className="container-news relative">
+                            {Headernew[2] && <div className="container-news relative flex justify-center">
                                 <div className="content-news ">
                                     <div className="sub-content-news">
-                                        <div className="h-full">
+                                        <div className="h-44">
                                             <img src={PM_substatin} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
                                         </div>
                                         <div className="flex flex-col mx-2">
@@ -264,7 +264,7 @@ const Home = () => {
                                 </div>
                                 <div className="content-news ">
                                     <div className="sub-content-news">
-                                        <div className="h-full">
+                                        <div className="h-44">
                                             <img src={PM_AVR} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
                                         </div>
                                         <div className="flex flex-col mx-2">
@@ -280,7 +280,7 @@ const Home = () => {
                                 </div>
                                 <div className="content-news ">
                                     <div className="sub-content-news">
-                                        <div className="h-full">
+                                        <div className="h-44">
                                             <img src={Repair} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
                                         </div>
                                         <div className="flex flex-col mx-2">
@@ -296,7 +296,7 @@ const Home = () => {
                                 </div>
                                 <div className="content-news ">
                                     <div className="sub-content-news">
-                                        <div className="h-full">
+                                        <div className="h-44">
                                             <img src={Powertransformer} width={"100%"} height={"100%"} className="border h-full image-hover"></img>
                                         </div>
                                         <div className="flex flex-col mx-2">

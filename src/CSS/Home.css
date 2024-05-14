@@ -49,10 +49,10 @@
     }
 
     .content-news{
-        @apply border w-1/4 h-80 my-3 rounded-lg mx-3
+        @apply border w-1/4  my-3 rounded-lg mx-3
     }
     .sub-content-news{
-       @apply my-3 h-3/4 cursor-pointer 
+       @apply my-3 cursor-pointer h-full m-0
     }
     .image-hover:hover{
         animation: pulse-img 2s infinite; 
