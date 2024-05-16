@@ -8,7 +8,7 @@ import Home from "../Content/Homepage/Home";
 import Login from "../Content/Loginreg/Login";
 import Register from "../Content/Loginreg/Register";
 import Forgetpassword from "../Content/Loginreg/Forgetpassword";
-import Aboutme from "../Content/Homepage/Aboutme";
+import JobDescription from "../Content/Homepage/JobDescription";
 const Myrouter=()=>{  
     return(        
     <BrowserRouter> 
@@ -22,7 +22,7 @@ const Myrouter=()=>{
             <Route  path="/Login" Component={Login}/>            
             <Route  path="/Register" Component={Register}/>            
             <Route  path="/Forgetpassword" Component={Forgetpassword}/>            
-            <Route  path="/About" Component={Aboutme}/>            
+            <Route  path="/JobDescription" Component={JobDescription}/>            
         </Routes>       
     </BrowserRouter>
             

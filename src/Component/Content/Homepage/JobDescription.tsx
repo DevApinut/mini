@@ -3,6 +3,7 @@ import Footer from "../Footer/Footer";
 import { useEffect, useReducer } from "react";
 import ReactQuill from "react-quill"
 import "react-quill/dist/quill.snow.css"
+import { Link } from "react-router-dom";
 
 const Aboutme = () => {
    useEffect(() => {
@@ -68,6 +69,9 @@ const Aboutme = () => {
          <Navbar1 />
          <div className="grow container flex justify-center items-center flex-col">
             <div>เกี่ยวกับฉัน</div>
+            <div>
+               <Link to={'#'}></Link>
+            </div>
             <div className="flex flex-col justify-center items-center" >
                <ReactQuill
                   value={state.content_jobdescription}

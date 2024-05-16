@@ -5,18 +5,23 @@ import { faBars, faPlay } from "@fortawesome/free-solid-svg-icons"
 import Favicon from "react-favicon";
 
 const Navbar1 = () => {
+
+
+    //--------------------สำหรับ dropdown รายงาน-----------------------------
     const dropdown = useRef<any>()
+    const dropdown2 = useRef<any>()
     const subdropdown = useRef<any>()
+    const hamburger = useRef<any>()
 
-
-    const [isOpen, setIsOpen] = useState(false)
+    //--------------------สำหรับ dropdown รายงาน-----------------------------
+    const [isOpen, setIsOpen] = useState([false, false])
     const [SubisOpen, setSubIsOpen] = useState([false, false])
     const [MenuresponsiveisOpen, setMenuresponsiveisOpen] = useState(false)
 
     let menu_response = MenuresponsiveisOpen ? "toggle-active" : "active"
 
     const initials = {
-        dropdows_report: "hidden"
+        dropdows_report: "hidden",
     }
 
     const reducer = (state: any, action: any) => {
@@ -34,19 +39,55 @@ const Navbar1 = () => {
     useEffect(() => {
         document.body.addEventListener('click', handle_outside)
         return () => document.body.removeEventListener('click', handle_outside)
-    }, [dropdown, isOpen, subdropdown])
+    }, [dropdown, dropdown2, isOpen, subdropdown])
 
     const handle_outside = (event: any) => {
-        if (dropdown.current && !dropdown.current.contains(event.target) &&
-            subdropdown.current && !subdropdown.current.contains(event.target)
-        ) {
-            setIsOpen(false);
-            setSubIsOpen([false, false])
-            setMenuresponsiveisOpen(false)
+        // const subdropdown_null = (subdropdown.current = null) ? true : false;
+
+
+        // console.log(dropdown.current)
+        // console.log(dropdown2.current)
+        // console.log(subdropdown.current)
+        // console.log(subdropdown_null)
+        if (!hamburger.current.contains(event.target)) {
+            if ((dropdown.current && !dropdown.current.contains(event.target)) &&
+                dropdown2.current && (!dropdown2.current.contains(event.target))) {
+                if (subdropdown.current != null) {
+                    if (!subdropdown.current.contains(event.target)) { 
+                        console.log("RR")                       
+                        setIsOpen([false, false]);
+                        setSubIsOpen([false, false])
+                        setMenuresponsiveisOpen(false)
+                    }else{
+                        
+                    }
+                }
+                else{                    
+                    setIsOpen([false, false]);
+                    setSubIsOpen([false, false])
+                    setMenuresponsiveisOpen(false)
+                }
+            }
         }
+
+        // else if(dropdown2.current && !dropdown2.current.contains(event.target)){
+        //     console.log("2")
+        //     setIsOpen([false, false]);
+        //     setSubIsOpen([false, false])
+        //     setMenuresponsiveisOpen(false)
+        // }else if((subdropdown.current && !subdropdown.current.contains(event.target)) ){
+        //     console.log("3")
+        //     setIsOpen([false, false]);
+        //     setSubIsOpen([false, false])
+        //     setMenuresponsiveisOpen(false)
+        // }
+
+
     }
-    const Active_class = () => {
-        setIsOpen(!isOpen);
+    const Active_class = (index: number) => {
+        let dropdown = [...isOpen.map((data: any) => false)]
+        dropdown[index] = !isOpen[index];
+        setIsOpen(dropdown);
         setSubIsOpen([false, false])
     }
     const sub_menu_data = (number: any) => {
@@ -74,15 +115,35 @@ const Navbar1 = () => {
                     <div className={`${menu_response}`}>
                         <div className="Barul h-full">
                             <Link to={'/Homepage'} className="BarMenu no-underline">หน้าหลัก</Link>
-                            <Link to={'/About'} className="BarMenu no-underline">เกี่ยวกับฉัน</Link>
+                            {/* <Link to={'/About'} className="BarMenu no-underline">เกี่ยวกับฉัน</Link> */}
+
                             <div className="BarMenu relative">
                                 <div className="flex justify-center flex-col hover:cursor-pointer">
-                                    <div onClick={(e) => Active_class()}
+                                    <div onClick={(e) => Active_class(0)}
+                                        ref={dropdown2}
+                                    >
+                                        เกี่ยวกับฉัน
+                                    </div>
+                                    {isOpen[0] && <div className='Subheader1' >
+                                        <div className="m-2 text-black hover:bg-slate-200 relative" >
+                                            <Link to={'/JobDescription'} className="mx-0 text-black no-underline">JobDescription</Link>
+                                        </div>
+                                        <div className="m-2 text-black hover:bg-slate-200 relative">
+                                            <div>บุคลากรในแผนก</div>
+                                        </div>
+                                    </div>}
+
+                                </div>
+                            </div>
+
+                            <div className="BarMenu relative">
+                                <div className="flex justify-center flex-col hover:cursor-pointer">
+                                    <div onClick={(e) => Active_class(1)}
                                         ref={dropdown}
                                     >
                                         รายงาน
                                     </div>
-                                    {isOpen && <div className='Subheader1' ref={subdropdown}>
+                                    {isOpen[1] && <div className='Subheader1' ref={subdropdown}>
                                         <div className="m-2 text-black hover:bg-slate-200 relative" >
                                             <div onClick={() => sub_menu_data(0)}>PM CB 22 kV</div>
                                             <FontAwesomeIcon icon={faPlay} className="text-slate-400 absolute right-0 top-1/4 text-sm" />
@@ -114,7 +175,7 @@ const Navbar1 = () => {
                         </div>
 
                         <div className="subheadMenubarlogin">
-                            <Link to={'/Login'} className="BarMenu login-reg no-underline">ลงชื่อเข้าใช้</Link>  
+                            <Link to={'/Login'} className="BarMenu login-reg no-underline">ลงชื่อเข้าใช้</Link>
                             <Link to={'/Register'} className="BarMenu login-reg no-underline">สมัครสมาชิก</Link>
                         </div>
 
@@ -127,6 +188,7 @@ const Navbar1 = () => {
                 <FontAwesomeIcon icon={faBars}
                     className="border text-3xl text-slate-50 p-2 rounded hover:cursor-pointer hover:text-slate-950 hover:bg-white hamburger"
                     onClick={(e) => { setMenuresponsiveisOpen(!MenuresponsiveisOpen) }}
+                    ref={hamburger}
                 />
 
 

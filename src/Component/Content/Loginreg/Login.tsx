@@ -10,9 +10,6 @@ const Login = () => {
     }, [])
     return (
         <>
-
-
-            
                 <div className="border container-class flex flex-col">
                     <Navbar1 />
                     <div className="h-full window-login shrink container">
