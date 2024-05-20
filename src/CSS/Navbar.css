@@ -57,7 +57,7 @@
         @apply flex flex-col w-full  p-0;
       }
       .BarMenu{
-        @apply text-black w-56  text-left  w-full my-2;  
+        @apply text-black  text-left  w-full my-2 h-auto;  
       }
          
       .subheadMenubarlogin {
@@ -67,7 +67,7 @@
         @apply text-center border w-36 mx-2 rounded-xl
       }
       .Subheader1{
-        @apply flex justify-center flex-col relative w-full;
+        @apply flex justify-center flex-col relative w-full top-0;
       }
       .Subheader2{
         @apply flex flex-col w-full relative m-0 left-0 ease-linear;

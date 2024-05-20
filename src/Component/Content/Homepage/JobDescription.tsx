@@ -14,8 +14,7 @@ const Aboutme = () => {
    const initials = {
       content_jobdescription: "",
       id: "",
-      button_active: false,
-      button_edit: false
+
    }
    const reducer = (state: any, action: any) => {
       switch (action.type) {
@@ -57,9 +56,6 @@ const Aboutme = () => {
    }
 
 
-   const button_submit = {
-      button: 1
-   };
 
    const onSubmit = () => {
 
@@ -68,7 +64,7 @@ const Aboutme = () => {
       <>
          <Navbar1 />
          <div className="grow container flex justify-center items-center flex-col">
-            <div>เกี่ยวกับฉัน</div>
+            <div>Job Description</div>
             <div>
                <Link to={'#'}></Link>
             </div>
@@ -101,22 +97,8 @@ const Aboutme = () => {
                </div>
                <div className="flex justify-center m-3">
                   <button
-                     className="btn btn-success mx-3"
-                     onClick={() => (button_submit.button = 1)}
-                     type="submit"
-                     name="btn1"
-                     value="1"
-                     disabled={state.button_active}
-                  >
-                     Add
-                  </button>
-                  <button
                      className="btn btn-warning mx-3"
-                     onClick={() => (button_submit.button = 2)}
                      type="submit"
-                     name="btn2"
-                     value="2"
-                     disabled={!state.button_active}
                   >
                      Update
                   </button>

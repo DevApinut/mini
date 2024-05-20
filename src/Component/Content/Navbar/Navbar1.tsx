@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faPlay } from "@fortawesome/free-solid-svg-icons"
 import Favicon from "react-favicon";
+import { ClassNames } from "@emotion/react";
 
 const Navbar1 = () => {
 
@@ -118,17 +119,17 @@ const Navbar1 = () => {
                             {/* <Link to={'/About'} className="BarMenu no-underline">เกี่ยวกับฉัน</Link> */}
 
                             <div className="BarMenu relative">
-                                <div className="flex justify-center flex-col hover:cursor-pointer">
-                                    <div onClick={(e) => Active_class(0)}
+                                <div className="flex justify-center flex-col hover:cursor-pointer h-auto">
+                                    <div onClick={(e) => Active_class(0)} className="my-0"
                                         ref={dropdown2}
                                     >
                                         เกี่ยวกับฉัน
                                     </div>
                                     {isOpen[0] && <div className='Subheader1' >
-                                        <div className="m-2 text-black hover:bg-slate-200 relative" >
+                                        <div className="m-2 text-black hover:bg-slate-200" >
                                             <Link to={'/JobDescription'} className="mx-0 text-black no-underline">JobDescription</Link>
                                         </div>
-                                        <div className="m-2 text-black hover:bg-slate-200 relative">
+                                        <div className="m-2 text-black hover:bg-slate-200">
                                             <div>บุคลากรในแผนก</div>
                                         </div>
                                     </div>}
