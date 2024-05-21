@@ -3,50 +3,19 @@ import Footer from "../Footer/Footer";
 import { useEffect, useReducer } from "react";
 import ReactQuill from "react-quill"
 import "react-quill/dist/quill.snow.css"
-import { Link } from "react-router-dom";
-import axios from "axios";
 
 const Aboutme = () => {
-
-   const GetDescription = () => {
-      axios.get(`${process.env.REACT_APP_API}/GetDescription`)
-         .then(result => {
-            console.log(result.data.res)
-            dispatch({
-               type: 'change_state',
-               payload: { name: 'content_jobdescription', value: result.data.res.Description }
-            })
-         })
-         .catch(err => { console.log(err.massage) })
-   }
-   const UpdateDescription = () => {
-      axios.post(`${process.env.REACT_APP_API}/Description`, { Description: state.content_jobdescription })
-         .then(result => {
-            alert('บันทึกข้อมูลสำเร็จ')
-            dispatch({
-               type: 'change_switch',
-               payload: { edit: state.button_edit }
-            })
-            GetDescription();
-         })
-         .catch(err => {
-            alert(err)
-         })
-   }
-
    useEffect(() => {
-      GetDescription()
-      document.title = 'ความรับผิดชอบ | Jobdescription'
+      document.title = 'หน้าที่ | Jobdescription'
    }, [])
 
 
    const initials = {
       content_jobdescription: "",
       id: "",
-      button_edit: false,
+      button_active: false,
+      button_edit: false
    }
-
-
    const reducer = (state: any, action: any) => {
       switch (action.type) {
          case 'change_state':
@@ -60,8 +29,6 @@ const Aboutme = () => {
       }
    }
    const [state, dispatch] = useReducer(reducer, initials)
-
-
 
 
    //// config quill
@@ -81,61 +48,39 @@ const Aboutme = () => {
       [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
       [{ 'font': [] }],
       [{ 'align': [] }],
-      ['link', 'image', 'video', 'formula'],
-      ['clean'],
 
-      
+      ['clean']
    ];
-
-
-
-
    const module = {
       toolbar: toolbarOptions
-
-
    }
 
-   const formats = [
-      'font', 'size',
-      'bold', 'italic', 'underline', 'strike',
-      'color', 'background',
-      'script',
-      'header', 'blockquote', 'code-block',
-      'indent', 'list',
-      'direction', 'align',
-      'link', 'image', 'video', 'formula',
-   ];
 
+   const button_submit = {
+      button: 1
+   };
 
-
-   const onSubmit = (event: any) => {
-      event.preventDefault()
-      UpdateDescription();
+   const onSubmit = () => {
 
    }
    return (
       <>
          <Navbar1 />
-         <div className="grow container flex  items-center flex-col">
-            <div className="text-xl font-bold">Job Description</div>
-            <div>
-               <Link to={'#'}></Link>
-            </div>
-            {!state.button_edit && <div className="flex flex-col justify-center items-center my-4" >
+         <div className="grow container flex justify-center items-center flex-col">
+            <div>เกี่ยวกับฉัน</div>
+            <div className="flex flex-col justify-center items-center" >
                <ReactQuill
                   value={state.content_jobdescription}
                   readOnly={true}
                   theme={"bubble"}
                />
-               <button className="btn btn-warning btn_edit"
-                  onClick={() =>
-                     dispatch({ type: 'change_switch', payload: { edit: state.button_edit } })}
-               >แก้ไข</button>
-            </div>}
+               <button className="btn btn-warning btn_edit" onClick={() => dispatch({ type: 'change_switch', payload: { edit: state.button_edit } })}>แก้ไข</button>
+            </div>
 
-            {state.button_edit && <form onSubmit={onSubmit} className="flex flex-col my-4">
-
+            <form onSubmit={onSubmit} className="flex flex-col ">
+               <div className="headjob">
+                  <div>แก้ไข Job Description</div>
+               </div>
                <div>
                   <ReactQuill
                      modules={module}
@@ -148,27 +93,39 @@ const Aboutme = () => {
                      }}
                      theme="snow"
                      style={{ background: 'white' }}
-                     formats={formats}
                   />
                </div>
                <div className="flex justify-center m-3">
                   <button
-                     className="btn btn-warning mx-3"
+                     className="btn btn-success mx-3"
+                     onClick={() => (button_submit.button = 1)}
                      type="submit"
+                     name="btn1"
+                     value="1"
+                     disabled={state.button_active}
                   >
-                     แก้ไข
+                     Add
+                  </button>
+                  <button
+                     className="btn btn-warning mx-3"
+                     onClick={() => (button_submit.button = 2)}
+                     type="submit"
+                     name="btn2"
+                     value="2"
+                     disabled={!state.button_active}
+                  >
+                     Update
                   </button>
                </div>
 
-            </form>}
+            </form>
 
-            {/* <button className="btn btn-danger"
+            <button className="btn btn-danger"
                onClick={() => dispatch({
                   type: 'change_switch',
                   payload: { edit: state.button_edit }
                })}>
-               ยกเลิก
-            </button> */}
+               ยกเลิก</button>
          </div>
          <Footer />
       </>

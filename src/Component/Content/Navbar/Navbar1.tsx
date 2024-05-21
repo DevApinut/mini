@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faPlay } from "@fortawesome/free-solid-svg-icons"
 import Favicon from "react-favicon";
 import { ClassNames } from "@emotion/react";
+import axios from "axios";
 
 const Navbar1 = () => {
 
@@ -38,52 +39,32 @@ const Navbar1 = () => {
     const [state, dispatch] = useReducer(reducer, initials)
 
     useEffect(() => {
+        
         document.body.addEventListener('click', handle_outside)
         return () => document.body.removeEventListener('click', handle_outside)
+
     }, [dropdown, dropdown2, isOpen, subdropdown])
 
-    const handle_outside = (event: any) => {
-        // const subdropdown_null = (subdropdown.current = null) ? true : false;
-
-
-        // console.log(dropdown.current)
-        // console.log(dropdown2.current)
-        // console.log(subdropdown.current)
-        // console.log(subdropdown_null)
+    const handle_outside = (event: any) => {        
         if (!hamburger.current.contains(event.target)) {
             if ((dropdown.current && !dropdown.current.contains(event.target)) &&
                 dropdown2.current && (!dropdown2.current.contains(event.target))) {
                 if (subdropdown.current != null) {
-                    if (!subdropdown.current.contains(event.target)) { 
-                        console.log("RR")                       
+                    if (!subdropdown.current.contains(event.target)) {                        
                         setIsOpen([false, false]);
                         setSubIsOpen([false, false])
                         setMenuresponsiveisOpen(false)
-                    }else{
-                        
+                    } else {
+
                     }
                 }
-                else{                    
+                else {
                     setIsOpen([false, false]);
                     setSubIsOpen([false, false])
                     setMenuresponsiveisOpen(false)
                 }
             }
         }
-
-        // else if(dropdown2.current && !dropdown2.current.contains(event.target)){
-        //     console.log("2")
-        //     setIsOpen([false, false]);
-        //     setSubIsOpen([false, false])
-        //     setMenuresponsiveisOpen(false)
-        // }else if((subdropdown.current && !subdropdown.current.contains(event.target)) ){
-        //     console.log("3")
-        //     setIsOpen([false, false]);
-        //     setSubIsOpen([false, false])
-        //     setMenuresponsiveisOpen(false)
-        // }
-
-
     }
     const Active_class = (index: number) => {
         let dropdown = [...isOpen.map((data: any) => false)]
@@ -127,10 +108,10 @@ const Navbar1 = () => {
                                     </div>
                                     {isOpen[0] && <div className='Subheader1' >
                                         <div className="m-2 text-black hover:bg-slate-200" >
-                                            <Link to={'/JobDescription'} className="mx-0 text-black no-underline">JobDescription</Link>
+                                            <Link to={'/About/JobDescription'} className="mx-0 text-black no-underline">JobDescription</Link>
                                         </div>
                                         <div className="m-2 text-black hover:bg-slate-200">
-                                            <div>บุคลากรในแผนก</div>
+                                            <Link to={'/About/Personel'} className="mx-0 text-black no-underline">บุคลากรในแผนก</Link>
                                         </div>
                                     </div>}
 

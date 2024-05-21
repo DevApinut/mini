@@ -7,6 +7,7 @@
 @import '../src/CSS/Home.css';
 @import '../src/CSS/Login.css';
 @import '../src/CSS/Register.css';
+@import '../src/CSS/Personel.css';
 
 html{
   @apply h-full flex flex-col
