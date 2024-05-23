@@ -1,4 +1,4 @@
-import { useEffect,useReducer } from "react"
+import { useEffect, useReducer } from "react"
 import { Link } from "react-router-dom";
 import Navbar1 from "../Navbar/Navbar1";
 import Footer from "../Footer/Footer";
@@ -22,7 +22,7 @@ const Login = () => {
 
     const [state, dispatch] = useReducer(reducer, initials)
 
-    const Login = () =>{
+    const Login = () => {
 
     }
 
@@ -41,11 +41,14 @@ const Login = () => {
                             <form onSubmit={Login}>
                                 <div className="my-3">
                                     <div>ชื่อผู้ใช้</div>
-                                    <input type="text" required onChange={e=>dispatch({type:"setstate",payload:{name:"username",value:e.target.value}})}/>
+                                    <input type="text" required onChange={e => dispatch({
+                                        type: "setstate",
+                                        payload: { name: "username", value: e.target.value }
+                                    })} />
                                 </div>
                                 <div className="my-3" >
                                     <div>รหัสผ่าน</div>
-                                    <input type="password" required onChange={e=>dispatch({type:"setstate",payload:{name:"password",value:e.target.value}})}/>
+                                    <input type="password" required onChange={e => dispatch({ type: "setstate", payload: { name: "password", value: e.target.value } })} />
                                 </div>
                                 <div className="flex justify-center w-full mt-4">
                                     <button className="mx-4 border w-full text-center p-2 rounded-xl 

@@ -44,9 +44,12 @@
     }
     
 
-    @media only screen and (max-width: 900px) {
+    @media only screen and (max-width: 1000px) {
+        .input-register1{
+            @apply w-full
+        }
         .input-register{
-            @apply mx-1
+            @apply mx-1 w-full
         }
         .group-for-input-tailwind{
             @apply flex-col w-full
