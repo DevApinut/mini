@@ -2,13 +2,17 @@ import { useEffect, useReducer } from "react"
 import { Link } from "react-router-dom";
 import Navbar1 from "../Navbar/Navbar1";
 import Footer from "../Footer/Footer";
+import axios from "axios";
+import { authenticate } from "./Service_login"
 
 const Login = () => {
 
     const initials = {
         username: "",
-        password: ""
+        password: "",
+        show_password: false
     }
+    
 
     const reducer = (state: any, action: any) => {
         switch (action.type) {
@@ -21,9 +25,18 @@ const Login = () => {
     }
 
     const [state, dispatch] = useReducer(reducer, initials)
+    const showpassword = state.show_password ? "text" : "password"
 
     const Login = () => {
+        axios.post(`${process.env.REACT_APP_API}/Login`, { username: state.username, password: state.password })
+            .then((res) => {
+                if (res.data.res === "เข้าสู่ระบบสำเร็จ") {
+                    authenticate(res, () => {
 
+                    })
+                }
+            }
+            )
     }
 
 
@@ -48,7 +61,14 @@ const Login = () => {
                                 </div>
                                 <div className="my-3" >
                                     <div>รหัสผ่าน</div>
-                                    <input type="password" required onChange={e => dispatch({ type: "setstate", payload: { name: "password", value: e.target.value } })} />
+                                    <input type={showpassword} required onChange={e => dispatch({ type: "setstate", payload: { name: "password", value: e.target.value } })} />
+                                </div>
+                                <div className="flex items-center">
+                                    <input type="checkbox" className="w-3 h-3 mx-2" onChange={e => dispatch({
+                                        type: "setstate",
+                                        payload: { name: "show_password", value: e.target.checked }
+                                    })} />
+                                    <div className="mx-2">แสดงรหัสผ่าน</div>
                                 </div>
                                 <div className="flex justify-center w-full mt-4">
                                     <button className="mx-4 border w-full text-center p-2 rounded-xl 
