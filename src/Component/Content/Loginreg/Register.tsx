@@ -1,9 +1,10 @@
 import { useEffect, useReducer, useRef } from "react"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar1 from "../Navbar/Navbar1";
 import Footer from "../Footer/Footer";
 import { validEmail, validPassword, validusername } from "../Regex/Register_regex";
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 const Register = () => {
 
@@ -11,6 +12,7 @@ const Register = () => {
     const uername_validate = useRef<any>("")
     const password_validate = useRef<any>("")
     const confirmpassword_validate = useRef<any>("")
+    const navigate = useNavigate();
 
     const initials = {
         firstname: "",
@@ -142,16 +144,31 @@ const Register = () => {
     const Register = (e: any) => {
         e.preventDefault()
         if (confirmpassword_validate.current.value && password_validate.current.value
-            && email_validate.current.value && uername_validate.current.value) {
-            alert("สำเร็จ")
+            && email_validate.current.value && uername_validate.current.value) {           
             axios.post(`${process.env.REACT_APP_API}/Register`, {
-                firstname:state.firstname,
-                lastname:state.lastname,                
+                firstname: state.firstname,
+                lastname: state.lastname,
                 username: state.username,
                 password: state.password,
-                email:state.email,
-                personel_number:state.personel_number
+                email: state.email,
+                personel_number: state.personel_number
             })
+                .then((result: any) => {
+                    if (result.data.res == `มีผู้ใช้ชื่อ ${state.username} แล้ว`) {
+                        uername_validate.current.textContent = `มีผู้ใช้ชื่อ ${state.username} แล้วโปรดใช้ชื่ออื่น`
+                        uername_validate.current.style.color = "red"
+                        uername_validate.current.style.fontSize = "12px"
+                    } else if (result.data.res == "สมัครสมาชิกเรียบร้อย") {
+                        Swal.fire({
+                            title: 'สมัครสมาชิกเรียบร้อยเเล้ว!',
+                            text: `โปรดเข้าสู่ระบบต่อไป`,
+                            icon: 'success',
+                        })
+                            .then(async () => {
+                                await navigate("/Login")
+                            })
+                    }
+                })
         } else {
             if (!uername_validate.current.value) {
                 uername_validate.current.scrollIntoView()

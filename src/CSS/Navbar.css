@@ -37,6 +37,9 @@
     .Subheader2{
       @apply absolute w-56 border left-52 top-3 rounded mx-2 bg-slate-50;
     }
+    .Subheader3{
+      @apply border z-50 bg-slate-50 overflow-visible absolute top-6 w-56 rounded right-0;
+    }
     .active{
       @apply flex justify-between w-full items-center headMenubar;
     }
@@ -71,6 +74,9 @@
       }
       .Subheader2{
         @apply flex flex-col w-full relative m-0 left-0 ease-linear;
+      }
+      .Subheader3{
+        @apply flex justify-center flex-col relative w-full top-0;
       }
       .active{
         @apply invisible;

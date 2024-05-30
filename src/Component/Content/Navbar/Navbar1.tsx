@@ -1,22 +1,26 @@
 import { useReducer, useEffect, useRef, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faPlay } from "@fortawesome/free-solid-svg-icons"
 import Favicon from "react-favicon";
 import { ClassNames } from "@emotion/react";
 import axios from "axios";
+import { getusername , logout } from "../Loginreg/Service_login";
+import { Button } from "react-bootstrap";
 
 const Navbar1 = () => {
 
-
+    const navigate = useNavigate();
     //--------------------สำหรับ dropdown รายงาน-----------------------------
     const dropdown = useRef<any>()
     const dropdown2 = useRef<any>()
+    const dropdown3 = useRef<any>()
     const subdropdown = useRef<any>()
     const hamburger = useRef<any>()
 
     //--------------------สำหรับ dropdown รายงาน-----------------------------
-    const [isOpen, setIsOpen] = useState([false, false])
+    const [isOpen, setIsOpen] = useState([false, false, false])
     const [SubisOpen, setSubIsOpen] = useState([false, false])
     const [MenuresponsiveisOpen, setMenuresponsiveisOpen] = useState(false)
 
@@ -39,19 +43,21 @@ const Navbar1 = () => {
     const [state, dispatch] = useReducer(reducer, initials)
 
     useEffect(() => {
-        
+
         document.body.addEventListener('click', handle_outside)
         return () => document.body.removeEventListener('click', handle_outside)
 
     }, [dropdown, dropdown2, isOpen, subdropdown])
 
-    const handle_outside = (event: any) => {        
+    const handle_outside = (event: any) => {
         if (!hamburger.current.contains(event.target)) {
             if ((dropdown.current && !dropdown.current.contains(event.target)) &&
-                dropdown2.current && (!dropdown2.current.contains(event.target))) {
+                dropdown2.current && (!dropdown2.current.contains(event.target)) &&
+                dropdown3.current && (!dropdown3.current.contains(event.target))
+            ) {
                 if (subdropdown.current != null) {
-                    if (!subdropdown.current.contains(event.target)) {                        
-                        setIsOpen([false, false]);
+                    if (!subdropdown.current.contains(event.target)) {
+                        setIsOpen([false, false, false]);
                         setSubIsOpen([false, false])
                         setMenuresponsiveisOpen(false)
                     } else {
@@ -59,7 +65,7 @@ const Navbar1 = () => {
                     }
                 }
                 else {
-                    setIsOpen([false, false]);
+                    setIsOpen([false, false, false]);
                     setSubIsOpen([false, false])
                     setMenuresponsiveisOpen(false)
                 }
@@ -156,10 +162,28 @@ const Navbar1 = () => {
                             </div>
                         </div>
 
-                        <div className="subheadMenubarlogin">
+                        {getusername() !== null && <div className="BarMenu relative">
+                            <div className="flex justify-center flex-col hover:cursor-pointer h-auto">
+                                <div onClick={(e) => Active_class(2)} className="my-0"
+                                    ref={dropdown3}
+                                >
+                                    {getusername()}
+                                </div>
+                                {isOpen[2] && <div className='Subheader3' >
+                                    <div className="m-2 text-black hover:bg-slate-200" >
+                                        <Link to={'#'} className="mx-0 text-black no-underline">ข้อมูลส่วนตัว</Link>
+                                    </div>
+                                    <div className="m-2 text-black hover:bg-slate-200">
+                                        <div onClick={()=>logout(()=>{ navigate('/Login')})} className="mx-0 text-black no-underline">ออกจากระบบ</div>
+                                    </div>
+                                </div>}
+
+                            </div>
+                        </div>}
+                        {!getusername() && <div className="subheadMenubarlogin">
                             <Link to={'/Login'} className="BarMenu login-reg no-underline">ลงชื่อเข้าใช้</Link>
                             <Link to={'/Register'} className="BarMenu login-reg no-underline">สมัครสมาชิก</Link>
-                        </div>
+                        </div>}
 
                     </div>
 

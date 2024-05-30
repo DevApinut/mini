@@ -11,7 +11,7 @@ const Aboutme = () => {
    const GetDescription = () => {
       axios.get(`${process.env.REACT_APP_API}/GetDescription`)
          .then(result => {
-            console.log(result.data.res)
+            // console.log(result.data.res)
             dispatch({
                type: 'change_state',
                payload: { name: 'content_jobdescription', value: result.data.res.Description }
@@ -30,6 +30,7 @@ const Aboutme = () => {
             GetDescription();
          })
          .catch(err => {
+            console.log(err)
             alert(err)
          })
    }
