@@ -14,31 +14,31 @@ const Personel = () => {
 
 
 
-    const getBase64 = () => {
-        return new Promise(resolve => {
-            let fileInfo;
-            let baseURL = null;
-            // Make new FileReader
-            let reader = new FileReader();
+    // const getBase64 = () => {
+    //     return new Promise(resolve => {
+    //         let fileInfo;
+    //         let baseURL = null;
+    //         // Make new FileReader
+    //         let reader = new FileReader();
 
-            // Convert the file to base64 text
-            reader.readAsDataURL(image22);
+    //         // Convert the file to base64 text
+    //         reader.readAsDataURL(image22);
 
-            // on reader load somthing...
-            reader.onload = () => {
-                // Make a fileInfo Object
-                console.log("Called", reader);
-                baseURL = reader.result;
-                console.log(baseURL);
-                resolve(baseURL);
-            };
-            console.log(fileInfo);
-        });
-    };
+    //         // on reader load somthing...
+    //         reader.onload = () => {
+    //             // Make a fileInfo Object
+    //             console.log("Called", reader);
+    //             baseURL = reader.result;
+    //             console.log(baseURL);
+    //             resolve(baseURL);
+    //         };
+    //         console.log(fileInfo);
+    //     });
+    // };
 
 
     const image_handle = () => {
-        const image = getBase64(image22)
+        // const image = getBase64(image22)
         // console.log(image)
 
     }
