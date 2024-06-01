@@ -1,10 +1,18 @@
 import Navbar1 from "../Navbar/Navbar1";
 import Footer from "../Footer/Footer";
 import { useEffect, useReducer } from "react";
-import ReactQuill from "react-quill"
+import ReactQuill, { Quill } from "react-quill"
 import "react-quill/dist/quill.snow.css"
 import { Link } from "react-router-dom";
 import axios from "axios";
+import ImageResize from 'quill-image-resize-module-react';
+
+
+
+
+
+
+Quill.register('modules/imageResize', ImageResize);
 
 const Aboutme = () => {
 
@@ -78,34 +86,77 @@ const Aboutme = () => {
 
       [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
       [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
+      [
+         { list: 'ordered' },
+         { list: 'bullet' },
+         { indent: '-1' },
+         { indent: '+1' }
+       ],
       [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
       [{ 'font': [] }],
       [{ 'align': [] }],
       ['link', 'image', 'video', 'formula'],
       ['clean'],
 
-      
+
    ];
 
 
 
 
    const module = {
-      toolbar: toolbarOptions
+      toolbar: toolbarOptions,
+
+      // toolbar: [
+      //    [{ header: '1' }, { header: '2' }, { font: [] }],
+      //    [{ size: [] }],
+      //    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      //    [
+      //       { list: 'ordered' },
+      //       { list: 'bullet' },
+      //       { indent: '-1' },
+      //       { indent: '+1' }
+      //    ],
+      //    ['link', 'image', 'video'],
+      //    ['clean']
+      // ],
+      clipboard: {
+         // toggle to add extra line breaks when pasting HTML:
+         matchVisual: false
+      },
+      imageResize: {
+         parchment: Quill.import('parchment'),
+         modules: ['Resize', 'DisplaySize']
+      }
 
 
    }
 
+   // const formats = [
+   //    'font', 'size',
+   //    'bold', 'italic', 'underline', 'strike',
+   //    'color', 'background',
+   //    'script',
+   //    'header', 'blockquote', 'code-block',
+   //    'indent', 'list',
+   //    'direction', 'align',
+   //    'link', 'image', 'video', 'formula',
+   // ];
    const formats = [
-      'font', 'size',
-      'bold', 'italic', 'underline', 'strike',
-      'color', 'background',
-      'script',
-      'header', 'blockquote', 'code-block',
-      'indent', 'list',
-      'direction', 'align',
-      'link', 'image', 'video', 'formula',
+      'header',
+      'font',
+      'size',
+      'bold',
+      'italic',
+      'underline',
+      'strike',
+      'blockquote',
+      'list',
+      'bullet',
+      'indent',
+      'link',
+      'image',
+      'video'
    ];
 
 
@@ -150,8 +201,11 @@ const Aboutme = () => {
                      theme="snow"
                      style={{ background: 'white' }}
                      formats={formats}
+
                   />
                </div>
+
+               
                <div className="flex justify-center m-3">
                   <button
                      className="btn btn-warning mx-3"
@@ -162,6 +216,7 @@ const Aboutme = () => {
                </div>
 
             </form>}
+        
 
             {/* <button className="btn btn-danger"
                onClick={() => dispatch({

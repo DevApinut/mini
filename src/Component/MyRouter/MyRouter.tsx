@@ -11,6 +11,7 @@ import Forgetpassword from "../Content/Loginreg/Forgetpassword";
 import JobDescription from "../Content/Homepage/JobDescription";
 import Personel from "../Content/Homepage/Personal";
 import RedirectHome from "../Content/Private_redirect/RedirectHome";
+
 const Myrouter = () => {
     return (
         <BrowserRouter>
