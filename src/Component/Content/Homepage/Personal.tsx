@@ -13,8 +13,9 @@ const Personel = () => {
 
     const image_profile = createRef<any>()
     const initials = {
-        personel_infomation: [{ img: watd, imageCrop: watd, name: "ไม่มีข้อมูล", position: "ไม่มีข้อมููล", contact: "ไม่มีข้อมููล" }, { img: watd, imageCrop: watd, name: "ไม่มีข้อมูล", position: "ไม่มีข้อมููล", contact: "ไม่มีข้อมููล" }],
+        personel_infomation: [{ img: watd, Cropimg: watd, name: "ไม่มีข้อมูล", position: "ไม่มีข้อมููล", contact: "ไม่มีข้อมููล" }, { img: watd, Cropimg: watd, name: "ไม่มีข้อมูล", position: "ไม่มีข้อมููล", contact: "ไม่มีข้อมููล" }],
         edit_Personel: false,
+        imageFull: [{ img: "none" }]
     }
 
     const reducer = (state: any, action: any) => {
@@ -30,34 +31,35 @@ const Personel = () => {
     const [state, dispatch] = useReducer(reducer, initials)
     useEffect(() => {
         document.title = "บุคลากร | Personel"
-        // fetchPersonel()
+        fetchPersonel()
     }, [])
 
 
     const [preview, setPreview] = useState("")
 
-    // const fetchPersonel = () => {
-    //     axios.get(`${process.env.REACT_APP_API}/GetPersonel`)
-    //         .then((result:any) => {
-    //             dispatch({ type: "setstate", payload: { name: "personel_infomation", value: result.data.res.data } })
-    //         })
-    // }
+    const fetchPersonel = () => {
+        axios.get(`${process.env.REACT_APP_API}/GetPersonel`)
+            .then((result: any) => {
+                dispatch({ type: "setstate", payload: { name: "personel_infomation", value: result.data.res.data } })
+            })
+    }
 
-    // const savePersonel = () => {
-    //     axios.post(`${process.env.REACT_APP_API}/Personel`, { data: state.personel_infomation })
-    //         .then(result => {
-    //             Swal.fire({
-    //                 title: 'อัพเดทข้อมูลสำเร็จ',
-    //                 text: `อัพเดทข้อมูลสำเร็จ`,
-    //                 icon: 'success',
-    //             })
-    //             .then(res=>fetchPersonel())
-    //         })
-    // }
+    const savePersonel = () => {
+        
+        axios.post(`${process.env.REACT_APP_API}/Personel`, { data: state.personel_infomation })
+            .then(result => {
+                Swal.fire({
+                    title: 'อัพเดทข้อมูลสำเร็จ',
+                    text: `อัพเดทข้อมูลสำเร็จ`,
+                    icon: 'success',
+                })
+                    .then(res => fetchPersonel())
+            })
+    }
 
     const addPersonel = (index: number) => {
         let personelOld = [...state.personel_infomation]
-        let newPersonel = { img: watd, name: "Wattd", position: "ไม่ระบุ", contact: "ไม่ระบุ" }
+        let newPersonel = { img: watd, Cropimg: watd, name: "Wattd", position: "ไม่ระบุ", contact: "ไม่ระบุ" }
         personelOld.splice(index + 1, 0, newPersonel)
         dispatch({ type: "setstate", payload: { name: "personel_infomation", value: personelOld } })
 
@@ -71,6 +73,7 @@ const Personel = () => {
         dispatch({ type: "setstate", payload: { name: "edit_Personel", value: !state.edit_Personel } })
     }
     const setStatePersonelInformation = (nameofdata: any, data: any, index: number) => {
+        console.log('999')
         let personelOld = [...state.personel_infomation]
         if (nameofdata == "name") personelOld[index].name = data
         else if (nameofdata == "position") personelOld[index].position = data
@@ -79,31 +82,35 @@ const Personel = () => {
     }
 
     const onClose = () => {
-        setPreview("")
+
+        // setPreview("")
     }
 
     const onCrop = (preview: any, index: number) => {
         let personelOld = [...state.personel_infomation]
-        // personelOld[index].img = preview
-        personelOld[index].imageCrop = preview
+        personelOld[index].Cropimg = preview
         dispatch({ type: "setstate", payload: { name: "personel_infomation", value: personelOld } })
     }
 
+
     const onBeforeFileLoad = (elem: any, index: number) => {
+        console.log("AAA")
         if (elem.target.files[0].size > 2030412) {
             alert(`ขนาดไฟล์ใหญ่เกินไป ${elem.target.files[0].size}`);
             elem.target.value = "";
         }
         else {
-            console.log(elem)
-            let personelOld = [...state.personel_infomation]
+            console.log(elem) 
+            let personelOld1 = [...state.personel_infomation]           
             getBase64(elem.target.files[0])
-                .then(res => {
-                    personelOld[index].img = res
-                    dispatch({ type: "setstate", payload: { name: "personel_infomation", value: personelOld } })
+                .then((result:any) => {                    
+                    personelOld1[index].img = result                    
+                    dispatch({ type: "setstate", payload: { name: "personel_infomation", value: personelOld1 } })
+
                 })
 
         }
+
 
     }
 
@@ -119,6 +126,7 @@ const Personel = () => {
         })
     }
 
+    
     return (
         <>
             <Navbar1 />
@@ -129,7 +137,7 @@ const Personel = () => {
                     {!state.edit_Personel && state.personel_infomation.map((data: any, index: number) => {
                         return (
                             <div className="personel-infomation">
-                                <img src={data.imageCrop} className="w-24 h-24 bg-red-200 rounded-full"></img>
+                                <img src={data.Cropimg} className="w-24 h-24 bg-red-200 rounded-full"></img>
                                 <div className="flex flex-col justify-start mx-4 ">
                                     <div className="text-base">{data.name}</div>
                                     <div className="text-sm">{data.position}</div>
@@ -145,6 +153,7 @@ const Personel = () => {
 
 
                     {state.edit_Personel && state.personel_infomation.map((data: any, index: number) => {
+                        let imageToShow = data.img ? data.img : data.Cropimg
                         return (
                             <div className="personel-infomation ">
                                 <div >
@@ -156,8 +165,9 @@ const Personel = () => {
                                                 onCrop={(preview) => { onCrop(preview, index) }}
                                                 onClose={onClose}
                                                 onBeforeFileLoad={(elem) => { onBeforeFileLoad(elem, index) }}
-                                                src={data.img}
+                                                src={imageToShow}
                                                 cropRadius={60}
+
                                             />
                                             {/* <img src={preview} alt="Preview" /> */}
                                         </div>
@@ -183,7 +193,7 @@ const Personel = () => {
                                     <div className="flex justify-center my-2 ">
                                         <button className="w-14 bg-green-400 mx-0 rounded-xl text-slate-50"
                                             // onClick={image_handle}>ok</button>
-                                            onClick={() => { }}>ok</button>
+                                            onClick={() => { savePersonel() }}>ok</button>
                                         <button className="w-14 bg-red-400 mx-0 rounded-xl text-slate-50"
                                             onClick={(e) => { editPersonel() }}>Cancel</button>
                                         <button onClick={() => { addPersonel(index) }} className="mx-0 px-3 bg-green-200 rounded-xl">+</button>
