@@ -6,9 +6,7 @@ import "react-quill/dist/quill.snow.css"
 import { Link } from "react-router-dom";
 import axios from "axios";
 import ImageResize from 'quill-image-resize-module-react';
-
-
-
+import ReactLoading from 'react-loading';
 
 
 
@@ -16,14 +14,44 @@ Quill.register('modules/imageResize', ImageResize);
 
 const Aboutme = () => {
 
+
+   const initials = {
+      content_jobdescription: "",
+      id: "",
+      button_edit: false,
+      loading: false,
+   }
+
+
+   const reducer = (state: any, action: any) => {
+      switch (action.type) {
+         case 'setstate':
+            return { ...state, [action.payload.name]: action.payload.value }
+         case 'change_id':
+            return { ...state, id: action.payload.id }
+         case 'change_switch':
+            return { ...state, button_edit: !action.payload.edit }
+         case 'change_active':
+            return { ...state, button_active: action.payload.active }
+      }
+   }
+   const [state, dispatch] = useReducer(reducer, initials)
+
    const GetDescription = () => {
       axios.get(`${process.env.REACT_APP_API}/GetDescription`)
          .then(result => {
             // console.log(result.data.res)
+            console.log(result)
             dispatch({
-               type: 'change_state',
+               type: 'setstate',
                payload: { name: 'content_jobdescription', value: result.data.res.Description }
             })
+            if (result.data.res != "err1") {
+               dispatch({
+                  type: 'setstate',
+                  payload: { name: 'loading', value: true }
+               })
+            }
          })
          .catch(err => { console.log(err.massage) })
    }
@@ -49,29 +77,6 @@ const Aboutme = () => {
    }, [])
 
 
-   const initials = {
-      content_jobdescription: "",
-      id: "",
-      button_edit: false,
-   }
-
-
-   const reducer = (state: any, action: any) => {
-      switch (action.type) {
-         case 'change_state':
-            return { ...state, [action.payload.name]: action.payload.value }
-         case 'change_id':
-            return { ...state, id: action.payload.id }
-         case 'change_switch':
-            return { ...state, button_edit: !action.payload.edit }
-         case 'change_active':
-            return { ...state, button_active: action.payload.active }
-      }
-   }
-   const [state, dispatch] = useReducer(reducer, initials)
-
-
-
 
    //// config quill
    var toolbarOptions = [
@@ -91,7 +96,7 @@ const Aboutme = () => {
          { list: 'bullet' },
          { indent: '-1' },
          { indent: '+1' }
-       ],
+      ],
       [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
       [{ 'font': [] }],
       [{ 'align': [] }],
@@ -169,21 +174,28 @@ const Aboutme = () => {
    return (
       <>
          <Navbar1 />
-         <div className="grow container flex  items-center flex-col">
+         <div className="grow container flex  items-center flex-col ">
             <div className="text-xl font-bold">Job Description</div>
-            <div>
-               <Link to={'#'}></Link>
-            </div>
-            {!state.button_edit && <div className="flex flex-col justify-center items-center my-4" >
+
+            {!state.loading && <div className="flex justify-center items-center flex-column grow">
+               <div className="text-green-400 font-bold text-4xl my-3"> Loading </div>
+               <ReactLoading type={"spinningBubbles"} color={"#5eab67"} height={100} width={100} />
+            </div>}
+
+            {state.loading && !state.button_edit && <div className="flex flex-col justify-center items-center my-4" >
                <ReactQuill
                   value={state.content_jobdescription}
                   readOnly={true}
                   theme={"bubble"}
                />
-               <button className="btn btn-warning btn_edit"
-                  onClick={() =>
-                     dispatch({ type: 'change_switch', payload: { edit: state.button_edit } })}
-               >แก้ไข</button>
+               <div className="flex">
+                  <button className="btn btn-warning btn_edit mx-2"
+                     onClick={() =>
+                        dispatch({ type: 'change_switch', payload: { edit: state.button_edit } })}
+                  >แก้ไข</button>
+
+               </div>
+
             </div>}
 
             {state.button_edit && <form onSubmit={onSubmit} className="flex flex-col my-4">
@@ -194,7 +206,7 @@ const Aboutme = () => {
                      value={state.content_jobdescription}
                      onChange={(e) => {
                         dispatch({
-                           type: 'change_state',
+                           type: 'setstate',
                            payload: { name: 'content_jobdescription', value: e }
                         })
                      }}
@@ -205,18 +217,22 @@ const Aboutme = () => {
                   />
                </div>
 
-               
+
                <div className="flex justify-center m-3">
                   <button
-                     className="btn btn-warning mx-3"
+                     className="btn btn-warning mx-2"
                      type="submit"
                   >
                      แก้ไข
                   </button>
+                  <div className="btn btn-danger btn_edit mx-2"
+                     onClick={() =>
+                        dispatch({ type: 'change_switch', payload: { edit: true } })}
+                  >ยกเลิก</div>
                </div>
 
             </form>}
-        
+
 
             {/* <button className="btn btn-danger"
                onClick={() => dispatch({
