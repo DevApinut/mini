@@ -44,19 +44,22 @@ const Personel = () => {
             .then((result: any) => {
                 dispatch({ type: "setstate", payload: { name: "personel_infomation", value: result.data.res.data } })
                 dispatch({ type: "setstate", payload: { name: "loading", value: true } })
+                dispatch({ type: "setstate", payload: { name: "edit_Personel", value: false } })
             })
     }
 
-    const savePersonel = () => {
-
-        axios.post(`${process.env.REACT_APP_API}/Personel`, { data: state.personel_infomation })
+    const savePersonel = async() => {
+        await dispatch({ type: "setstate", payload: { name: "loading", value: false } })
+        await axios.post(`${process.env.REACT_APP_API}/Personel`, { data: state.personel_infomation })
             .then(result => {
                 Swal.fire({
                     title: 'อัพเดทข้อมูลสำเร็จ',
                     text: `อัพเดทข้อมูลสำเร็จ`,
                     icon: 'success',
                 })
-                    .then(res => fetchPersonel())
+                    .then(res => 
+                        fetchPersonel()
+                )
             })
     }
 
@@ -157,7 +160,7 @@ const Personel = () => {
                     })}
 
 
-                    {state.edit_Personel && state.personel_infomation.map((data: any, index: number) => {
+                    {state.loading && state.edit_Personel && state.personel_infomation.map((data: any, index: number) => {
                         let imageToShow = data.img ? data.img : data.Cropimg
                         return (
                             <div className="personel-infomation ">
