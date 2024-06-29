@@ -29,6 +29,7 @@ type TestReport = [{
 }]
 
 const SwitchGear = () => {
+    const year = new Date().getFullYear()
 
     const initials = {
         FeederInfo: [{
@@ -51,13 +52,18 @@ const SwitchGear = () => {
             InsulationCA: "",
         }]
         , dataFromfetch: []
-        , Feederselect: ""
-        , Substation: ["ไม่มีข้อมูล"]
+        , SubstationSelect: ""
+        , SubstationEngSelect: ""
+        , FeederSelect: ""
+        , YearSelect: year
+        , Substation: [["ไม่มีข้อมูล"]]
         , Feeder_information: []
     };
 
+
+
     useEffect(() => {
-        fetchSwitchGearTest();
+        fetchSwitchGearTest("โพธาราม", "PTR", new Date().getFullYear());
     }, [])
 
 
@@ -73,17 +79,39 @@ const SwitchGear = () => {
 
     const [state, dispatch] = useReducer(reducer, initials)
 
-    const fetchSwitchGearTest = () => {
-        axios.get(`https://script.google.com/macros/s/AKfycbxJyPueMf4D8Lpc-7UZIsVpzHlUVXBO7uPQRb4CLImEus5ZsPi7OlL5DkqVUdCMv5JZ2A/exec`)
+    const fetchSwitchGearTest = (Substation: string, Substation_Eng: string, year: any) => {
+        axios.get(`https://script.google.com/macros/s/AKfycbxhREXdjo7IVZ0LyJpWeN0IxYHEtrOh5rbXl8WkK72Z9T8dAae7YgfeFD1VD9nAsRb73A/exec`,
+            {
+                params: {
+                    year: year,
+                    Substation: Substation,
+                    Substation_Eng: Substation_Eng,
+                }
+            }
+        )
             .then(res => {
-                console.log("successfull")
-                console.log(res.data.content)
-                dispatch({ type: "setstate", payload: { name: "dataFromfetch", value: res.data.content } })
-                dispatch({ type: "setstate", payload: { name: "Substation", value: res.data.Substation } })
+                dispatch({ type: "setstate", payload: { name: "dataFromfetch", value: res.data.Switchgear_detail } })
+                dispatch({ type: "setstate", payload: { name: "Substation", value: res.data.SubstationName } })
+                if (Substation !== res.data.Switchgear_detail[0][2].substring(0, 2) ) {
+                    dispatch({ type: "setstate", payload: { name: "FeederSelect", value: res.data.Switchgear_detail[0][2] } })
+                    dispatch({ type: "setstate", payload: { name: "SubstationSelect", value: Substation } })
+                    dispatch({ type: "setstate", payload: { name: "SubstationEngSelect", value: Substation_Eng } })
+                }
             })
             .catch(err => {
                 console.log("error")
             })
+    }
+
+    const ChangeSubstaion = async (e: any) => {
+        console.log(state.YearSelect)
+        console.log((e.target.value.split(","))[1])
+        await dispatch({ type: "setstate", payload: { name: "SubstationSelect", value: (e.target.value.split(","))[0] } })
+        await dispatch({ type: "setstate", payload: { name: "SubstationEngSelect", value: (e.target.value.split(","))[1] } })
+        await fetchSwitchGearTest((e.target.value.split(","))[0], (e.target.value.split(","))[1], state.YearSelect);
+    }
+    const ChangeFeeder = async (e: any) => {
+        await dispatch({ type: "setstate", payload: { name: "FeederSelect", value: e.target.value } })
     }
 
 
@@ -99,19 +127,18 @@ const SwitchGear = () => {
                             <div className="flex justify-center w-full">
                                 <div className="flex justify-center flex-col mx-1 w-1/3">
                                     <div className="text-center text-red-800 font-semibold">สถานี</div>
-                                    <select className="border rounded-md">
-                                        {state.Substation.map((data: any) => {
-                                            return (<option>{data[0]}</option>)
+                                    <select className="border rounded-md" onChange={ChangeSubstaion}>
+                                        {state.Substation.map((data: any, index: any) => {
+                                            return (<option value={data} key={`Substation_${index}`}>{data[0]}</option>)
                                         })}
                                     </select>
                                 </div>
                                 <div className="flex justify-center flex-col mx-1 w-1/3">
                                     <div className="text-center text-red-800 font-semibold">ฟีดเดอร์</div>
-                                    <select className="border  rounded-md">
-                                        <option>1BVB</option>
-                                        <option>2BVB</option>
-                                        <option>3BVB</option>
-                                        <option>4BVB</option>
+                                    <select className="border  rounded-md" onChange={ChangeFeeder}>
+                                        {state.dataFromfetch.map((data: any, index: number) => {
+                                            return (<option value={data[2]} key={`Feeder_${index}`}>{data[2]}</option>)
+                                        })}
                                     </select>
                                 </div>
                                 <div className="flex justify-center flex-col mx-1 w-1/3">
@@ -249,24 +276,33 @@ const SwitchGear = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td className="align-middle text-center align-middle">1BVB-01</td>
-                                <td className="align-middle text-center align-middle">XXXXX</td>
-                                <td className="align-middle text-center align-middle">0.1</td>
-                                <td className="align-middle text-center align-middle">0.1</td>
-                                <td className="align-middle text-center align-middle">0.1</td>
-                                <td className="align-middle text-center align-middle">0.1</td>
-                                <td className="align-middle text-center align-middle">0.1</td>
-                                <td className="align-middle text-center align-middle">0.1</td>
-                                <td className="align-middle text-center align-middle">0.1</td>
-                                <td className="align-middle text-center align-middle">0.1</td>
-                                <td className="align-middle text-center align-middle">0.1</td>
-                                <td className="align-middle text-center align-middle">0.1</td>
-                                <td className="align-middle text-center align-middle">0.1</td>
-                                <td className="align-middle text-center align-middle">0.1</td>
-                                <td className="align-middle text-center align-middle">200</td>
-                                <td className="align-middle text-center align-middle">Test</td>
-                            </tr>
+
+                            {state.dataFromfetch.map((data: any, index: number) => {
+                                return (<tr key={`table1_${index}`}>
+                                    {/* Feeder & Serial */}
+                                    <td className="align-middle text-center align-middle">{data[2]}</td>
+                                    <td className="align-middle text-center align-middle">{data[3]}</td>
+                                    {/* vacccum */}
+                                    <td className="align-middle text-center align-middle">{data[9]}</td>
+                                    <td className="align-middle text-center align-middle">{data[10]}</td>
+                                    <td className="align-middle text-center align-middle">{data[11]}</td>
+                                    {/* Contact */}
+                                    <td className="align-middle text-center align-middle">{data[12]}</td>
+                                    <td className="align-middle text-center align-middle">{data[13]}</td>
+                                    <td className="align-middle text-center align-middle">{data[14]}</td>
+                                    {/* Insulation */}
+                                    <td className="align-middle text-center align-middle">{data[15]}</td>
+                                    <td className="align-middle text-center align-middle">{data[16]}</td>
+                                    <td className="align-middle text-center align-middle">{data[17]}</td>
+                                    <td className="align-middle text-center align-middle">{data[18]}</td>
+                                    <td className="align-middle text-center align-middle">{data[19]}</td>
+                                    <td className="align-middle text-center align-middle">{data[20]}</td>
+                                    {/* Counter & remark */}
+                                    <td className="align-middle text-center align-middle">{data[21]}</td>
+                                    <td className="align-middle text-center align-middle">{data[22]}</td>
+                                </tr>)
+                            })}
+
                         </tbody>
 
                     </table>

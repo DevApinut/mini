@@ -1442,7 +1442,7 @@ function App() {
                   <option value={["โพธาราม1", "PTR"]} >โพธาราม1</option>
                   <option value={["โพธาราม2", "PTS"]} >โพธาราม2</option>
                   <option value={["ดำเนินสะดวก", "DNA"]}>ดำเนินสะดวก</option>
-                  <option value={["สมุทรสงคราม (แม่กลอง)", "SSA"]}>สมุทรสงคราม (แม่กลอง)</option>
+                  <option value={["สมุทรสงคราม (แม่กลอง)", "SSA"]}>สมุทรสงคราม</option>
                   <option value={["จอมบึง", "CBN"]}>จอมบึง</option>
                   {/* <option value={["ราชบุรี2  (ลานไก)","PTS"]}>ราชบุรี2 (ลานไก)</option> */}
                   <option value={["ราชบุรี1", "RBA"]}>ราชบุรี1</option>
