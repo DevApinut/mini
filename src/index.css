@@ -8,6 +8,7 @@
 @import '../src/CSS/Login.css';
 @import '../src/CSS/Register.css';
 @import '../src/CSS/Personel.css';
+@import '../src/CSS/SwitchGear.css';
 
 html {
   @apply h-full flex flex-col

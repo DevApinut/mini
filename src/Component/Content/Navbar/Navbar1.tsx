@@ -6,7 +6,7 @@ import { faBars, faPlay } from "@fortawesome/free-solid-svg-icons"
 import Favicon from "react-favicon";
 import { ClassNames } from "@emotion/react";
 import axios from "axios";
-import { getusername , logout } from "../Loginreg/Service_login";
+import { getusername, logout } from "../Loginreg/Service_login";
 import { Button } from "react-bootstrap";
 
 const Navbar1 = () => {
@@ -136,8 +136,11 @@ const Navbar1 = () => {
                                             <div onClick={() => sub_menu_data(0)}>PM CB 22 kV</div>
                                             <FontAwesomeIcon icon={faPlay} className="text-slate-400 absolute right-0 top-1/4 text-sm" />
                                             {SubisOpen[0] && <div className="Subheader2"
-                                            >
-                                                <div className="m-2 text-black hover:bg-slate-200 relative">ย่อย1.1</div>
+                                            >   
+                                            <div className="no-underline m-2 text-black hover:bg-slate-200 relative">
+                                                <Link to={'/SwitchGear'} className="no-underline text-black">SwitchGear</Link>
+                                            </div>
+                                                
                                                 <div className="m-2 text-black hover:bg-slate-200 relative">ย่อย1.1</div>
                                                 <div className="m-2 text-black hover:bg-slate-200 relative">ย่อย1.1</div>
                                             </div>}
@@ -174,7 +177,7 @@ const Navbar1 = () => {
                                         <Link to={'#'} className="mx-0 text-black no-underline">ข้อมูลส่วนตัว</Link>
                                     </div>
                                     <div className="m-2 text-black hover:bg-slate-200">
-                                        <div onClick={()=>logout(()=>{ navigate('/Login')})} className="mx-0 text-black no-underline">ออกจากระบบ</div>
+                                        <div onClick={() => logout(() => { navigate('/Login') })} className="mx-0 text-black no-underline">ออกจากระบบ</div>
                                     </div>
                                 </div>}
 
