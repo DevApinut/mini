@@ -5,7 +5,8 @@ import axios from "axios";
 import ReactLoading from 'react-loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
-import { faFileExcel} from '@fortawesome/free-solid-svg-icons'
+import { faFileExcel } from '@fortawesome/free-solid-svg-icons'
+import {ExportExcellSwitchGear}  from "./Switch_Gear_export"
 
 type SubstationInfomation = {
     SubstationThai: string,
@@ -113,14 +114,6 @@ const SwitchGear = () => {
                     dispatch({ type: "setstate", payload: { name: "SubstationEngSelect", value: Substation_Eng } })
                     dispatch({ type: "setstate", payload: { name: "loading", value: true } })
                 }
-                // else if (Substation_Eng !== res.data.Switchgear_detail[0][2].substring(0, 3)) {
-                //     console.log(999)
-
-                //     dispatch({ type: "setstate", payload: { name: "FeederSelect", value: res.data.Switchgear_detail[0][2] } })
-                //     dispatch({ type: "setstate", payload: { name: "SubstationSelect", value: Substation } })
-                //     dispatch({ type: "setstate", payload: { name: "SubstationEngSelect", value: Substation_Eng } })
-                //     dispatch({ type: "setstate", payload: { name: "loading", value: true } })
-                // }
                 else if (Substation_Eng !== state.FeederSelect.substring(0, 3)) {
 
                     dispatch({ type: "setstate", payload: { name: "FeederSelect", value: res.data.Switchgear_detail[0][2] } })
@@ -176,26 +169,30 @@ const SwitchGear = () => {
         await fetchSwitchGearTest(state.SubstationSelect, state.SubstationEngSelect, e.target.value);
     }
 
-    const SaveData = () => {
-        axios.post(`https://script.google.com/macros/s/AKfycbxhREXdjo7IVZ0LyJpWeN0IxYHEtrOh5rbXl8WkK72Z9T8dAae7YgfeFD1VD9nAsRb73A/exec`,
-            {
-                Sender: "Noname"
-                , Substation: state.SubstationSelect
-                , Feeder: state.FeederSelect
-                , Year: state.YearSelect
-                , Contact_PhaseA: state.ContactA
-                , Contact_PhaseB: state.ContactB
-                , Contact_PhaseC: state.ContactC
-                , Vaccuum_PhaseA: state.VaccuumA
-                , Vaccuum_PhaseB: state.VaccuumB
-                , Vaccuum_PhaseC: state.VaccuumC
-                , Insulation_PhaseAG: state.InsulationAG
-                , Insulation_PhaseBG: state.InsulationBG
-                , Insulation_PhaseCG: state.InsulationCG
-                , Insulation_PhaseAB: state.InsulationAB
-                , Insulation_PhaseBC: state.InsulationBC
-                , Insulation_PhaseCA: state.InsulationCA
-                , Counter: state.Counter
+    const SaveData = async() => {
+        await dispatch({ type: "setstate", payload: { name: "loading", value: false } })
+        let formData = new FormData()
+        formData.append('Sender', "Noname")
+        formData.append('Year', state.YearSelect)
+        formData.append('Substation', state.SubstationSelect)
+        formData.append('Feeder', state.FeederSelect)
+        formData.append('Vaccuum_PhaseA', state.VaccuumA)
+        formData.append('Vaccuum_PhaseB', state.VaccuumB)
+        formData.append('Vaccuum_PhaseC', state.VaccuumC)
+        formData.append('Contact_PhaseA', state.ContactA)
+        formData.append('Contact_PhaseB', state.ContactB)
+        formData.append('Contact_PhaseC', state.ContactC)
+        formData.append('Insulation_PhaseAG', state.InsulationAG)
+        formData.append('Insulation_PhaseBG', state.InsulationBG)
+        formData.append('Insulation_PhaseCG', state.InsulationCG)
+        formData.append('Insulation_PhaseAB', state.InsulationAB)
+        formData.append('Insulation_PhaseBC', state.InsulationBC)
+        formData.append('Insulation_PhaseCA', state.InsulationCA)
+        formData.append('Counter', state.Counter)
+        formData.append('Remark', state.Remark)
+        axios.post(`https://script.google.com/macros/s/AKfycbxhREXdjo7IVZ0LyJpWeN0IxYHEtrOh5rbXl8WkK72Z9T8dAae7YgfeFD1VD9nAsRb73A/exec`, formData)
+            .then(async (res: any) => {                
+                await fetchSwitchGearTest(state.SubstationSelect, state.SubstationEngSelect, state.YearSelect);
             })
     }
 
@@ -221,7 +218,7 @@ const SwitchGear = () => {
                         </div>
                         <div className="flex justify-center my-2">
                             <label className="w-24 text-center content-center border">Feeder</label>
-                            <input type={"text"} className="border text-center" value={state.Feeder_information[2]} disabled/>
+                            <input type={"text"} className="border text-center" value={state.Feeder_information[2]} disabled />
                         </div>
                         <div className="flex justify-center my-2">
                             <label className="w-24 text-center content-center border">Serial</label>
@@ -322,7 +319,7 @@ const SwitchGear = () => {
                                         <FontAwesomeIcon icon={faEdit} className="place-self-end mx-1 text-xl 
                                         hover:cursor-pointer" onClick={() => {
                                                 dispatch({ type: "setstate", payload: { name: "popupFeeder", value: true } })
-                                            }} /> 
+                                            }} />
                                     </div>
                                 </div>
                             </div>
@@ -335,15 +332,18 @@ const SwitchGear = () => {
                             <div className="flex justify-center">
                                 <div className="mx-2">
                                     <div className="w-full text-center">phaseA</div>
-                                    <input type={"text"} className="border text-center" />
+                                    <input type={"text"} className="border text-center" 
+                                    onChange={(e)=>{dispatch({type:"setstate",payload:{name:"VaccuumA",value:e.target.value}})}}/>
                                 </div>
                                 <div className="mx-2">
                                     <div className="w-full text-center">phaseB</div>
-                                    <input type={"text"} className="border text-center" />
+                                    <input type={"text"} className="border text-center" 
+                                    onChange={(e)=>{dispatch({type:"setstate",payload:{name:"VaccuumB",value:e.target.value}})}}/>
                                 </div>
                                 <div className="mx-2">
                                     <div className="w-full text-center">phaseC</div>
-                                    <input type={"text"} className="border text-center" />
+                                    <input type={"text"} className="border text-center" 
+                                    onChange={(e)=>{dispatch({type:"setstate",payload:{name:"VaccuumC",value:e.target.value}})}}/>
                                 </div>
                             </div>
                         </div>
@@ -353,15 +353,18 @@ const SwitchGear = () => {
                             <div className="flex justify-center">
                                 <div className="mx-2">
                                     <div className="w-full text-center">phaseA</div>
-                                    <input type={"text"} className="border text-center" />
+                                    <input type={"text"} className="border text-center" 
+                                    onChange={(e)=>{dispatch({type:"setstate",payload:{name:"ContactA",value:e.target.value}})}}/>
                                 </div>
                                 <div className="mx-2">
                                     <div className="w-full text-center">phaseB</div>
-                                    <input type={"text"} className="border text-center" />
+                                    <input type={"text"} className="border text-center" 
+                                     onChange={(e)=>{dispatch({type:"setstate",payload:{name:"ContactB",value:e.target.value}})}}/>
                                 </div>
                                 <div className="mx-2">
                                     <div className="w-full text-center">phaseC</div>
-                                    <input type={"text"} className="border text-center" />
+                                    <input type={"text"} className="border text-center" 
+                                     onChange={(e)=>{dispatch({type:"setstate",payload:{name:"ContactC",value:e.target.value}})}}/>
                                 </div>
                             </div>
                         </div>
@@ -372,29 +375,35 @@ const SwitchGear = () => {
                                 <div className="flex my-1">
                                     <div className="mx-2">
                                         <div className="w-full text-center">phaseAG</div>
-                                        <input type={"text"} className="border text-center" />
+                                        <input type={"text"} className="border text-center" 
+                                        onChange={(e)=>{dispatch({type:"setstate",payload:{name:"InsulationAG",value:e.target.value}})}}/>
                                     </div>
                                     <div className="mx-2">
                                         <div className="w-full text-center">phaseBG</div>
-                                        <input type={"text"} className="border text-center" />
+                                        <input type={"text"} className="border text-center" 
+                                        onChange={(e)=>{dispatch({type:"setstate",payload:{name:"InsulationBG",value:e.target.value}})}}/>
                                     </div>
                                     <div className="mx-2">
                                         <div className="w-full text-center">phaseCG</div>
-                                        <input type={"text"} className="border text-center" />
+                                        <input type={"text"} className="border text-center" 
+                                        onChange={(e)=>{dispatch({type:"setstate",payload:{name:"InsulationCG",value:e.target.value}})}}/>
                                     </div>
                                 </div>
                                 <div className="flex my-1">
                                     <div className="mx-2">
                                         <div className="w-full text-center">phaseAB</div>
-                                        <input type={"text"} className="border text-center" />
+                                        <input type={"text"} className="border text-center" 
+                                        onChange={(e)=>{dispatch({type:"setstate",payload:{name:"InsulationAB",value:e.target.value}})}}/>
                                     </div>
                                     <div className="mx-2">
                                         <div className="w-full text-center">phaseBC</div>
-                                        <input type={"text"} className="border text-center" />
+                                        <input type={"text"} className="border text-center" 
+                                        onChange={(e)=>{dispatch({type:"setstate",payload:{name:"InsulationBC",value:e.target.value}})}}/>
                                     </div>
                                     <div className="mx-2">
                                         <div className="w-full text-center">phaseCA</div>
-                                        <input type={"text"} className="border text-center" />
+                                        <input type={"text"} className="border text-center" 
+                                        onChange={(e)=>{dispatch({type:"setstate",payload:{name:"InsulationCA",value:e.target.value}})}}/>
                                     </div>
                                 </div>
                             </div>
@@ -405,17 +414,19 @@ const SwitchGear = () => {
                             <div className="flex justify-center">
                                 <div className="mx-2 w-1/4">
                                     <div className="w-full text-center">Counter</div>
-                                    <input type={"text"} className="border text-center" />
+                                    <input type={"text"} className="border text-center" 
+                                    onChange={(e)=>{dispatch({type:"setstate",payload:{name:"Counter",value:e.target.value}})}}/>
                                 </div>
                                 <div className="mx-2 w-3/4">
                                     <div className="w-full text-center">Remark</div>
-                                    <input type={"text"} className="border text-center" />
+                                    <input type={"text"} className="border text-center" 
+                                    onChange={(e)=>{dispatch({type:"setstate",payload:{name:"Remark",value:e.target.value}})}}/>
                                 </div>
                             </div>
                         </div>
                         <div className="rounded-xl w-full my-3 flex justify-center">
-                           <div className="btn btn-success mx-2">บันทึก</div>
-                           <div className="btn btn-success mx-2">Excel <FontAwesomeIcon icon={faFileExcel} /></div>
+                            <div className="btn btn-success mx-2" onClick={SaveData}>บันทึก</div>
+                            <div className="btn btn-success mx-2" onClick={()=>{ExportExcellSwitchGear({...state})}}>Excel <FontAwesomeIcon icon={faFileExcel} /></div>
                         </div>
                     </div>
                     <div className="text-center w-full">ตารางเเสดงผล</div>

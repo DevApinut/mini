@@ -136,11 +136,11 @@ const Navbar1 = () => {
                                             <div onClick={() => sub_menu_data(0)}>PM CB 22 kV</div>
                                             <FontAwesomeIcon icon={faPlay} className="text-slate-400 absolute right-0 top-1/4 text-sm" />
                                             {SubisOpen[0] && <div className="Subheader2"
-                                            >   
-                                            <div className="no-underline m-2 text-black hover:bg-slate-200 relative">
-                                                <Link to={'/SwitchGear'} className="no-underline text-black">SwitchGear</Link>
-                                            </div>
-                                                
+                                            >
+                                                <div className="no-underline m-2 text-black hover:bg-slate-200 relative">
+                                                    <Link to={'/SwitchGear'} className="no-underline text-black">SwitchGear</Link>
+                                                </div>
+
                                                 <div className="m-2 text-black hover:bg-slate-200 relative">ย่อย1.1</div>
                                                 <div className="m-2 text-black hover:bg-slate-200 relative">ย่อย1.1</div>
                                             </div>}
