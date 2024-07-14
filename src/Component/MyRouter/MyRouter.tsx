@@ -11,7 +11,8 @@ import Forgetpassword from "../Content/Loginreg/Forgetpassword";
 import JobDescription from "../Content/Homepage/JobDescription";
 import Personel from "../Content/Homepage/Personal";
 import RedirectHome from "../Content/Private_redirect/RedirectHome";
-import SwitchGear from "../Content/PM_Test/Switch_Gear";
+import SwitchGear from "../Content/PM_Test/SwitchGear/Switch_Gear";
+import Tranfromer from "../Content/PM_Test/Transformer/Tranformer";
 const Myrouter = () => {
     return (
         <BrowserRouter>
@@ -24,7 +25,8 @@ const Myrouter = () => {
                 <Route path="/Homepage" Component={Home} />
                 <Route path="/Login" element={<RedirectHome Component={Login}/>}/>
                 <Route path="/Register" element={<RedirectHome Component={Register}/>}/>                
-                <Route path="/SwitchGear" element={<SwitchGear/>} />
+                <Route path="/SwitchGear" element={<SwitchGear/>} />                
+                <Route path="/Tranfromer" element={<Tranfromer/>} />
                     
                 {/* <Route  path="/Login" Component={Login}/>             */}
                 {/* <Route  path="/Register" Component={Register}/>             */}

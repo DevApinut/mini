@@ -1,6 +1,6 @@
 import React, { Component, useReducer, useEffect, useDebugValue } from "react";
-import Navbar1 from "../Navbar/Navbar1";
-import Footer from "../Footer/Footer";
+import Navbar1 from "../../Navbar/Navbar1";
+import Footer from "../../Footer/Footer";
 import axios from "axios";
 import ReactLoading from 'react-loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

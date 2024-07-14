@@ -111,7 +111,7 @@ export const ExportExcellSwitchGear = (props: any) => {
     worksheet.getCell('A1').alignment = { vertical: 'middle', horizontal: 'center' }
     worksheet.getCell('C1').alignment = { vertical: 'middle', horizontal: 'center' }
     worksheet.getCell('A3').alignment = { vertical: 'middle', horizontal: 'center' }
-    worksheet.getCell('C3').alignment = { vertical: 'middle', horizontal: 'center' }
+    worksheet.getCell('C3').alignment = { vertical: 'middle', horizontal: 'left' }
     worksheet.getCell('T3').alignment = { vertical: 'middle', horizontal: 'center' }
     worksheet.getCell('U3').alignment = { vertical: 'middle', horizontal: 'center' }
     worksheet.getCell('A4').alignment = { vertical: 'middle', horizontal: 'center' }
@@ -124,7 +124,7 @@ export const ExportExcellSwitchGear = (props: any) => {
     worksheet.getCell('H4').alignment = { vertical: 'middle', horizontal: 'center' }
     worksheet.getCell('K4').alignment = { vertical: 'middle', horizontal: 'center' }
     worksheet.getCell('N4').alignment = { vertical: 'middle', horizontal: 'center' }
-    worksheet.getCell('T4').alignment = { vertical: 'middle', horizontal: 'center',wrapText: true }
+    worksheet.getCell('T4').alignment = { vertical: 'middle', horizontal: 'center', wrapText: true }
     worksheet.getCell('U4').alignment = { vertical: 'middle', horizontal: 'center' }
     worksheet.getCell('H5').alignment = { vertical: 'middle', horizontal: 'center' }
     worksheet.getCell('K5').alignment = { vertical: 'middle', horizontal: 'center' }
@@ -178,28 +178,128 @@ export const ExportExcellSwitchGear = (props: any) => {
     worksheet.getCell('S6').font = { name: 'TH SarabunPSK', size: 14, italic: false, bold: true, }
 
 
-    worksheet.getColumn(1).width = 8.1
-    worksheet.getColumn(2).width = 5
-    worksheet.getColumn(3).width = 8.2
-    worksheet.getColumn(4).width = 10.8
-    worksheet.getColumn(5).width = 3.9
-    worksheet.getColumn(6).width = 3.6
-    worksheet.getColumn(7).width = 3.8
-    worksheet.getColumn(8).width = 8.1
-    worksheet.getColumn(9).width = 8.1
-    worksheet.getColumn(10).width = 8.1
-    worksheet.getColumn(11).width = 7.4
-    worksheet.getColumn(12).width = 7.4
-    worksheet.getColumn(13).width = 7.4
-    worksheet.getColumn(14).width = 9.5
-    worksheet.getColumn(15).width = 9.5
-    worksheet.getColumn(16).width = 9.5
-    worksheet.getColumn(17).width = 9.4
-    worksheet.getColumn(18).width = 9.4
-    worksheet.getColumn(19).width = 9.4
-    worksheet.getColumn(20).width = 8.1
-    worksheet.getColumn(21).width = 8.1
+    worksheet.getColumn(1).width = 12
+    worksheet.getColumn(2).width = 10
+    worksheet.getColumn(3).width = 12
+    worksheet.getColumn(4).width = 12
+    worksheet.getColumn(5).width = 6
+    worksheet.getColumn(6).width = 6
+    worksheet.getColumn(7).width = 6
+    worksheet.getColumn(8).width = 8
+    worksheet.getColumn(9).width = 8
+    worksheet.getColumn(10).width = 8
+    worksheet.getColumn(11).width = 8
+    worksheet.getColumn(12).width = 8
+    worksheet.getColumn(13).width = 8
+    worksheet.getColumn(14).width = 8
+    worksheet.getColumn(15).width = 8
+    worksheet.getColumn(16).width = 8
+    worksheet.getColumn(17).width = 8
+    worksheet.getColumn(18).width = 8
+    worksheet.getColumn(19).width = 8
+    worksheet.getColumn(20).width = 8
+    worksheet.getColumn(21).width = 15
 
+
+    worksheet.getRow(1).height = 45
+    worksheet.getRow(2).height = 45
+
+
+    worksheet.getCell(`C3`).value = props.SubstationSelect
+    
+    props.dataFromfetch.map((data: any, index: number) => {
+        worksheet.getCell(`A${index + 7}`).value = data[2]
+        worksheet.getCell(`B${index + 7}`).value = data[3]
+        worksheet.getCell(`C${index + 7}`).value = data[4]
+        worksheet.getCell(`D${index + 7}`).value = data[5]
+        worksheet.getCell(`E${index + 7}`).value = data[6]
+        worksheet.getCell(`F${index + 7}`).value = data[7]
+        worksheet.getCell(`G${index + 7}`).value = data[8]
+        worksheet.getCell(`H${index + 7}`).value = data[9]
+        worksheet.getCell(`I${index + 7}`).value = data[10]
+        worksheet.getCell(`J${index + 7}`).value = data[11]
+        worksheet.getCell(`K${index + 7}`).value = data[12]
+        worksheet.getCell(`L${index + 7}`).value = data[13]
+        worksheet.getCell(`M${index + 7}`).value = data[14]
+        worksheet.getCell(`N${index + 7}`).value = data[15]
+        worksheet.getCell(`O${index + 7}`).value = data[16]
+        worksheet.getCell(`P${index + 7}`).value = data[17]
+        worksheet.getCell(`Q${index + 7}`).value = data[18]
+        worksheet.getCell(`R${index + 7}`).value = data[19]
+        worksheet.getCell(`S${index + 7}`).value = data[20]
+        worksheet.getCell(`T${index + 7}`).value = data[21]
+        worksheet.getCell(`U${index + 7}`).value = data[22]
+
+        worksheet.getCell(`A${index + 7}`).font = { name: 'TH SarabunPSK', size: 14, }
+        worksheet.getCell(`B${index + 7}`).font = { name: 'TH SarabunPSK', size: 14, }
+        worksheet.getCell(`C${index + 7}`).font = { name: 'TH SarabunPSK', size: 14, }
+        worksheet.getCell(`D${index + 7}`).font = { name: 'TH SarabunPSK', size: 14, }
+        worksheet.getCell(`E${index + 7}`).font = { name: 'TH SarabunPSK', size: 14, }
+        worksheet.getCell(`F${index + 7}`).font = { name: 'TH SarabunPSK', size: 14, }
+        worksheet.getCell(`G${index + 7}`).font = { name: 'TH SarabunPSK', size: 14, }
+        worksheet.getCell(`H${index + 7}`).font = { name: 'TH SarabunPSK', size: 14, }
+        worksheet.getCell(`I${index + 7}`).font = { name: 'TH SarabunPSK', size: 14, }
+        worksheet.getCell(`J${index + 7}`).font = { name: 'TH SarabunPSK', size: 14, }
+        worksheet.getCell(`K${index + 7}`).font = { name: 'TH SarabunPSK', size: 14, }
+        worksheet.getCell(`L${index + 7}`).font = { name: 'TH SarabunPSK', size: 14, }
+        worksheet.getCell(`M${index + 7}`).font = { name: 'TH SarabunPSK', size: 14, }
+        worksheet.getCell(`N${index + 7}`).font = { name: 'TH SarabunPSK', size: 14, }
+        worksheet.getCell(`O${index + 7}`).font = { name: 'TH SarabunPSK', size: 14, }
+        worksheet.getCell(`P${index + 7}`).font = { name: 'TH SarabunPSK', size: 14, }
+        worksheet.getCell(`Q${index + 7}`).font = { name: 'TH SarabunPSK', size: 14, }
+        worksheet.getCell(`R${index + 7}`).font = { name: 'TH SarabunPSK', size: 14, }
+        worksheet.getCell(`S${index + 7}`).font = { name: 'TH SarabunPSK', size: 14, }
+        worksheet.getCell(`T${index + 7}`).font = { name: 'TH SarabunPSK', size: 14, }
+        worksheet.getCell(`U${index + 7}`).font = { name: 'TH SarabunPSK', size: 14, }
+        
+        worksheet.getCell(`A${index + 7}`).alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell(`B${index + 7}`).alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell(`C${index + 7}`).alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell(`D${index + 7}`).alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell(`E${index + 7}`).alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell(`F${index + 7}`).alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell(`G${index + 7}`).alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell(`H${index + 7}`).alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell(`I${index + 7}`).alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell(`J${index + 7}`).alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell(`K${index + 7}`).alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell(`L${index + 7}`).alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell(`M${index + 7}`).alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell(`N${index + 7}`).alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell(`O${index + 7}`).alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell(`P${index + 7}`).alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell(`Q${index + 7}`).alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell(`R${index + 7}`).alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell(`S${index + 7}`).alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell(`T${index + 7}`).alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell(`U${index + 7}`).alignment = { vertical: 'middle', horizontal: 'center' }
+        
+        worksheet.getCell(`A${index + 7}`).border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell(`B${index + 7}`).border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell(`C${index + 7}`).border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell(`D${index + 7}`).border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell(`E${index + 7}`).border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell(`F${index + 7}`).border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell(`G${index + 7}`).border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell(`H${index + 7}`).border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell(`I${index + 7}`).border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell(`J${index + 7}`).border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell(`K${index + 7}`).border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell(`L${index + 7}`).border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell(`M${index + 7}`).border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell(`N${index + 7}`).border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell(`O${index + 7}`).border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell(`P${index + 7}`).border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell(`Q${index + 7}`).border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell(`R${index + 7}`).border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell(`S${index + 7}`).border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell(`T${index + 7}`).border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell(`U${index + 7}`).border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
+
+
+
+
+    })
 
 
 
