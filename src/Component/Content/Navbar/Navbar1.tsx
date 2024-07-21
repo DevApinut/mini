@@ -141,7 +141,9 @@ const Navbar1 = () => {
                                                     <Link to={'/SwitchGear'} className="no-underline text-black">SwitchGear</Link>
                                                 </div>
 
-                                                <div className="m-2 text-black hover:bg-slate-200 relative">ย่อย1.1</div>
+                                                <div className="no-underline m-2 text-black hover:bg-slate-200 relative">
+                                                    <Link to={'/Transformer'} className="no-underline text-black">Transformer</Link>
+                                                </div>
                                                 <div className="m-2 text-black hover:bg-slate-200 relative">ย่อย1.1</div>
                                             </div>}
                                         </div>

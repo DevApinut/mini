@@ -19,7 +19,7 @@ const Tranfromer = (prop: any) => {
 
         // ข้อมูลยังขาดการเติม Abnormal ในรูปแบบของ String
         //-------LCC---------
-        LCC_Cleaness: true,
+        LCC_Cleaness: false,
         LCC_Lamp: false,
         LCC_MCB: false,
         LCC_CT_terminal: false,
@@ -280,9 +280,15 @@ const Tranfromer = (prop: any) => {
                     [action.payload.name]: action.payload.value
                 }
             case 'setall':
-                // const filtered = Object.assign(...Object.keys(initials).map(k => ({ [k]: action.payload.value })));
+                const filtered = function (initials: any) {
+                    Object.keys(initials).forEach(function (key) { initials[key] = true });
+                    return initials;
+                }
+                // const filtered = Object.assign({ ...Object.keys(initials).map(k => ({ [k]: true })) });
+                console.log(filtered(initials))
                 return {
-                    // ...filtered,
+                    ...filtered(initials),
+                    // ...Object.keys(initials).map(k => ({ [k]: true })),
                     // ข้อมูลยังขาดการเติม Abnormal ในรูปแบบของ String
                     //-------LCC---------                   
                     LCC_Abnormal_Check: false,
@@ -381,9 +387,14 @@ const Tranfromer = (prop: any) => {
                     OLTC_Oil_Leak_At_Value: "",
                 }
             case 'Abnormalall':
-                // const Abnormal = Object.assign(...Object.keys(initials).map(k => ({ [k]: !action.payload.value })));
+                const Abnormal = function (initials: any) {
+                    Object.keys(initials).forEach(function (key) { initials[key] = false });
+                    return initials;
+                }
+                // const Abnormal = Object.assign([...Object.keys(initials).map(k => ({ [k]: false }))]);
+
                 return {
-                    // ...Abnormal,
+                    ...Abnormal(initials),
                     // ข้อมูลยังขาดการเติม Abnormal ในรูปแบบของ String
                     //-------LCC---------                   
                     LCC_Abnormal_Check: action.payload.value,
@@ -509,6 +520,12 @@ const Tranfromer = (prop: any) => {
                     <div className="normal">
                         <div className="d-flex justify-content-center my-3">
                             <div className="text-center"><h4>Power Transformer</h4></div>
+                            <div className="btn btn-danger" onClick={() => { dispatch({ type: "Abnormalall", payload: { value: true } }) }}>
+                                ab
+                            </div>
+                            <div className="btn btn-success" onClick={() => { dispatch({ type: "setall", payload: { value: true } }) }}>
+                                set
+                            </div>
                         </div>
 
                         <div className="flex justify-center flex-col border rounded w-full py-2">
@@ -619,7 +636,7 @@ const Tranfromer = (prop: any) => {
                                     <input className="form-check-input" type="checkbox" id="LCC_Cover" checked={state.LCC_Cover} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "LCC_Cover", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="LCC_Cover">Cover/seal</label>
                                 </div>
-                                <div className="flex justify-center w-full mx-2">
+                                <div className="flex justify-center w-full m-2">
                                     <input className="form-check-input" type="checkbox" id="LCC_Abnormal_Check" checked={state.LCC_Abnormal_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "LCC_Abnormal_Check", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="LCC_Abnormal_Check">Abnormal</label>
                                     <input className="form-control w-full" type="text" placeholder="้โปรดป้อนรายละเอียด LCC" disabled={!state.LCC_Abnormal_Check} value={state.LCC_Abnormal_Value} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "LCC_Abnormal_Value", value: e.target.value } }) }}></input>
@@ -664,7 +681,7 @@ const Tranfromer = (prop: any) => {
                                     <input className="form-check-input" type="checkbox" id="RCC_Control_Cable" checked={state.RCC_Control_Cable} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "RCC_Control_Cable", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="RCC_Control_Cable">Control Cable</label>
                                 </div>
-                                <div className="flex justify-center w-full mx-2">
+                                <div className="flex justify-center w-full m-2">
                                     <input className="form-check-input" type="checkbox" id="RCC_Abnormal_Check" checked={state.RCC_Abnormal_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "RCC_Abnormal_Check", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="RCC_Abnormal_Check">Abnormal</label>
                                     <input className="form-control" type="text" placeholder="้โปรดป้อนรายละเอียด RCC" disabled={!state.RCC_Abnormal_Check} value={state.RCC_Abnormal_Value} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "RCC_Abnormal_Value", value: e.target.value } }) }}></input>
@@ -695,7 +712,7 @@ const Tranfromer = (prop: any) => {
                                         <label className="form-check-label" htmlFor="Motor_Drive_Counter_Check">Counter</label>
                                         <input className="form-control" type="text" placeholder="Counter" disabled={!state.Motor_Drive_Counter_Check} value={state.Motor_Drive_Counter_Value} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Motor_Drive_Counter_Value", value: e.target.value } }) }}></input>
                                     </div>
-                                    <div className="d-flex justify-content-center align-items-center grow mx-2">
+                                    <div className="d-flex justify-content-center align-items-center grow m-2">
                                         <input className="form-check-input" type="checkbox" id="Motor_Drive_Abnormal_Check" checked={state.Motor_Drive_Abnormal_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Motor_Drive_Abnormal_Check", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="Motor_Drive_Abnormal_Check">Abnormal</label>
                                         <input className="form-control" type="text" placeholder="้โปรดป้อนรายละเอียด Motor drive" disabled={!state.Motor_Drive_Abnormal_Check} value={state.Motor_Drive_Abnormal_Value} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Motor_Drive_Abnormal_Value", value: e.target.value } }) }}></input>
@@ -726,7 +743,7 @@ const Tranfromer = (prop: any) => {
                                         <label className="form-check-label" htmlFor="Oil_Filter_Counter_Check">Counter</label>
                                         <input className="form-control" type="text" placeholder="Counter" disabled={!state.Oil_Filter_Counter_Check} value={state.Oil_Filter_Counter_Value} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Oil_Filter_Counter_Value", value: e.target.value } }) }}></input>
                                     </div>
-                                    <div className="d-flex justify-content-center align-items-center grow mx-2">
+                                    <div className="d-flex justify-content-center align-items-center grow m-2">
                                         <input className="form-check-input" type="checkbox" id="Oil_Filter_Abnormal_Check" checked={state.Oil_Filter_Abnormal_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Oil_Filter_Abnormal_Check", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="Oil_Filter_Abnormal_Check">Abnormal</label>
                                         <input className="form-control" type="text" placeholder="้โปรดป้อนรายละเอียด Oil filter" disabled={!state.Oil_Filter_Abnormal_Check} value={state.Oil_Filter_Abnormal_Value} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Oil_Filter_Abnormal_Value", value: e.target.value } }) }}></input>
@@ -767,7 +784,7 @@ const Tranfromer = (prop: any) => {
                                         <input className="form-check-input p-0" type="checkbox" id="Main_Tank_Buttom_oil_normal" checked={state.Main_Tank_Buttom_oil} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Main_Tank_Buttom_oil", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="Main_Tank_Buttom_oil_normal">Buttom oil normal</label>
                                     </div>
-                                    <div className="flex mx-2 grow">
+                                    <div className="flex m-2 grow">
                                         <input className="form-check-input p-0" type="checkbox" id="Main_Tank_Buttom_oil_Abnormal" checked={!state.Main_Tank_Buttom_oil} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Main_Tank_Buttom_oil", value: !e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="Main_Tank_Buttom_oil_Abnormal">Buttom oil Abnormal</label>
                                         <div className="grow">
@@ -797,7 +814,7 @@ const Tranfromer = (prop: any) => {
                                         <div className="d-flex justify-content-center align-items-center grow p-0">
                                             <input className="form-check-input p-0" type="checkbox" id="OLTC_Case_no" checked={!state.OLTC_Case} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "OLTC_Case", value: !e.target.checked } }) }} />
                                             <label className="form-check-label p-0" htmlFor="OLTC_Case_no">Case Abnormal</label>
-                                            <div className="p-0 grow mx-2">
+                                            <div className="p-0 grow m-2">
                                                 <input className="form-control" type="text" placeholder="้โปรดป้อนรายละเอียด case" disabled={state.OLTC_Case} value={state.OLTC_Case_Abnormal} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "OLTC_Case_Abnormal", value: e.target.value } }) }}></input>
                                             </div>
                                         </div>
@@ -808,7 +825,7 @@ const Tranfromer = (prop: any) => {
                                         <input className="form-check-input p-0" type="checkbox" id="OLTC_Buttom_oil_normal" checked={state.OLTC_Buttom_oil} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "OLTC_Buttom_oil", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="OLTC_Buttom_oil_normal">Buttom oil normal</label>
                                     </div>
-                                    <div className="flex grow mx-2 ">
+                                    <div className="flex grow m-2 ">
                                         <input className="form-check-input p-0" type="checkbox" id="OLTC_Buttom_oil_Abnormal" checked={!state.OLTC_Buttom_oil} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "OLTC_Buttom_oil", value: !e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="OLTC_Buttom_oil_Abnormal">Buttom oil Abnormal</label>
                                         <div className="grow">
@@ -838,7 +855,7 @@ const Tranfromer = (prop: any) => {
                                     <input className="form-check-input" type="checkbox" id="Bushing115_Cleaness" checked={state.Bushing115_Cleaness} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Bushing115_Cleaness", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="Bushing115_Cleaness">Housing+cleaness</label>
                                 </div>
-                                <div className="flex justify-center w-full mx-2">
+                                <div className="flex justify-center w-full m-2">
                                     <input className="form-check-input" type="checkbox" id="Bushing115_Abnomal_Check" checked={state.Bushing115_Abnomal_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Bushing115_Abnomal_Check", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="Bushing115_Abnomal_Check">Abnormal</label>
                                     <input className="form-control" type="text" placeholder="้โปรดป้อนรายละเอียด bushing" disabled={!state.Bushing115_Abnomal_Check} value={state.Bushing115_Abnomal_Value} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Bushing115_Abnomal_Value", value: e.target.value } }) }}></input>
@@ -861,7 +878,7 @@ const Tranfromer = (prop: any) => {
                                     <input className="form-check-input" type="checkbox" id="Cablebox_Overall" checked={state.Cablebox_Overall} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Cablebox_Overall", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="Cablebox_Overall">Over all</label>
                                 </div>
-                                <div className="flex justify-center w-full mx-2">
+                                <div className="flex justify-center w-full m-2">
                                     <input className="form-check-input" type="checkbox" id="Cablebox_Abnormal_Check" checked={state.Cablebox_Abnormal_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Cablebox_Abnormal_Check", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="Cablebox_Abnormal_Check">Abnormal</label>
                                     <input className="form-control" type="text" placeholder="้โปรดป้อนรายละเอียด cable box" disabled={!state.Cablebox_Abnormal_Check} value={state.Cablebox_Abnormal_Value} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Cablebox_Abnormal_Value", value: e.target.value } }) }}></input>
@@ -872,7 +889,7 @@ const Tranfromer = (prop: any) => {
                         <div className="flex justify-center flex-col items-start border my-1 rounded-xl py-1">
                             <div className="font-bold self-center">Buchholz relay</div>
                             <div className="flex flex-wrap justify-start w-full">
-                                <div className="w-full flex flex-wrap">
+                                <div className="w-full flex flex-wrap items-center">
                                     <div className="form-check mx-2">
                                         <input className="form-check-input" type="checkbox" id="Bucholz_Terminal" checked={state.Bucholz_Terminal} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Bucholz_Terminal", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="Bucholz_Terminal">Terminal box</label>
@@ -881,7 +898,7 @@ const Tranfromer = (prop: any) => {
                                         <input className="form-check-input" type="checkbox" id="Bucholz_Slight_Glass" checked={state.Bucholz_Slight_Glass} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Bucholz_Slight_Glass", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor=" Bucholz_Slight_Glass">slight glass</label>
                                     </div>
-                                    <div className="flex justify-center items-center grow">
+                                    <div className="flex justify-center items-center grow mx-2">
                                         <input className="form-check-input" type="checkbox" id="Bucholz_IR_Check" checked={state.Bucholz_IR_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Bucholz_IR_Check", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="Bucholz_IR_Check">I.R.</label>
                                         <input className="form-control" type="text" placeholder="หน่วย ohm" disabled={!state.Bucholz_IR_Check} value={state.Bucholz_IR_Value} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Bucholz_IR_Value", value: e.target.value } }) }}></input>
@@ -896,7 +913,7 @@ const Tranfromer = (prop: any) => {
                                     </div>
                                 </div>
 
-                                <div className="flex justify-center items-center grow mx-2">
+                                <div className="flex justify-center items-center grow m-2">
                                     <input className="form-check-input" type="checkbox" id="Bucholz_Abnormal_Check" checked={state.Bucholz_Abnormal_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Bucholz_Abnormal_Check", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="Bucholz_Abnormal_Check">Abnormal</label>
                                     <div className="grow">
@@ -909,7 +926,7 @@ const Tranfromer = (prop: any) => {
                         <div className="flex justify-center flex-col items-start border my-1 rounded-xl py-1">
                             <div className="font-bold self-center">Protective relay</div>
                             <div className="flex flex-wrap justify-start w-full">
-                                <div className="w-full flex flex-wrap">
+                                <div className="w-full flex flex-wrap items-center">
                                     <div className="form-check mx-2">
                                         <input className="form-check-input" type="checkbox" id="Protective_Terminal" checked={state.Protective_Terminal} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Protective_Terminal", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="Protective_Terminal">Terminal box</label>
@@ -918,7 +935,7 @@ const Tranfromer = (prop: any) => {
                                         <input className="form-check-input" type="checkbox" id="Protective_Slight_Glass" checked={state.Protective_Slight_Glass} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Protective_Slight_Glass", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="Protective_Slight_Glass">slight glass</label>
                                     </div>
-                                    <div className="d-flex justify-content-center align-items-center grow">
+                                    <div className="d-flex justify-content-center align-items-center grow mx-2">
                                         <input className="form-check-input" type="checkbox" id="Protective_IR_Check" checked={state.Protective_IR_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Protective_IR_Check", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="Protective_IR_Check">I.R.</label>
                                         <input className="form-control" type="text" placeholder="หน่วย ohm" disabled={!state.Protective_IR_Check} value={state.Protective_IR_Value} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Protective_IR_Value", value: e.target.value } }) }}></input>
@@ -928,7 +945,7 @@ const Tranfromer = (prop: any) => {
                                         <label className="form-check-label" htmlFor="Protective_Trip">Trip</label>
                                     </div>
                                 </div>
-                                <div className="flex justify-center items-center grow mx-2">
+                                <div className="flex justify-center items-center grow m-2">
                                     <input className="form-check-input" type="checkbox" id=" Protective_Abnormal_Check" checked={state.Protective_Abnormal_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Protective_Abnormal_Check", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor=" Protective_Abnormal_Check">Abnormal</label>
                                     <div className="grow">
@@ -941,7 +958,7 @@ const Tranfromer = (prop: any) => {
                         <div className="flex justify-center flex-col items-start border my-1 rounded-xl py-1">
                             <div className="font-bold self-center">PRD Maintank</div>
                             <div className="flex flex-wrap justify-start w-full">
-                                <div className="w-full flex flex-wrap">
+                                <div className="w-full flex flex-wrap items-center">
                                     <div className="form-check mx-2">
                                         <input className="form-check-input" type="checkbox" id="PRD_Maintank_Switch" checked={state.PRD_Maintank_Switch} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "PRD_Maintank_Switch", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="PRD_Maintank_Switch">Switch</label>
@@ -954,7 +971,7 @@ const Tranfromer = (prop: any) => {
                                         <input className="form-check-input" type="checkbox" id="PRD_Maintank_Cover" checked={state.PRD_Maintank_Cover} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "PRD_Maintank_Cover", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="PRD_Maintank_Cover">Cover</label>
                                     </div>
-                                    <div className="d-flex justify-content-center align-items-center grow">
+                                    <div className="d-flex justify-content-center align-items-center grow mx-2">
                                         <input className="form-check-input" type="checkbox" id="PRD_Maintank_IR_Check" checked={state.PRD_Maintank_IR_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "PRD_Maintank_IR_Check", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="PRD_Maintank_IR_Check">I.R.</label>
                                         <input className="form-control" type="text" placeholder="หน่วย ohm" disabled={!state.PRD_Maintank_IR_Check} value={state.PRD_Maintank_IR_Value} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "PRD_Maintank_IR_Value", value: e.target.value } }) }}></input>
@@ -964,7 +981,7 @@ const Tranfromer = (prop: any) => {
                                         <label className="form-check-label" htmlFor="PRD_Maintank_Trip">Trip</label>
                                     </div>
                                 </div>
-                                <div className="d-flex justify-content-center align-items-center mx-2 grow">
+                                <div className="d-flex justify-content-center align-items-center m-2 grow">
                                     <input className="form-check-input" type="checkbox" id="PRD_Maintank_Abnormal_Check" checked={state.PRD_Maintank_Abnormal_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "PRD_Maintank_Abnormal_Check", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="PRD_Maintank_Abnormal_Check">Abnormal</label>
                                     <div className="grow ">
@@ -977,7 +994,7 @@ const Tranfromer = (prop: any) => {
                         <div className="flex justify-center flex-col items-start border my-1 rounded-xl py-1">
                             <div className="font-bold self-center">PRD OLTC</div>
                             <div className="flex flex-wrap justify-start w-full">
-                                <div className="w-full flex grow flex-wrap">
+                                <div className="w-full flex grow flex-wrap items-center">
                                     <div className="form-check mx-2">
                                         <input className="form-check-input" type="checkbox" id="PRD_OLTC_Switch" checked={state.PRD_OLTC_Switch} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "PRD_OLTC_Switch", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="PRD_OLTC_Switch">Switch</label>
@@ -990,7 +1007,7 @@ const Tranfromer = (prop: any) => {
                                         <input className="form-check-input" type="checkbox" id="PRD_OLTC_Cover" checked={state.PRD_OLTC_Cover} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "PRD_OLTC_Cover", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="PRD_OLTC_Cover">Cover</label>
                                     </div>
-                                    <div className="d-flex justify-content-center align-items-center grow">
+                                    <div className="d-flex justify-content-center align-items-center grow mx-2">
                                         <input className="form-check-input" type="checkbox" id="PRD_OLTC_IR_Check" checked={state.PRD_OLTC_IR_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "PRD_OLTC_IR_Check", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="PRD_OLTC_IR_Check">I.R.</label>
                                         <input className="form-control" type="text" placeholder="หน่วย ohm" disabled={!state.PRD_OLTC_IR_Check} value={state.PRD_OLTC_IR_Value} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "PRD_OLTC_IR_Value", value: e.target.value } }) }}></input>
@@ -1000,7 +1017,7 @@ const Tranfromer = (prop: any) => {
                                         <label className="form-check-label" htmlFor="PRD_OLTC_Trip">Trip</label>
                                     </div>
                                 </div>
-                                <div className="d-flex justify-content-center align-items-center grow mx-2">
+                                <div className="d-flex justify-content-center align-items-center grow m-2">
                                     <input className="form-check-input" type="checkbox" id="PRD_OLTC_Abnormal_Check" checked={state.PRD_OLTC_Abnormal_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "PRD_OLTC_Abnormal_Check", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="PRD_OLTC_Abnormal_Check">Abnormal</label>
                                     <div className="grow">
@@ -1013,7 +1030,7 @@ const Tranfromer = (prop: any) => {
                         <div className="flex justify-center flex-col items-start border my-1 rounded-xl py-1">
                             <div className="font-bold self-center">Winding Temp (PhaseA)</div>
                             <div className="flex flex-wrap justify-start w-full">
-                                <div className="w-full flex grow flex-wrap">
+                                <div className="w-full flex grow flex-wrap items-center">
                                     <div className="form-check mx-2">
                                         <input className="form-check-input" type="checkbox" id="WTI_A_Switch" checked={state.WTI_A_Switch} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "WTI_A_Switch", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="WTI_A_Switch">Switch</label>
@@ -1026,7 +1043,7 @@ const Tranfromer = (prop: any) => {
                                         <input className="form-check-input" type="checkbox" id="WTI_A_Case" checked={state.WTI_A_Case} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "WTI_A_Case", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="WTI_A_Case">Case</label>
                                     </div>
-                                    <div className="d-flex justify-content-center align-items-center grow">
+                                    <div className="d-flex justify-content-center align-items-center grow mx-2">
                                         <input className="form-check-input" type="checkbox" id="WTI_A_IR_Check" checked={state.WTI_A_IR_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "WTI_A_IR_Check", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="WTI_A_IR_Check">I.R.</label>
                                         <input className="form-control" type="text" placeholder="หน่วย ohm" disabled={!state.WTI_A_IR_Check} value={state.WTI_A_IR_Value} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "WTI_A_IR_Value", value: e.target.value } }) }}></input>
@@ -1040,7 +1057,7 @@ const Tranfromer = (prop: any) => {
                                         <label className="form-check-label" htmlFor="WTI_A_Alarm">Alarm</label>
                                     </div>
                                 </div>
-                                <div className="d-flex justify-content-center align-items-center grow mx-2">
+                                <div className="d-flex justify-content-center align-items-center grow m-2">
                                     <input className="form-check-input" type="checkbox" id="WTI_A_Abnormal_Check" checked={state.WTI_A_Abnormal_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "WTI_A_Abnormal_Check", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="WTI_A_Abnormal_Check">Abnormal</label>
                                     <div className="grow">
@@ -1053,7 +1070,7 @@ const Tranfromer = (prop: any) => {
                         <div className="flex justify-center flex-col items-start border my-1 rounded-xl py-1">
                             <div className="font-bold self-center">Winding Temp (PhaseB)</div>
                             <div className="flex flex-wrap justify-start w-full">
-                                <div className="w-full flex grow flex-wrap">
+                                <div className="w-full flex grow flex-wrap items-center">
                                     <div className="form-check mx-2">
                                         <input className="form-check-input" type="checkbox" id="WTI_B_Switch" checked={state.WTI_B_Switch} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "WTI_B_Switch", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="WTI_B_Switch">Switch</label>
@@ -1066,7 +1083,7 @@ const Tranfromer = (prop: any) => {
                                         <input className="form-check-input" type="checkbox" id="WTI_B_Case" checked={state.WTI_B_Case} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "WTI_B_Case", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="WTI_B_Case">Case</label>
                                     </div>
-                                    <div className="d-flex justify-content-center align-items-center grow">
+                                    <div className="d-flex justify-content-center align-items-center grow mx-2">
                                         <input className="form-check-input" type="checkbox" id="WTI_B_IR_Check" checked={state.WTI_B_IR_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "WTI_B_IR_Check", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="WTI_B_IR_Check">I.R.</label>
                                         <input className="form-control" type="text" placeholder="หน่วย ohm" disabled={!state.WTI_B_IR_Check} value={state.WTI_B_IR_Value} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "WTI_B_IR_Value", value: e.target.value } }) }}></input>
@@ -1080,7 +1097,7 @@ const Tranfromer = (prop: any) => {
                                         <label className="form-check-label" htmlFor="WTI_B_Alarm">Alarm</label>
                                     </div>
                                 </div>
-                                <div className="d-flex justify-content-center align-items-center grow mx-2">
+                                <div className="d-flex justify-content-center align-items-center grow m-2">
                                     <input className="form-check-input" type="checkbox" id="WTI_B_Abnormal_Check" checked={state.WTI_B_Abnormal_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "WTI_B_Abnormal_Check", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="WTI_B_Abnormal_Check">Abnormal</label>
                                     <div className="grow">
@@ -1093,7 +1110,7 @@ const Tranfromer = (prop: any) => {
                         <div className="flex justify-center flex-col items-start border my-1 rounded-xl py-1">
                             <div className="font-bold self-center">Winding Temp (PhaseC)</div>
                             <div className="flex flex-wrap justify-start w-full">
-                                <div className="w-full flex grow flex-wrap">
+                                <div className="w-full flex grow flex-wrap items-center">
                                     <div className="form-check mx-2">
                                         <input className="form-check-input" type="checkbox" id="WTI_C_Switch" checked={state.WTI_C_Switch} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "WTI_C_Switch", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="WTI_C_Switch">Switch</label>
@@ -1106,7 +1123,7 @@ const Tranfromer = (prop: any) => {
                                         <input className="form-check-input" type="checkbox" id="WTI_C_Case" checked={state.WTI_C_Case} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "WTI_C_Case", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="WTI_C_Case">Case</label>
                                     </div>
-                                    <div className="d-flex justify-content-center align-items-center grow">
+                                    <div className="d-flex justify-content-center align-items-center grow mx-2">
                                         <input className="form-check-input" type="checkbox" id="WTI_C_IR_Check" checked={state.WTI_C_IR_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "WTI_C_IR_Check", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="WTI_C_IR_Check">I.R.</label>
                                         <input className="form-control" type="text" placeholder="หน่วย ohm" disabled={!state.WTI_C_IR_Check} value={state.WTI_C_IR_Value} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "WTI_C_IR_Value", value: e.target.value } }) }}></input>
@@ -1120,7 +1137,7 @@ const Tranfromer = (prop: any) => {
                                         <label className="form-check-label" htmlFor="WTI_C_Alarm">Alarm</label>
                                     </div>
                                 </div>
-                                <div className="d-flex justify-content-center align-items-center grow mx-2">
+                                <div className="d-flex justify-content-center align-items-center grow m-2">
                                     <input className="form-check-input" type="checkbox" id="WTI_C_Abnormal_Check" checked={state.WTI_C_Abnormal_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "WTI_C_Abnormal_Check", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="WTI_C_Abnormal_Check">Abnormal</label>
                                     <div className="grow">
@@ -1133,7 +1150,7 @@ const Tranfromer = (prop: any) => {
                         <div className="flex justify-center flex-col items-start border my-1 rounded-xl py-1">
                             <div className="font-bold self-center">Oil Temp</div>
                             <div className="flex flex-wrap justify-start w-full">
-                                <div className="w-full flex grow flex-wrap">
+                                <div className="w-full flex grow flex-wrap items-center">
                                     <div className="form-check mx-2">
                                         <input className="form-check-input" type="checkbox" id="OTI_Switch" checked={state.OTI_Switch} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "OTI_Switch", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="OTI_Switch">Switch</label>
@@ -1146,7 +1163,7 @@ const Tranfromer = (prop: any) => {
                                         <input className="form-check-input" type="checkbox" id="OTI_Case" checked={state.OTI_Case} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "OTI_Case", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="OTI_Case">Case</label>
                                     </div>
-                                    <div className="d-flex justify-center items-center grow">
+                                    <div className="d-flex justify-center items-center grow mx-2">
                                         <input className="form-check-input" type="checkbox" id="OTI_IR_Check" checked={state.OTI_IR_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "OTI_IR_Check", value: e.target.checked } }) }} />
                                         <label className="form-check-label" htmlFor="OTI_IR_Check">I.R.</label>
                                         <input className="form-control" type="text" placeholder="หน่วย ohm" disabled={!state.OTI_IR_Check} value={state.OTI_IR_Value} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "OTI_IR_Value", value: e.target.value } }) }}></input>
@@ -1160,7 +1177,7 @@ const Tranfromer = (prop: any) => {
                                         <label className="form-check-label" htmlFor="OTI_Alarm">Alarm</label>
                                     </div>
                                 </div>
-                                <div className="d-flex justify-content-center align-items-center grow mx-2">
+                                <div className="d-flex justify-content-center align-items-center grow m-2">
                                     <input className="form-check-input" type="checkbox" id="OTI_Abnormal_Check" checked={state.OTI_Abnormal_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "OTI_Abnormal_Check", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="OTI_Abnormal_Check">Abnormal</label>
                                     <div className="grow">
@@ -1185,7 +1202,7 @@ const Tranfromer = (prop: any) => {
                                     <input className="form-check-input" type="checkbox" id="Radiator_Cleaness" checked={state.Radiator_Cleaness} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Radiator_Cleaness", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="Radiator_Cleaness">Cleaness</label>
                                 </div>
-                                <div className="d-flex justify-content-center align-items-center w-full mx-2">
+                                <div className="d-flex justify-content-center align-items-center w-full m-2">
                                     <input className="form-check-input" type="checkbox" id="Radiator_Abnormal_Check" checked={state.Radiator_Abnormal_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Radiator_Abnormal_Check", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="Radiator_Abnormal_Check">Abnormal</label>
                                     <input className="form-control" type="text" placeholder="้โปรดป้อนรายละเอียด ครีป" disabled={!state.Radiator_Abnormal_Check} value={state.Radiator_Abnormal_Value} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Radiator_Abnormal_Value", value: e.target.value } }) }}></input>
@@ -1246,7 +1263,7 @@ const Tranfromer = (prop: any) => {
                                     </div>
                                 </div>
 
-                                <div className="d-flex justify-content-center align-items-center grow w-full mx-2">
+                                <div className="d-flex justify-content-center align-items-center grow w-full m-2">
                                     <input className="form-check-input" type="checkbox" id="Oil_Level_Main_Tank_Abnormal_Check" checked={state.Oil_Level_Main_Tank_Abnormal_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Oil_Level_Main_Tank_Abnormal_Check", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="Oil_Level_Main_Tank_Abnormal_Check">Abnormal</label>
                                     <div className="grow">
@@ -1277,7 +1294,7 @@ const Tranfromer = (prop: any) => {
                                     <input className="form-check-input" type="checkbox" id="Oil_Level_OLTC_Low_Alarm" checked={state.Oil_Level_OLTC_Low_Alarm} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Oil_Level_OLTC_Low_Alarm", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="Oil_Level_OLTC_Low_Alarm">low alarm</label>
                                 </div>
-                                <div className="d-flex justify-content-center align-items-center w-full mx-2">
+                                <div className="d-flex justify-content-center align-items-center w-full m-2">
                                     <input className="form-check-input" type="checkbox" id="Oil_Level_OLTC_Abnormal_Check" checked={state.Oil_Level_OLTC_Abnormal_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Oil_Level_OLTC_Abnormal_Check", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="Oil_Level_OLTC_Abnormal_Check">Abnormal</label>
                                     <div className="grow">
@@ -1290,23 +1307,27 @@ const Tranfromer = (prop: any) => {
                         <div className="flex justify-center flex-col items-start border my-1 rounded-xl py-1">
                             <div className="font-bold self-center">Cooling Fan</div>
                             <div className="flex flex-wrap justify-start w-full">
-                                <div className="flex justify-center w-full">
-                                    <div className="d-flex justify-content-center align-items-center w-1/2">
+                                <div className="flex justify-center w-full flex-wrap">
+                                    <div className="d-flex justify-content-center align-items-center">
                                         <div className="flex">
-                                            <label className="form-check-label" htmlFor="flexCheckDefault">Group 1 No.</label>
+                                            <div>
+                                                <label className="form-check-label" htmlFor="flexCheckDefault">Group 1 No.</label>
+                                            </div>
                                             <div>
                                                 <input className="form-control" type="text" placeholder="" value={state.Cooling_Group1_1} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Cooling_Group1_1", value: e.target.value } }) }}></input>
                                             </div>
                                         </div>
-                                        <div className="flex">
-                                            <label className="form-check-label" htmlFor="flexCheckDefault">of</label>
+                                        <div className="flex mx-2">
+                                            <div>
+                                                <label className="form-check-label" htmlFor="flexCheckDefault">of</label>
+                                            </div>
                                             <div>
                                                 <input className="form-control" type="text" placeholder="" value={state.Cooling_Group1_2} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Cooling_Group1_2", value: e.target.value } }) }}></input>
                                             </div>
                                             <label className="form-check-label" htmlFor="flexCheckDefault">units</label>
                                         </div>
                                     </div>
-                                    <div className="d-flex justify-content-center align-items-center w-1/2">
+                                    <div className="d-flex justify-content-center align-items-center ">
                                         <div className="flex justify-center w-full">
                                             <div className="flex">
                                                 <label className="form-check-label" htmlFor="flexCheckDefault">Group 2 No.</label>
@@ -1350,7 +1371,7 @@ const Tranfromer = (prop: any) => {
                                     <input className="form-check-input" type="checkbox" id="Cooling_Auto" checked={state.Cooling_Auto} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Cooling_Auto", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="Cooling_Auto">Auto</label>
                                 </div>
-                                <div className="d-flex justify-content-center align-items-center w-full mx-2">
+                                <div className="d-flex justify-content-center align-items-center w-full m-2">
                                     <input className="form-check-input" type="checkbox" id="Cooling_Abnormal_Check" checked={state.Cooling_Abnormal_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "Cooling_Abnormal_Check", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="Cooling_Abnormal_Check" >Abnormal</label>
                                     <div className="grow">
@@ -1390,7 +1411,7 @@ const Tranfromer = (prop: any) => {
                                     <input className="form-check-input" type="checkbox" id="OLTC_Motor_Drive_Hand_Crank" checked={state.OLTC_Motor_Drive_Hand_Crank} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "OLTC_Motor_Drive_Hand_Crank", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="OLTC_Motor_Drive_Hand_Crank">Hand Crank block</label>
                                 </div>
-                                <div className="d-flex justify-content-center align-items-center w-full mx-2">
+                                <div className="d-flex justify-content-center align-items-center w-full m-2">
                                     <input className="form-check-input" type="checkbox" id="OLTC_Motor_Drive_Abnormal_Check" checked={state.OLTC_Motor_Drive_Abnormal_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "OLTC_Motor_Drive_Abnormal_Check", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="OLTC_Motor_Drive_Abnormal_Check">Abnormal</label>
                                     <input className="form-control" type="text" placeholder="้โปรดป้อนรายละเอียด ครีป" disabled={!state.OLTC_Motor_Drive_Abnormal_Check} value={state.OLTC_Motor_Drive_Abnormal_Value} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "OLTC_Motor_Drive_Abnormal_Value", value: e.target.value } }) }}></input>
@@ -1422,7 +1443,7 @@ const Tranfromer = (prop: any) => {
                                     <input className="form-check-input" type="checkbox" id="OLTC_RCC_Emergency" checked={state.OLTC_RCC_Emergency} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "OLTC_RCC_Emergency", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="OLTC_RCC_Emergency">Emergency</label>
                                 </div>
-                                <div className="d-flex justify-content-center align-items-center w-full mx-2">
+                                <div className="d-flex justify-content-center align-items-center w-full m-2">
                                     <input className="form-check-input" type="checkbox" id="OLTC_RCC_Abnormal_Check" checked={state.OLTC_RCC_Abnormal_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "OLTC_RCC_Abnormal_Check", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="OLTC_RCC_Abnormal_Check">Abnormal</label>
                                     <input className="form-control" type="text" placeholder="้โปรดป้อนรายละเอียด ครีป" disabled={!state.OLTC_RCC_Abnormal_Check} value={state.OLTC_RCC_Abnormal_Value} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "OLTC_RCC_Abnormal_Value", value: e.target.value } }) }}></input>
@@ -1446,7 +1467,7 @@ const Tranfromer = (prop: any) => {
                                     <input className="form-check-input" type="checkbox" id="OLTC_Taposition_Motor_Drive" checked={state.OLTC_Taposition_Motor_Drive} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "OLTC_Taposition_Motor_Drive", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="OLTC_Taposition_Motor_Drive">Motor drive</label>
                                 </div>
-                                <div className="d-flex justify-content-center align-items-center w-full mx-2">
+                                <div className="d-flex justify-content-center align-items-center w-full m-2">
                                     <input className="form-check-input" type="checkbox" id="OLTC_Taposition_Abnormal_Check" checked={state.OLTC_Taposition_Abnormal_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "OLTC_Taposition_Abnormal_Check", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="OLTC_Taposition_Abnormal_Check">Abnormal</label>
                                     <input className="form-control" type="text" placeholder="้โปรดป้อนรายละเอียด ครีป" disabled={!state.OLTC_Taposition_Abnormal_Check} value={state.OLTC_Taposition_Abnormal_Value} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "OLTC_Taposition_Abnormal_Value", value: e.target.value } }) }}></input>
@@ -1463,7 +1484,7 @@ const Tranfromer = (prop: any) => {
                                     <input className="form-check-input" type="checkbox" id="OLTC_Current_Block_Check_normal" checked={state.OLTC_Current_Block_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "OLTC_Current_Block_Check", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="OLTC_Current_Block_Check_normal">Normal</label>
                                 </div>
-                                <div className="d-flex justify-content-center align-items-center grow mx-2">
+                                <div className="d-flex justify-content-center align-items-center grow m-2">
                                     <input className="form-check-input" type="checkbox" id="OLTC_Current_Block_Check_Abnormal" checked={!state.OLTC_Current_Block_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "OLTC_Current_Block_Check", value: !e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="OLTC_Current_Block_Check_Abnormal">Abnormal</label>
                                     <input className="form-control" type="text" placeholder="้โปรดป้อนรายละเอียด ครีป" disabled={state.OLTC_Current_Block_Check} value={state.OLTC_Current_Block_Value} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "OLTC_Current_Block_Value", value: e.target.value } }) }}></input>
@@ -1520,8 +1541,8 @@ const Tranfromer = (prop: any) => {
                         {/* ----------------------------------------------------------oil purifier-------------------------------------------------------- */}
                         <div className="flex justify-center flex-col items-start border my-1 rounded-xl py-1">
                             <div className="font-bold self-center">OLTC Oil purifier</div>
-                            <div className="flex flex-wrap justify-start w-full">
-                                <div className="form-check mx-2">
+                            <div className="flex flex-wrap justify-start w-full items-center">
+                                <div className="mx-2">
                                     <input className="form-check-input" type="checkbox" id="OLTC_Oil_Purifier_Time_delay" checked={state.OLTC_Oil_Purifier_Time_delay} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "OLTC_Oil_Purifier_Time_delay", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="OLTC_Oil_Purifier_Time_delay">Time delay relay & timer function </label>
                                 </div>
@@ -1535,11 +1556,13 @@ const Tranfromer = (prop: any) => {
                         {/* ----------------------------------------------------------oil leak-------------------------------------------------------- */}
                         <div className="flex justify-center flex-col items-start border my-1 rounded-xl py-1">
                             <div className="font-bold self-center">OLTC Oil leak</div>
-                            <div className="flex flex-wrap justify-start w-full items-center mx-2">
-                                <div className="d-flex justify-content-center align-items-center">
+                            <div className="flex flex-wrap justify-start w-full items-center">
+                                <div className="d-flex justify-content-center align-items-center mx-2">
                                     <input className="form-check-input" type="checkbox" id="OLTC_Oil_Leak_At_Check" checked={state.OLTC_Oil_Leak_At_Check} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "OLTC_Oil_Leak_At_Check", value: e.target.checked } }) }} />
                                     <label className="form-check-label" htmlFor="OLTC_Oil_Leak_At_Check">At</label>
-                                    <input className="form-control" type="text" placeholder="้โปรดป้อนรายละเอียด ครีป" disabled={!state.OLTC_Oil_Leak_At_Check} value={state.OLTC_Oil_Leak_At_Value} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "OLTC_Oil_Leak_At_Value", value: e.target.value } }) }}></input>
+                                    <div>
+                                        <input className="form-control" type="text" placeholder="้โปรดป้อนรายละเอียด ครีป" disabled={!state.OLTC_Oil_Leak_At_Check} value={state.OLTC_Oil_Leak_At_Value} onChange={(e) => { dispatch({ type: 'setstate', payload: { name: "OLTC_Oil_Leak_At_Value", value: e.target.value } }) }}></input>
+                                    </div>
                                     <label className="form-check-label" htmlFor="flexCheckDefault">Degree</label>
                                 </div>
                                 <div className="mx-2">

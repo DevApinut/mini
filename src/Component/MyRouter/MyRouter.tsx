@@ -13,6 +13,7 @@ import Personel from "../Content/Homepage/Personal";
 import RedirectHome from "../Content/Private_redirect/RedirectHome";
 import SwitchGear from "../Content/PM_Test/SwitchGear/Switch_Gear";
 import Tranfromer from "../Content/PM_Test/Transformer/Tranformer";
+import RequestElectricalOff from "../Content/RequestElectricalOff/RequestElectricalOff"
 const Myrouter = () => {
     return (
         <BrowserRouter>
@@ -26,7 +27,8 @@ const Myrouter = () => {
                 <Route path="/Login" element={<RedirectHome Component={Login}/>}/>
                 <Route path="/Register" element={<RedirectHome Component={Register}/>}/>                
                 <Route path="/SwitchGear" element={<SwitchGear/>} />                
-                <Route path="/Tranfromer" element={<Tranfromer/>} />
+                <Route path="/Transformer" element={<Tranfromer/>} />
+                <Route path="/RequestElectricalOff" element={<RequestElectricalOff/>} />
                     
                 {/* <Route  path="/Login" Component={Login}/>             */}
                 {/* <Route  path="/Register" Component={Register}/>             */}
