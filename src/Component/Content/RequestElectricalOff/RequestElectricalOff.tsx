@@ -23,7 +23,9 @@ const RequestElectricalOff = () => {
     }, [])
     const initials = {
         linkSubstation: [["ไม่มีข้อมูล"]]
-        ,substationSelect:[""]
+        , substationSelect: [""]
+        , SwitchGear: [""]
+        , SwitchYard: [""]
 
     }
     const reducer = (state: any, action: any) => {
@@ -39,20 +41,26 @@ const RequestElectricalOff = () => {
     const [state, dispatch] = useReducer(reducer, initials)
 
     const fetch = () => {
-        axios.get(`https://script.google.com/macros/s/AKfycbwHWQJL61H2pTN8FRyoHQfZM0DyOhbM3x1vpRXRKUDnTeuirGsm3U_-CrlSPZWPyuzb/exec`)
+        axios.get(`https://script.google.com/macros/s/AKfycbwHWQJL61H2pTN8FRyoHQfZM0DyOhbM3x1vpRXRKUDnTeuirGsm3U_-CrlSPZWPyuzb/exec`, {
+            params: {
+                Substation: state.substationSelect[1]
+            }
+        })
             .then(res => {
-                if(state.substationSelect[0] == ""){
-                    dispatch({ type: "setstate", payload: { name: "substationSelect", value: res.data.data_substation_diagram_out[0]} })
+                console.log(res.data)
+                if (state.substationSelect[0] == "") {
+                    dispatch({ type: "setstate", payload: { name: "substationSelect", value: res.data.data_substation_diagram_out[0] } })
                 }
-                console.log(res.data.data_substation_diagram_out)
                 dispatch({ type: "setstate", payload: { name: "linkSubstation", value: res.data.data_substation_diagram_out } })
+                dispatch({ type: "setstate", payload: { name: "SwitchGear", value: res.data.Switchgear } })
+                dispatch({ type: "setstate", payload: { name: "SwitchYard", value: res.data.SwitchYard } })
             })
     }
     console.log(state.substationSelect[2])
     return (
         <>
             <Navbar1 />
-            <div className="grow container">
+            <div className="grow container flex flex-col">
 
                 <div className="flex justify-center flex-col border rounded w-full py-2 my-3">
                     <div className="text-center">ขออนุมัติดับไฟ</div>
@@ -61,7 +69,7 @@ const RequestElectricalOff = () => {
 
                             <div className="flex justify-center flex-col mx-1 w-1/3">
                                 <div className="text-center text-red-800 font-semibold">เลือกสภานี</div>
-                                <select className="border rounded-md" onChange={(e)=>{dispatch({type:"setstate",payload:{name:"substationSelect",value:e.target.value.split(",")}})}}>
+                                <select className="border rounded-md" onChange={(e) => { dispatch({ type: "setstate", payload: { name: "substationSelect", value: e.target.value.split(",") } }) }}>
                                     {state.linkSubstation.map((data: any, inde: number) => {
                                         return (
                                             <option value={data}>{data[0]}</option>
@@ -86,12 +94,61 @@ const RequestElectricalOff = () => {
                         </div>
                     </div>
                 </div>
-                <Link to={`https://drive.usercontent.google.com/download?id=${state.substationSelect[2]}&export=download`}>Dowload</Link>
-                <iframe src={`https://drive.google.com/file/d/${state.substationSelect[2]}/preview`} width="100%" height="50%" allow="autoplay"></iframe>
 
+                <Link to={`https://drive.usercontent.google.com/download?id=${state.substationSelect[2]}&export=download`}>Dowload</Link>
+                <div className="flex justify-center w-full h-96">
+                    <iframe src={`https://drive.google.com/file/d/${state.substationSelect[2]}/preview`} width="100%" height="100%" allow="autoplay"></iframe>
+                </div>
+                <div>
+                    <div className="text-center font-bold my-3">SwitchYard 115 kV</div>
+                    <div className="flex flex-wrap justify-center">
+                        {state.SwitchYard.map((data: any) => {
+                            return (
+                                <div className="flex flex-col border m-2">
+                                    <div className="flex justify-center">{data[5]}</div>
+                                    <div className="bg-slate-200 flex justify-center items-center">
+                                        <input type="checkbox" className="h-4 w-4 mx-1" defaultChecked />
+                                        <div className="flex justify-center">{data[5]}</div>
+                                    </div>
+                                    <div className="bg-slate-200 flex justify-center items-center">
+                                        <input type="checkbox" className="h-4 w-4 mx-1" defaultChecked />
+                                        <div className="flex justify-center">{data[6]}</div>
+                                    </div>
+                                    <div className="bg-slate-200 flex justify-center items-center">
+                                        <input type="checkbox" className="h-4 w-4 mx-1" defaultChecked />
+                                        <div className="flex justify-center">{data[7]}</div>
+                                    </div>
+                                    {data[8] !== "" && <div className="bg-slate-200 flex justify-center items-center">
+                                        <input type="checkbox" className="h-4 w-4 mx-1" defaultChecked />
+                                        <div className="flex justify-center">{data[8]}</div>
+                                    </div>}
+                                    <div className="text-center border rounded-xl bg-green-200 my-2 hover:cursor-pointer">select</div>
+                                </div>
+                            )
+                        })}
+                    </div>
+                </div>
 
                 <div>
-
+                    <div className="text-center font-bold my-3">SwitchGear 22/33 kV</div>
+                    <div className="flex flex-wrap justify-center">
+                        {state.SwitchGear.map((data: any) => {
+                            return (
+                                <div className="flex flex-col border m-2">
+                                    <div className="flex justify-center">{data[2]}</div>
+                                    <div className="bg-slate-200 flex justify-center items-center">
+                                        <input type="checkbox" className="h-4 w-4 mx-1" defaultChecked />
+                                        <div className="flex justify-center">{data[3]}</div>
+                                    </div>
+                                    {data[4] !== "" && <div className="bg-slate-200 flex justify-center items-center">
+                                        <input type="checkbox" className="h-4 w-4 mx-1" defaultChecked />
+                                        <div className="flex justify-center">{data[4]}</div>
+                                    </div>}
+                                    <div className="text-center border rounded-xl bg-green-200 my-2 hover:cursor-pointer">select</div>
+                                </div>
+                            )
+                        })}
+                    </div>
                 </div>
 
             </div >
