@@ -7,6 +7,10 @@ import 'react-pdf/dist/Page/TextLayer.css';
 import { pdfjs } from 'react-pdf';
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import dayjs from "dayjs";
+import newAdapter from "../Webscraping/Test";
 
 
 
@@ -26,6 +30,13 @@ const RequestElectricalOff = () => {
         , substationSelect: [""]
         , SwitchGear: [""]
         , SwitchYard: [""]
+        , FromLetter: ""
+        , Destination: ""
+        , NumberLetter: ""
+        , DateLetter: ""
+        , NameLetter: ""
+        , RequestElectoff: [["", ""]]
+        , indexSelect: 0
 
     }
     const reducer = (state: any, action: any) => {
@@ -56,7 +67,22 @@ const RequestElectricalOff = () => {
                 dispatch({ type: "setstate", payload: { name: "SwitchYard", value: res.data.SwitchYard } })
             })
     }
-    console.log(state.substationSelect[2])
+
+    const addnewrequest = (index: any) => {
+        let Array_data = [...state.RequestElectoff]
+        Array_data.splice(index + 1, 0, ["", ""])
+        console.log(Array_data)
+        dispatch({ type: "setstate", payload: { name: "RequestElectoff", value: Array_data } })
+
+    }
+    const changestate = (index: any, index1: any, event: any) => {
+        let Array_data = [...state.RequestElectoff]
+        Array_data[index][index1] = event.target.value
+        dispatch({ type: "setstate", payload: { name: "RequestElectoff", value: Array_data } })
+
+    }
+    console.log(state.indexSelect)
+
     return (
         <>
             <Navbar1 />
@@ -68,9 +94,9 @@ const RequestElectricalOff = () => {
                         <div className="flex justify-center w-full">
 
                             <div className="flex justify-center flex-col mx-1 w-1/3">
-                                <div className="text-center text-red-800 font-semibold">เลือกสภานี</div>
+                                <div className="text-center text-red-800 font-semibold">เลือกสถานี</div>
                                 <select className="border rounded-md" onChange={(e) => { dispatch({ type: "setstate", payload: { name: "substationSelect", value: e.target.value.split(",") } }) }}>
-                                    {state.linkSubstation.map((data: any, inde: number) => {
+                                    {state.linkSubstation.map((data: any, index: number) => {
                                         return (
                                             <option value={data}>{data[0]}</option>
                                         )
@@ -101,7 +127,7 @@ const RequestElectricalOff = () => {
                 </div>
                 <div>
                     <div className="text-center font-bold my-3">SwitchYard 115 kV</div>
-                    <div className="flex flex-wrap justify-center">
+                    <div className="flex flex-wrap justify-start">
                         {state.SwitchYard.map((data: any) => {
                             return (
                                 <div className="flex flex-col border m-2">
@@ -131,7 +157,7 @@ const RequestElectricalOff = () => {
 
                 <div>
                     <div className="text-center font-bold my-3">SwitchGear 22/33 kV</div>
-                    <div className="flex flex-wrap justify-center">
+                    <div className="flex flex-wrap justify-start">
                         {state.SwitchGear.map((data: any) => {
                             return (
                                 <div className="flex flex-col border m-2">
@@ -148,6 +174,164 @@ const RequestElectricalOff = () => {
                                 </div>
                             )
                         })}
+                    </div>
+                </div>
+                <div className="w-full flex-col">
+                    <div className="text-center ">รายงานการขอดับไฟ</div>
+                    <div className="flex w-full my-2">
+                        <div className="flex w-1/2 mx-2">
+                            <label className="bg-slate-200  w-10 rounded-l-lg text-center">จาก</label>
+                            <input type="text" className="border rounded-none rounded-r-lg" />
+                        </div>
+                        <div className="flex w-1/2 mx-2">
+                            <label className="bg-slate-200  w-10 rounded-l-lg text-center">ถึง</label>
+                            <input type="text" className="border rounded-none rounded-r-lg" />
+                        </div>
+                    </div>
+                    <div className="flex w-full my-2">
+                        <div className="flex w-1/2 mx-2">
+                            <label className="bg-slate-200  w-10 rounded-l-lg text-center">เลขที่</label>
+                            <input type="text" className="border rounded-none rounded-r-lg" />
+                        </div>
+                        <div className="flex w-1/2 mx-2">
+                            <label className="bg-slate-200  w-10 rounded-l-lg text-center">วันที่</label>
+                            <input type="text" className="border rounded-none rounded-r-lg" />
+                        </div>
+                    </div>
+                    <div className="flex w-full my-2">
+                        <div className="flex mx-2 w-full">
+                            <label className="bg-slate-200  w-10 rounded-l-lg text-center">เรื่อง</label>
+                            <input type="text" className="border rounded-none rounded-r-lg" />
+                        </div>
+                    </div>
+                    <div className="flex items-center flex-wrap">
+                        <div className="text-center items-center">เนื่องด้วยวันที่</div>
+                        <div className="mx-2">
+                            <LocalizationProvider dateAdapter={newAdapter} adapterLocale='th' >
+                                <DatePicker
+                                    label="เลือกวันที่"
+                                    format="DD MMMYYYY"
+                                    onChange={(newValue) => { }}
+                                    defaultValue={dayjs(new Date)}
+                                    value={dayjs(new Date)}
+                                    slotProps={{ textField: { size: 'small' } }}
+
+                                />
+                            </LocalizationProvider>
+                        </div>
+                        <div className="text-center items-center">ถึงวันที่</div>
+                        <div className="mx-2">
+                            <LocalizationProvider dateAdapter={newAdapter} adapterLocale='th' >
+                                <DatePicker
+                                    label="เลือกวันที่"
+                                    format="DD MMMYYYY"
+                                    onChange={(newValue) => { }}
+                                    defaultValue={dayjs(new Date)}
+                                    value={dayjs(new Date)}
+                                    slotProps={{ textField: { size: 'small' } }}
+
+                                />
+                            </LocalizationProvider>
+                        </div>
+
+                        <div className="mx-2">
+                            <input type="text" className="border" />
+                        </div>
+
+                        <div>
+                            จะทำการขอดับไฟ
+                        </div>
+                        <div className="form-check m-2">
+                            <input className="form-check-input" type="checkbox" id="LCC_Lamp" />
+                            <label className="form-check-label" htmlFor="LCC_Lamp">22/33 kV</label>
+                        </div>
+                        <div className="form-check m-2">
+                            <input className="form-check-input" type="checkbox" id="LCC_Lamp" />
+                            <label className="form-check-label" htmlFor="LCC_Lamp">115 kV</label>
+                        </div>
+                        <div>พร้อมแนบผังจุดปฏิบัติงานมาด้วย จำนวน</div>
+                        <div>
+                            <input type="text" className="border" />
+                        </div>
+                        <div>
+                            ฉบับ โดยมีรายละเอียดที่ปฏิบัติงานดังนี้
+                        </div>
+                        <div className="w-full">
+                            {
+                                state.RequestElectoff.map((data: any, index: any) => {
+                                    return (
+                                        <>
+                                            <div className="flex justify-start flex-col">
+                                                <div className="flex justify-start items-center">
+                                                    <input type="radio" className="w-4 mx-2" name="select"
+                                                        value={index}
+                                                        onChange={(e) => { dispatch({ type: "setstate", payload: { name: "indexSelect", value: e.target.value } }) }} id={`X_${index}`} />
+                                                    <div>เลือก</div>
+                                                </div>
+                                                <div className="w-full flex my-2 flex-col">
+                                                    <div className="flex justify-center w-full">
+                                                        <label className="bg-slate-200 w-10 rounded-l-lg text-center items-center flex justify-center">{`${index + 1}.1`}</label>
+                                                        <textarea className="border w-full" onChange={(e) => { changestate(index, 0, e) }} value={data[0]}></textarea>
+                                                    </div>
+                                                    <div className="flex justify-start flex-wrap my-2">
+                                                        <div className="flex justify-start w-full flex-wrap my-2">
+                                                            <div className="flex justify-center items-center">ผู้ควบคุมงาน</div>
+                                                            <select className="w-48 border rounded-lg grow">
+                                                                <option>A</option>
+                                                                <option>B</option>
+                                                                <option>C</option>
+                                                            </select>
+                                                            <div className="flex justify-center grow flex-row mx-2">
+                                                                <label className="border rounded-l-lg bg-slate-200 w-24 text-center">ตำเเหน่ง</label>
+                                                                <input type="text" className="border rounded-none rounded-r-xl"
+                                                                />
+                                                            </div>
+                                                            <div className="flex justify-center grow flex-row mx-2">
+                                                                <label className="border rounded-l-lg bg-slate-200 w-24 text-center">เบอร์โทร</label>
+                                                                <input type="text" className="border rounded-none rounded-r-xl"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex justify-start w-full flex-wrap my-2">
+                                                            <div className="flex justify-center items-center">ผู้ประสานงาน</div>
+                                                            <select className="w-48 border rounded-lg grow">
+                                                                <option>A</option>
+                                                                <option>B</option>
+                                                                <option>C</option>
+                                                            </select>
+                                                            <div className="flex justify-center grow flex-row mx-2">
+                                                                <label className="border rounded-l-lg bg-slate-200 w-24 text-center">ตำเเหน่ง</label>
+                                                                <input type="text" className="border rounded-none rounded-r-xl"
+                                                                />
+                                                            </div>
+                                                            <div className="flex justify-center grow flex-row mx-2">
+                                                                <label className="border rounded-l-lg bg-slate-200 w-24 text-center">เบอร์โทร</label>
+                                                                <input type="text" className="border rounded-none rounded-r-xl"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                                <div className="w-full flex my-2">
+                                                    <label className="bg-slate-200  w-10 rounded-l-lg text-center flex justify-center text-center">{`${index + 1}.2`}</label>
+                                                    <textarea className="border w-full" onChange={(e) => { changestate(index, 1, e) }} value={data[1]}></textarea>
+                                                </div>
+                                                <div>
+                                                    <div className="btn btn-success" onClick={() => { addnewrequest(index) }}>NEW</div>
+                                                </div>
+
+
+                                            </div>
+                                        </>
+
+                                    )
+                                })
+                            }
+                        </div>
+
+
                     </div>
                 </div>
 
