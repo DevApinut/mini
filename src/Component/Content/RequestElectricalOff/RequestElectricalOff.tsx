@@ -29,7 +29,9 @@ const RequestElectricalOff = () => {
         linkSubstation: [["ไม่มีข้อมูล"]]
         , substationSelect: [""]
         , SwitchGear: [""]
+        , SwitchGearCheckbox: [""]
         , SwitchYard: [""]
+        , SwitchYardCheckbox: [""]
         , FromLetter: ""
         , Destination: ""
         , NumberLetter: ""
@@ -37,6 +39,7 @@ const RequestElectricalOff = () => {
         , NameLetter: ""
         , RequestElectoff: [["", ""]]
         , indexSelect: 0
+        ,
 
     }
     const reducer = (state: any, action: any) => {
@@ -65,6 +68,27 @@ const RequestElectricalOff = () => {
                 dispatch({ type: "setstate", payload: { name: "linkSubstation", value: res.data.data_substation_diagram_out } })
                 dispatch({ type: "setstate", payload: { name: "SwitchGear", value: res.data.Switchgear } })
                 dispatch({ type: "setstate", payload: { name: "SwitchYard", value: res.data.SwitchYard } })
+
+                let SwitchGear_Checkbox = res.data.Switchgear.map((data: any, index: number) => {
+                    return (
+                        data.map((data1: any, index1: number) => {
+                            if (index1 > 2 && data1 !== "") return [true, data1]
+                            else return [false, data1]
+                        })
+                    )
+                })
+                let SwitchYard_Checkbox = res.data.SwitchYard.map((data: any, index: number) => {
+                    return (
+                        data.map((data1: any, index1: number) => {
+                            if (index1 > 4 && data1 !== "") return [true, data1]
+                            else return [false, data1]
+                        })
+                    )
+
+                })
+                dispatch({ type: "setstate", payload: { name: "SwitchGearCheckbox", value: SwitchGear_Checkbox } })
+                dispatch({ type: "setstate", payload: { name: "SwitchYardCheckbox", value: SwitchYard_Checkbox } })
+
             })
     }
 
@@ -80,6 +104,35 @@ const RequestElectricalOff = () => {
         Array_data[index][index1] = event.target.value
         dispatch({ type: "setstate", payload: { name: "RequestElectoff", value: Array_data } })
 
+    }
+    const InsertMessage = (selectInsert: any, numberTypeinFeeder: number, text: string) => {
+        let Array_data = [...state.RequestElectoff]
+        Array_data[selectInsert][1] = `${Array_data[selectInsert][1]}test`
+        dispatch({ type: "setstate", payload: { name: "RequestElectoff", value: Array_data } })
+
+        if (text == "SwitchGear") {
+            let array_Data1 = [...state.SwitchGearCheckbox]
+            let text = ""            
+            array_Data1[numberTypeinFeeder].map((word:any) => {
+                if (word[0] == true) {
+                    if(word[1][word[1].length-4] == "B") text = `${text},ปลด CB 22kV รหัส ${word[1]} พร้อม Out Service`
+                    else if(word[1][word[1].length-4] == "G") text = `${text},Close ES รหัส ${word[1]}`   
+                   console.log(word[1][word[1].length-4])
+                }
+            });
+            console.log(text)
+        }
+    }
+    const changestateCheck = (index: number, typeofFeeder: number, check: any, nameType: any) => {
+        if (nameType === "SwitchGear") {
+            let Array_data = [...state.SwitchGearCheckbox]
+            Array_data[index][typeofFeeder][0] = check
+            dispatch({ type: "setstate", payload: { name: "SwitchGearCheckbox", value: Array_data } })
+        } else if (nameType === "SwitchYard") {
+            let Array_data = [...state.SwitchYardCheckbox]
+            Array_data[index][typeofFeeder][0] = check
+            dispatch({ type: "setstate", payload: { name: "SwitchYardCheckbox", value: Array_data } })
+        }
     }
     console.log(state.indexSelect)
 
@@ -128,27 +181,28 @@ const RequestElectricalOff = () => {
                 <div>
                     <div className="text-center font-bold my-3">SwitchYard 115 kV</div>
                     <div className="flex flex-wrap justify-start">
-                        {state.SwitchYard.map((data: any) => {
+                        {state.SwitchYard.map((data: any, index: number) => {
                             return (
                                 <div className="flex flex-col border m-2">
                                     <div className="flex justify-center">{data[5]}</div>
                                     <div className="bg-slate-200 flex justify-center items-center">
-                                        <input type="checkbox" className="h-4 w-4 mx-1" defaultChecked />
+                                        <input type="checkbox" className="h-4 w-4 mx-1" defaultChecked onChange={(e) => { changestateCheck(index, 5, e.target.checked, "SwitchYard") }} />
                                         <div className="flex justify-center">{data[5]}</div>
                                     </div>
                                     <div className="bg-slate-200 flex justify-center items-center">
-                                        <input type="checkbox" className="h-4 w-4 mx-1" defaultChecked />
+                                        <input type="checkbox" className="h-4 w-4 mx-1" defaultChecked onChange={(e) => { changestateCheck(index, 6, e.target.checked, "SwitchYard") }} />
                                         <div className="flex justify-center">{data[6]}</div>
                                     </div>
                                     <div className="bg-slate-200 flex justify-center items-center">
-                                        <input type="checkbox" className="h-4 w-4 mx-1" defaultChecked />
+                                        <input type="checkbox" className="h-4 w-4 mx-1" defaultChecked onChange={(e) => { changestateCheck(index, 7, e.target.checked, "SwitchYard") }} />
                                         <div className="flex justify-center">{data[7]}</div>
                                     </div>
                                     {data[8] !== "" && <div className="bg-slate-200 flex justify-center items-center">
-                                        <input type="checkbox" className="h-4 w-4 mx-1" defaultChecked />
+                                        <input type="checkbox" className="h-4 w-4 mx-1" defaultChecked onChange={(e) => { changestateCheck(index, 8, e.target.checked, "SwitchYard") }} />
                                         <div className="flex justify-center">{data[8]}</div>
                                     </div>}
-                                    <div className="text-center border rounded-xl bg-green-200 my-2 hover:cursor-pointer">select</div>
+                                    <div className="text-center border rounded-xl bg-green-200 my-2 hover:cursor-pointer"
+                                        onClick={() => { InsertMessage(state.indexSelect, index, "SwitchYard") }}>select</div>
                                 </div>
                             )
                         })}
@@ -158,19 +212,20 @@ const RequestElectricalOff = () => {
                 <div>
                     <div className="text-center font-bold my-3">SwitchGear 22/33 kV</div>
                     <div className="flex flex-wrap justify-start">
-                        {state.SwitchGear.map((data: any) => {
+                        {state.SwitchGear.map((data: any, index: number) => {
                             return (
                                 <div className="flex flex-col border m-2">
                                     <div className="flex justify-center">{data[2]}</div>
                                     <div className="bg-slate-200 flex justify-center items-center">
-                                        <input type="checkbox" className="h-4 w-4 mx-1" defaultChecked />
+                                        <input type="checkbox" className="h-4 w-4 mx-1" defaultChecked onChange={(e) => { changestateCheck(index, 3, e.target.checked, "SwitchGear") }} />
                                         <div className="flex justify-center">{data[3]}</div>
                                     </div>
                                     {data[4] !== "" && <div className="bg-slate-200 flex justify-center items-center">
-                                        <input type="checkbox" className="h-4 w-4 mx-1" defaultChecked />
+                                        <input type="checkbox" className="h-4 w-4 mx-1" defaultChecked onChange={(e) => { changestateCheck(index, 4, e.target.checked, "SwitchGear") }} />
                                         <div className="flex justify-center">{data[4]}</div>
                                     </div>}
-                                    <div className="text-center border rounded-xl bg-green-200 my-2 hover:cursor-pointer">select</div>
+                                    <div className="text-center border rounded-xl bg-green-200 my-2 hover:cursor-pointer"
+                                        onClick={() => { InsertMessage(state.indexSelect, index, "SwitchGear") }}>select</div>
                                 </div>
                             )
                         })}
