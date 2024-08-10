@@ -23,7 +23,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 const RequestElectricalOff = () => {
     useEffect(() => {
 
-        fetch()
+        fetch("")
     }, [])
     const initials = {
         linkSubstation: [["ไม่มีข้อมูล"]]
@@ -54,10 +54,11 @@ const RequestElectricalOff = () => {
 
     const [state, dispatch] = useReducer(reducer, initials)
 
-    const fetch = () => {
+    const fetch = (e:any) => {
         axios.get(`https://script.google.com/macros/s/AKfycbwHWQJL61H2pTN8FRyoHQfZM0DyOhbM3x1vpRXRKUDnTeuirGsm3U_-CrlSPZWPyuzb/exec`, {
             params: {
-                Substation: state.substationSelect[1]
+                Substation: e.split(",")[1]
+                // Substation: state.substationSelect[1]
             }
         })
             .then(res => {
@@ -122,6 +123,19 @@ const RequestElectricalOff = () => {
             });
             console.log(text)
         }
+        else if (text == "SwitchYard") {
+            let array_Data1 = [...state.SwitchYardCheckbox]
+            let text = ""
+            array_Data1[numberTypeinFeeder].map((word: any) => {
+                if (word[0] == true) {
+                    if (word[1][word[1].length - 4] == "B") text = `${text},ปลด CB 115kV รหัส ${word[1]}`
+                    else if (word[1][word[1].length - 4] == "G") text = `${text},Close ES รหัส ${word[1]}`
+                    else if (word[1][word[1].length - 4] == "S") text = `${text},ปลด DS รหัส ${word[1]}`
+                    console.log(word[1][word[1].length - 4])
+                }
+            });
+            console.log(text)
+        }
     }
     const changestateCheck = (index: number, typeofFeeder: number, check: any, nameType: any) => {
         if (nameType === "SwitchGear") {
@@ -148,7 +162,7 @@ const RequestElectricalOff = () => {
 
                             <div className="flex justify-center flex-col mx-1 w-1/3">
                                 <div className="text-center text-red-800 font-semibold">เลือกสถานี</div>
-                                <select className="border rounded-md" onChange={(e) => { dispatch({ type: "setstate", payload: { name: "substationSelect", value: e.target.value.split(",") } }) }}>
+                                <select className="border rounded-md" onChange={(e) => { dispatch({ type: "setstate", payload: { name: "substationSelect", value: e.target.value.split(",") } }); fetch(e.target.value); }}>
                                     {state.linkSubstation.map((data: any, index: number) => {
                                         return (
                                             <option value={data}>{data[0]}</option>
@@ -178,36 +192,38 @@ const RequestElectricalOff = () => {
                 <div className="flex justify-center w-full h-96">
                     <iframe src={`https://drive.google.com/file/d/${state.substationSelect[2]}/preview`} width="100%" height="100%" allow="autoplay"></iframe>
                 </div>
+
+
+
+                {/* ------------------------------------ Switch Yard ------------------------------------------ */}
                 <div>
                     <div className="text-center font-bold my-3">SwitchYard 115 kV</div>
                     <div className="flex flex-wrap justify-start">
                         {state.SwitchYard.map((data: any, index: number) => {
+                            let strtoArray = [...data]
                             return (
                                 <div className="flex flex-col border m-2">
-                                    <div className="flex justify-center">{data[5]}</div>
-                                    <div className="bg-slate-200 flex justify-center items-center">
-                                        <input type="checkbox" className="h-4 w-4 mx-1" defaultChecked onChange={(e) => { changestateCheck(index, 5, e.target.checked, "SwitchYard") }} />
-                                        <div className="flex justify-center">{data[5]}</div>
-                                    </div>
-                                    <div className="bg-slate-200 flex justify-center items-center">
-                                        <input type="checkbox" className="h-4 w-4 mx-1" defaultChecked onChange={(e) => { changestateCheck(index, 6, e.target.checked, "SwitchYard") }} />
-                                        <div className="flex justify-center">{data[6]}</div>
-                                    </div>
-                                    <div className="bg-slate-200 flex justify-center items-center">
-                                        <input type="checkbox" className="h-4 w-4 mx-1" defaultChecked onChange={(e) => { changestateCheck(index, 7, e.target.checked, "SwitchYard") }} />
-                                        <div className="flex justify-center">{data[7]}</div>
-                                    </div>
-                                    {data[8] !== "" && <div className="bg-slate-200 flex justify-center items-center">
-                                        <input type="checkbox" className="h-4 w-4 mx-1" defaultChecked onChange={(e) => { changestateCheck(index, 8, e.target.checked, "SwitchYard") }} />
-                                        <div className="flex justify-center">{data[8]}</div>
-                                    </div>}
+                                    {strtoArray.map((data1: any, index1: number) => {
+                                        return (
+                                            <>
+                                                {data1.slice(0, 3) == state.substationSelect[1] && data1.length > 3 && <div className="bg-slate-200 flex justify-center items-center">
+                                                    <input type="checkbox" className="h-4 w-4 mx-1" defaultChecked onChange={(e) => { changestateCheck(index, index1, e.target.checked, "SwitchYard") }} />
+                                                    <div className="flex justify-center">{data1}</div>
+                                                </div>}
+                                            </>
+                                        )
+                                    })}
                                     <div className="text-center border rounded-xl bg-green-200 my-2 hover:cursor-pointer"
                                         onClick={() => { InsertMessage(state.indexSelect, index, "SwitchYard") }}>select</div>
                                 </div>
                             )
-                        })}
+                        })
+                        }
                     </div>
-                </div>
+                </div >
+
+
+                {/* ------------------------------------ Switch Gear ------------------------------------------ */}
 
                 <div>
                     <div className="text-center font-bold my-3">SwitchGear 22/33 kV</div>
@@ -216,7 +232,7 @@ const RequestElectricalOff = () => {
                             let strtoArray = [...data]
                             return (
                                 <div className="flex flex-col border m-2">
-                                    {strtoArray.map((data1: any, index1: number) => {                                       
+                                    {strtoArray.map((data1: any, index1: number) => {
                                         return (
                                             <>
                                                 {data1.slice(0, 3) == state.substationSelect[1] && data1.length > 3 && <div className="bg-slate-200 flex justify-center items-center">
