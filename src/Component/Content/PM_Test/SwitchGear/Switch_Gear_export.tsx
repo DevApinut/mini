@@ -354,10 +354,10 @@ export const ExportExcellSwitchGear = (props: any) => {
 
 
 
-
+    console.log(typeof(props.Substation))
     workbook.xlsx.writeBuffer().then(data => {
         const blob = new Blob([data], { type: "text/plain;charset=utf-8" });
-        saveAs(blob, `รายงานผล switchGear${props.YearSelect}.xlsx`);
+        saveAs(blob, `รายงานผล switchGear สถานี ${props.SubstationSelect} ${props.YearSelect}.xlsx`);
     });
 
 }
