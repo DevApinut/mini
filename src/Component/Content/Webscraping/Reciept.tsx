@@ -44,7 +44,7 @@ function Reciept() {
                 await dispatch({ type: "setstate", payload: { name: "data_log_file", value: res.data.data_log_file } })
 
                 let Array_data_work_detail = [...state.Detail_Work]                
-                var Obj_data_1 = { ...Array_data_work_detail[0], affiliation: res.data.data_other_data[0][0], for_personal: res.data.data_other_data[0][1] }              
+                var Obj_data_1 = { ...Array_data_work_detail[0], affiliation: res.data.data_other_data[0][0], for_personal: res.data.data_other_data[0][1],Department_head:res.data.data_other_data[0][2],Department_head_position:res.data.data_other_data[0][3], }              
 
 
                 Array_data_work_detail[0] = Obj_data_1
@@ -69,7 +69,7 @@ function Reciept() {
         //รายการเบิกของเพิ่มเติม
         Additional_buy: [{ Name_personal: "", Number_account: "", list_material: "ระบุรายการเบิก", other_list_material: "", price: "", vat: "", total_price: "", ohter_list_material_hidden: "hidden" }],
         //รายระเอียดงานว่าคำสั่งชื่อว่าอะไร
-        Detail_Work: [{ Number_command: "", Continue_Command_select: "ไม่ต่อเนื่อง", Continue_Command_check: "Hidden", Continue_Command_number: "", date_permission: "", date_permission_buddha: "", location_work: "", obj: "", type_car: "รถยนต์ กฟภ. ทะเบียน", serial_car: "", budget: "ทำการ", other_budget: "", type_order: "หมายเลขใบสั่ง", other_type_order: "", other_type_order_hidden: "Hidden", Number_order: "", affiliation: "", for_personal: "", number_day: "", number_night: "" }],
+        Detail_Work: [{ Number_command: "", Continue_Command_select: "ไม่ต่อเนื่อง", Continue_Command_check: "Hidden", Continue_Command_number: "", date_permission: "", date_permission_buddha: "", location_work: "", obj: "", type_car: "รถยนต์ กฟภ. ทะเบียน", serial_car: "", budget: "ทำการ", other_budget: "", type_order: "หมายเลขใบสั่ง", other_type_order: "", other_type_order_hidden: "Hidden", Number_order: "", affiliation: "", for_personal: "", number_day: "", number_night: "", Department_head: "", Department_head_position: "" }],
         data_location: [""],
         data_personal_information: [""],
         data_account_buy: [""],
