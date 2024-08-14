@@ -39,7 +39,8 @@ const RequestElectricalOff = () => {
         , NameLetter: ""
         , RequestElectoff: [["", ""]]
         , indexSelect: 0
-        ,
+        , otherData: [["", ""]]
+        , personalInformation: [""]
 
     }
     const reducer = (state: any, action: any) => {
@@ -89,6 +90,8 @@ const RequestElectricalOff = () => {
                 })
                 dispatch({ type: "setstate", payload: { name: "SwitchGearCheckbox", value: SwitchGear_Checkbox } })
                 dispatch({ type: "setstate", payload: { name: "SwitchYardCheckbox", value: SwitchYard_Checkbox } })
+                dispatch({ type: "setstate", payload: { name: "otherData", value: res.data.Data_Other_data } })
+                dispatch({ type: "setstate", payload: { name: "personalInformation", value: res.data.Data_personal } })
 
             })
     }
@@ -160,6 +163,19 @@ const RequestElectricalOff = () => {
         }
     }
     console.log(state.indexSelect)
+
+    const setstateOtherData = (valueData: string, text: any) => {
+        let ArrayData = [...state.otherData]
+        state.otherData.map((data: any, index: number) => {
+            if (data[0] == text) {
+                ArrayData[index][1] = valueData
+            } else {
+
+            }
+        })
+        dispatch({ type: "setstate", payload: { name: "SwitchYardCheckbox", value: ArrayData } })
+
+    }
 
     return (
         <>
@@ -284,17 +300,17 @@ const RequestElectricalOff = () => {
                     <div className="flex w-full my-2">
                         <div className="flex w-1/2 mx-2">
                             <label className="bg-slate-200  w-10 rounded-l-lg text-center">จาก</label>
-                            <input type="text" className="border rounded-none rounded-r-lg" />
+                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "จาก") }} />
                         </div>
                         <div className="flex w-1/2 mx-2">
                             <label className="bg-slate-200  w-10 rounded-l-lg text-center">ถึง</label>
-                            <input type="text" className="border rounded-none rounded-r-lg" />
+                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "ถึง") }} />
                         </div>
                     </div>
                     <div className="flex w-full my-2">
                         <div className="flex w-1/2 mx-2">
                             <label className="bg-slate-200  w-10 rounded-l-lg text-center">เลขที่</label>
-                            <input type="text" className="border rounded-none rounded-r-lg" />
+                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "เลขที่") }} />
                         </div>
                         <div className="flex w-1/2 mx-2">
                             <label className="bg-slate-200  w-10 rounded-l-lg text-center">วันที่</label>
@@ -390,9 +406,12 @@ const RequestElectricalOff = () => {
                                                             </div>
 
                                                             <select className="w-48 border rounded-lg grow my-1">
-                                                                <option>A</option>
-                                                                <option>B</option>
-                                                                <option>C</option>
+                                                                {state.personalInformation.map((data: any) => {
+                                                                    return (
+                                                                        <option value={data[1]}>{data[1]}</option>
+                                                                    )
+                                                                })}
+
                                                             </select>
                                                             <div className="flex justify-center grow flex-row m-2 ">
                                                                 <label className="border rounded-l-lg bg-slate-200 w-24 text-center">ตำเเหน่ง</label>
