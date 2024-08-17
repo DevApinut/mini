@@ -1045,7 +1045,7 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('Q39').value = "/         /"
         worksheet.getCell('V39').value = "/         /"
         worksheet.getCell('A40').value = "หมายเหตุ ค่าเบี้ยเลี้ยงส่วนเพิ่ม หมายถึงค่าเบี้ยเลี้ยงส่วนที่เกิน 276.-บาท"
-        worksheet.getCell('A41').value = "รายการปฏิบัติงาน"
+        worksheet.getCell('A43').value = "รายการปฏิบัติงาน"
         worksheet.getCell('A44').value = "วัน  เดือน  ปี"
         worksheet.getCell('C44').value = "รายการ"
         worksheet.getCell('S44').value = "หมายเลขงาน / หมายเลขใบสั่ง"
@@ -1300,7 +1300,8 @@ export const ExcelExport = (props: any) => {
         worksheet.mergeCells('Q39:U39')
         worksheet.mergeCells('V39:Z39')
         worksheet.mergeCells('A40:Z40')
-        worksheet.mergeCells('A41:Z43')
+        // worksheet.mergeCells('A41:Z43')
+        worksheet.mergeCells('A43:Z43')
         worksheet.mergeCells('A44:B44')
         worksheet.mergeCells('C44:R44')
         worksheet.mergeCells('S44:Z44')
@@ -1468,31 +1469,31 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('E5').border = { left: { style: 'thin' }, }
         worksheet.getCell('AA5').border = { left: { style: 'thin' }, }
         worksheet.getCell('AB5').border = {}
-        worksheet.getCell('A6').border = { bottom: { style: 'thin' }, right: { style: 'thin' }, left: { style: 'thin' }, }
+        worksheet.getCell('A6').border = { right: { style: 'thin' }, left: { style: 'thin' }, }
         worksheet.getCell('E6').border = { left: { style: 'thin' }, }
         worksheet.getCell('AA6').border = { left: { style: 'thin' }, }
-        worksheet.getCell('A7').border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
-        worksheet.getCell('L7').border = { bottom: { style: 'thin' }, }
-        worksheet.getCell('Q7').border = { bottom: { style: 'thin' }, }
-        worksheet.getCell('U7').border = { bottom: { style: 'thin' }, right: { style: 'thin' } }
+        worksheet.getCell('A7').border = {  left: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell('L7').border = {  }
+        worksheet.getCell('Q7').border = {  }
+        worksheet.getCell('U7').border = {  right: { style: 'thin' } }
         worksheet.getCell('AA7').border = { left: { style: 'thin' }, }
-        worksheet.getCell('A8').border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
-        worksheet.getCell('E8').border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, }
-        worksheet.getCell('F8').border = { top: { style: 'thin' }, bottom: { style: 'thin' }, }
-        worksheet.getCell('H8').border = { top: { style: 'thin' }, bottom: { style: 'thin' }, }
-        worksheet.getCell('I8').border = { top: { style: 'thin' }, bottom: { style: 'thin' }, }
-        worksheet.getCell('L8').border = { top: { style: 'thin' }, bottom: { style: 'thin' }, }
-        worksheet.getCell('M8').border = { top: { style: 'thin' }, bottom: { style: 'thin' }, }
-        worksheet.getCell('P8').border = { top: { style: 'thin' }, bottom: { style: 'thin' }, }
-        worksheet.getCell('R8').border = { top: { style: 'thin' }, bottom: { style: 'thin' }, }
-        worksheet.getCell('T8').border = { top: { style: 'thin' }, bottom: { style: 'thin' }, }
-        worksheet.getCell('W8').border = { top: { style: 'thin' }, bottom: { style: 'thin' }, }
-        worksheet.getCell('X8').border = { top: { style: 'thin' }, bottom: { style: 'thin' }, }
-        worksheet.getCell('Y8').border = { top: { style: 'thin' }, bottom: { style: 'thin' }, }
-        worksheet.getCell('Z8').border = { top: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell('A8').border = {  left: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell('E8').border = {  left: { style: 'thin' },  }
+        worksheet.getCell('F8').border = {   }
+        worksheet.getCell('H8').border = {   }
+        worksheet.getCell('I8').border = {   }
+        worksheet.getCell('L8').border = {   }
+        worksheet.getCell('M8').border = {   }
+        worksheet.getCell('P8').border = {   }
+        worksheet.getCell('R8').border = {   }
+        worksheet.getCell('T8').border = {   }
+        worksheet.getCell('W8').border = {   }
+        worksheet.getCell('X8').border = {   }
+        worksheet.getCell('Y8').border = {   }
+        worksheet.getCell('Z8').border = {   right: { style: 'thin' }, }
         worksheet.getCell('AA8').border = { left: { style: 'thin' }, }
         worksheet.getCell('AB8').border = {}
-        worksheet.getCell('A9').border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell('A9').border = {  left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
         worksheet.getCell('E9').border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
         worksheet.getCell('AA9').border = { left: { style: 'thin' }, }
         worksheet.getCell('AB9').border = {}
@@ -2913,6 +2914,7 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('AA40').alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell('AB40').alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell('A41').alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell('A43').alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell('AA41').alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell('AB41').alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell('AA42').alignment = { vertical: 'middle', horizontal: 'center' }
@@ -3803,11 +3805,11 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('A33').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: true, }
         worksheet.getCell('C33').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
         worksheet.getCell('E33').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: true, }
-        worksheet.getCell('F33').font = { name: 'TH SarabunPSK', size: 14, italic: false, bold: false, }
-        worksheet.getCell('G33').font = { name: 'TH SarabunPSK', size: 14, italic: false, bold: false, }
-        worksheet.getCell('H33').font = { name: 'TH SarabunPSK', size: 14, italic: false, bold: false, }
-        worksheet.getCell('I33').font = { name: 'TH SarabunPSK', size: 14, italic: false, bold: false, }
-        worksheet.getCell('J33').font = { name: 'TH SarabunPSK', size: 14, italic: false, bold: false, }
+        worksheet.getCell('F33').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
+        worksheet.getCell('G33').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
+        worksheet.getCell('H33').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
+        worksheet.getCell('I33').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
+        worksheet.getCell('J33').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
         worksheet.getCell('K33').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: true, }
         worksheet.getCell('L33').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
         worksheet.getCell('M33').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: true, }
@@ -3954,6 +3956,7 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('AA40').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
         worksheet.getCell('AB40').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
         worksheet.getCell('A41').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: true, }
+        worksheet.getCell('A43').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: true, }
         worksheet.getCell('AA41').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
         worksheet.getCell('AB41').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
         worksheet.getCell('AA42').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
