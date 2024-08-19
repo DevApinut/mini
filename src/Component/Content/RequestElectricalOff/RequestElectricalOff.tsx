@@ -94,6 +94,7 @@ const RequestElectricalOff = () => {
                 dispatch({ type: "setstate", payload: { name: "SwitchYardCheckbox", value: SwitchYard_Checkbox } })
                 dispatch({ type: "setstate", payload: { name: "otherData", value: res.data.Data_Other_data } })
                 dispatch({ type: "setstate", payload: { name: "personalInformation", value: res.data.Data_personal } })
+
             })
     }
 
@@ -164,7 +165,7 @@ const RequestElectricalOff = () => {
         }
     }
     console.log(state.indexSelect)
-    
+
     const setstateOtherData = (valueData: string, text: any) => {
         let ArrayData = [...state.otherData]
         state.otherData.map((data: any, index: number) => {
@@ -309,17 +310,17 @@ const RequestElectricalOff = () => {
                     <div className="flex w-full my-2">
                         <div className="flex w-1/2 mx-2">
                             <label className="bg-slate-200  w-10 rounded-l-lg text-center">จาก</label>
-                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "จาก") }} value={state.otherData[0][1]}/>
+                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "จาก") }} />
                         </div>
                         <div className="flex w-1/2 mx-2">
                             <label className="bg-slate-200  w-10 rounded-l-lg text-center">ถึง</label>
-                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "ถึง") }} value={state.otherData[1][1]}/>
+                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "ถึง") }} />
                         </div>
                     </div>
                     <div className="flex w-full my-2">
                         <div className="flex w-1/2 mx-2">
                             <label className="bg-slate-200  w-10 rounded-l-lg text-center">เลขที่</label>
-                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "เลขที่") }} value={state.otherData[2][1]}/>
+                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "เลขที่") }} />
                         </div>
                         <div className="flex w-1/2 mx-2">
                             <label className="bg-slate-200  w-10 rounded-l-lg text-center">วันที่</label>
