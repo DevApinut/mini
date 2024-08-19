@@ -11,7 +11,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import dayjs from "dayjs";
 import newAdapter from "../Webscraping/Test";
-import ExportDocx from "./ExportDocx";
 
 
 
@@ -38,9 +37,10 @@ const RequestElectricalOff = () => {
         , NumberLetter: ""
         , DateLetter: ""
         , NameLetter: ""
-        , RequestElectoff: [["", ""]]
+        , RequestElectoff: [[{ contentForDetail: "", personelControl: "", contactPersonelControl: "", positionPersonelControl: "", personelCoordinate: "", contactPersonelCoordinate: "", numberPersonelCoordinate: "" }, { requestOffDetail: "", fromDate: "", destinationDate: "", typeOfRequestOff: "" }]]
         , indexSelect: 0
-        , otherData: [["", ""]]
+        , otherData: [["", ""],["", ""],["", ""],["", ""],["", ""],["", ""],["", ""]]
+        , personalInformation: [""]
 
     }
     const reducer = (state: any, action: any) => {
@@ -70,8 +70,6 @@ const RequestElectricalOff = () => {
                 dispatch({ type: "setstate", payload: { name: "linkSubstation", value: res.data.data_substation_diagram_out } })
                 dispatch({ type: "setstate", payload: { name: "SwitchGear", value: res.data.Switchgear } })
                 dispatch({ type: "setstate", payload: { name: "SwitchYard", value: res.data.SwitchYard } })
-                dispatch({ type: "setstate", payload: { name: "otherData", value: res.data.Data_Other_data } })
-                dispatch({ type: "setstate", payload: { name: "personalInformation", value: res.data.Data_personal}})
 
                 let SwitchGear_Checkbox = res.data.Switchgear.map((data: any, index: number) => {
                     return (
@@ -94,7 +92,6 @@ const RequestElectricalOff = () => {
                 dispatch({ type: "setstate", payload: { name: "SwitchYardCheckbox", value: SwitchYard_Checkbox } })
                 dispatch({ type: "setstate", payload: { name: "otherData", value: res.data.Data_Other_data } })
                 dispatch({ type: "setstate", payload: { name: "personalInformation", value: res.data.Data_personal } })
-
             })
     }
 
@@ -119,7 +116,7 @@ const RequestElectricalOff = () => {
             let array_Data1 = [...state.SwitchGearCheckbox]
             let text = ""
 
-            if (Array_data[selectInsert][1] == "") text = `${selectInsert + 1}. สฟฟ.${state.substationSelect[0]}`
+            if (Array_data[selectInsert][1].requestOffDetail == "") text = `${selectInsert + 1}. สฟฟ.${state.substationSelect[0]}`
 
             array_Data1[numberTypeinFeeder].map((word: any) => {
                 if (word[0] == true) {
@@ -128,17 +125,17 @@ const RequestElectricalOff = () => {
                     else if (word[1][word[1].length - 4] == "G") text = `${text},Close ES รหัส ${word[1]}`
                     else if (word[1][word[1].length - 4] == "S") text = `${text},ปลด DS รหัส ${word[1]}`
                     // console.log(word[1][word[1].length - 4])
-                    console.log(word[1])
-                    console.log(array_Data1[1][1])
+                    // console.log(word[1])
+                    // console.log(array_Data1[1][1])
                 }
             });
             // console.log(text)
-            Array_data[selectInsert][1] = `${Array_data[selectInsert][1]}${text}`
+            Array_data[selectInsert][1].requestOffDetail = `${Array_data[selectInsert][1].requestOffDetail}${text}`
         }
         else if (text == "SwitchYard") {
             let array_Data1 = [...state.SwitchYardCheckbox]
             let text = ""
-            if (Array_data[selectInsert][1] == "") text = `${selectInsert + 1}. สฟฟ.${state.substationSelect[0]}`
+            if (Array_data[selectInsert][1].requestOffDetail == "") text = `${selectInsert + 1}. สฟฟ.${state.substationSelect[0]}`
             array_Data1[numberTypeinFeeder].map((word: any) => {
                 if (word[0] == true) {
                     if (word[1][word[1].length - 4] == "B") text = `${text},ปลด CB 115kV รหัส ${word[1]}`
@@ -148,7 +145,7 @@ const RequestElectricalOff = () => {
                 }
             });
             // console.log(text)
-            Array_data[selectInsert][1] = `${Array_data[selectInsert][1]}${text}`
+            Array_data[selectInsert][1].requestOffDetail = `${Array_data[selectInsert][1].requestOffDetail}${text}`
         }
 
         dispatch({ type: "setstate", payload: { name: "RequestElectoff", value: Array_data } })
@@ -165,7 +162,7 @@ const RequestElectricalOff = () => {
         }
     }
     console.log(state.indexSelect)
-
+    
     const setstateOtherData = (valueData: string, text: any) => {
         let ArrayData = [...state.otherData]
         state.otherData.map((data: any, index: number) => {
@@ -202,9 +199,7 @@ const RequestElectricalOff = () => {
                             <div className="flex justify-center flex-col mx-1 w-1/3">
                                 <div className="text-center text-red-800 font-semibold">เลือกบันทึก</div>
                                 <select className="border rounded-md" >
-                                    <option>test1</option>
-                                    <option>test1</option>
-                                    <option>test1</option>
+                                    <option>ไม่มีบันทึก</option>                                    
                                 </select>
                             </div>
                             <div className="flex justify-center flex-col mx-1 w-1/3">
@@ -216,16 +211,8 @@ const RequestElectricalOff = () => {
                         </div>
                     </div>
                 </div>
-                <div className="flex justify-start my-2">
-                    <div className="mx-2">
-                        <Link to={`https://drive.usercontent.google.com/download?id=${state.substationSelect[2]}&export=download`} className="btn btn-success">Dowload</Link>
-                    </div>
-                    <div className="btn btn-primary mx-2" onClick={()=>{ExportDocx()}}>
-                        Docx
-                    </div>
-                </div>
 
-
+                <Link to={`https://drive.usercontent.google.com/download?id=${state.substationSelect[2]}&export=download`}>Dowload</Link>
                 <div className="flex justify-center w-full h-96">
                     <iframe src={`https://drive.google.com/file/d/${state.substationSelect[2]}/preview`} width="100%" height="100%" allow="autoplay"></iframe>
                 </div>
@@ -284,23 +271,6 @@ const RequestElectricalOff = () => {
                                         onClick={() => { InsertMessage(state.indexSelect, index, "SwitchGear") }}>select</div>
                                 </div>
                             )
-
-
-                            // return (
-                            // <div className="flex flex-col border m-2">
-                            //     <div className="flex justify-center">{data[2]}</div>
-                            //     <div className="bg-slate-200 flex justify-center items-center">
-                            //         <input type="checkbox" className="h-4 w-4 mx-1" defaultChecked onChange={(e) => { changestateCheck(index, 3, e.target.checked, "SwitchGear") }} />
-                            //         <div className="flex justify-center">{data[3]}</div>
-                            //     </div>
-                            //     {data[4] !== "" && <div className="bg-slate-200 flex justify-center items-center">
-                            //         <input type="checkbox" className="h-4 w-4 mx-1" defaultChecked onChange={(e) => { changestateCheck(index, 4, e.target.checked, "SwitchGear") }} />
-                            //         <div className="flex justify-center">{data[4]}</div>
-                            //     </div>}
-                            //     <div className="text-center border rounded-xl bg-green-200 my-2 hover:cursor-pointer"
-                            //         onClick={() => { InsertMessage(state.indexSelect, index, "SwitchGear") }}>select</div>
-                            // </div >
-                            // )
                         })
                         }
                     </div>
@@ -310,26 +280,32 @@ const RequestElectricalOff = () => {
                     <div className="flex w-full my-2">
                         <div className="flex w-1/2 mx-2">
                             <label className="bg-slate-200  w-10 rounded-l-lg text-center">จาก</label>
-                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "จาก") }} />
+                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "จาก") }} value={state.otherData[0][1]}/>
                         </div>
                         <div className="flex w-1/2 mx-2">
                             <label className="bg-slate-200  w-10 rounded-l-lg text-center">ถึง</label>
-                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "ถึง") }} />
+                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "ถึง") }} value={state.otherData[1][1]}/>
                         </div>
                     </div>
                     <div className="flex w-full my-2">
                         <div className="flex w-1/2 mx-2">
                             <label className="bg-slate-200  w-10 rounded-l-lg text-center">เลขที่</label>
-                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "เลขที่") }} />
+                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "เลขที่") }} value={state.otherData[2][1]}/>
                         </div>
                         <div className="flex w-1/2 mx-2">
                             <label className="bg-slate-200  w-10 rounded-l-lg text-center">วันที่</label>
-                            <input type="text" className="border rounded-none rounded-r-lg" />
+                            <input type="text" className="border rounded-none rounded-r-lg" value={state.otherData[3][1]}/>
                         </div>
                     </div>
                     <div className="flex my-2">
                         <div className="flex mx-2 w-full">
                             <label className="bg-slate-200  w-10 rounded-l-lg text-center">เรื่อง</label>
+                            <input type="text" className="border rounded-none rounded-r-lg" />
+                        </div>
+                    </div>
+                    <div className="flex my-2">
+                        <div className="flex mx-2 w-full">
+                            <label className="bg-slate-200  w-10 rounded-l-lg text-center">เรียน</label>
                             <input type="text" className="border rounded-none rounded-r-lg" />
                         </div>
                     </div>
@@ -406,7 +382,7 @@ const RequestElectricalOff = () => {
                                                 <div className="w-full flex my-2 flex-col">
                                                     <div className="flex justify-center w-full">
                                                         <label className="bg-slate-200 w-10 rounded-l-lg text-center items-center flex justify-center">{`${index + 1}.1`}</label>
-                                                        <textarea className="border w-full" onChange={(e) => { changestate(index, 0, e) }} value={data[0]}></textarea>
+                                                        <textarea className="border w-full" onChange={(e) => { changestate(index, 0, e) }} value={data[0].contentForDetail}></textarea>
                                                     </div>
                                                     <div className="flex justify-start flex-wrap my-2">
                                                         <div className="flex justify-start w-full flex-wrap my-2">
@@ -416,9 +392,12 @@ const RequestElectricalOff = () => {
                                                             </div>
 
                                                             <select className="w-48 border rounded-lg grow my-1">
-                                                                <option>A</option>
-                                                                <option>B</option>
-                                                                <option>C</option>
+                                                                {state.personalInformation.map((data: any) => {
+                                                                    return (
+                                                                        <option value={data[1]}>{data[1]}</option>
+                                                                    )
+                                                                })}
+
                                                             </select>
                                                             <div className="flex justify-center grow flex-row m-2 ">
                                                                 <label className="border rounded-l-lg bg-slate-200 w-24 text-center">ตำเเหน่ง</label>
@@ -458,11 +437,11 @@ const RequestElectricalOff = () => {
                                                 <div className="w-full flex my-2 flex-col">
                                                     <div className="flex justify-center">
                                                         <label className="bg-slate-200  w-10 rounded-l-lg text-center flex justify-center text-center items-center">{`${index + 1}.2`}</label>
-                                                        <textarea className="border w-full" onChange={(e) => { changestate(index, 1, e) }} value={data[1]}></textarea>
+                                                        <textarea className="border w-full" onChange={(e) => { changestate(index, 1, e) }} value={data[1].requestOffDetail}></textarea>
                                                     </div>
 
-                                                    <div className="flex items-center flex-wrap my-2">
-                                                        <div className="grid grid-cols-2 my-2">
+                                                    <div className="flex items-center my-2">
+                                                        <div className="grid grid-cols-2 my-2 grow">
                                                             <div className="text-center items-center flex justify-start">วันที่</div>
                                                             <div className="mx-2 justify-self-end">
                                                                 <LocalizationProvider dateAdapter={newAdapter} adapterLocale='th' >
@@ -494,13 +473,23 @@ const RequestElectricalOff = () => {
                                                                 </LocalizationProvider>
                                                             </div>
                                                         </div>
-                                                        <select className="border rounded h-full">
-                                                            <option>ดับเช้าจ่ายเย็น</option>
-                                                            <option>ดับเช้าเย็นจ่ายค่ำ</option>
-                                                            <option>ดับเช้า-จ่ายบ่าย</option>
-                                                            <option>ดับเช้าจ่ายเย็น</option>
-                                                        </select>
                                                     </div>
+                                                    <select className="border rounded h-full">
+                                                        {state.otherData.map((data: any, index: number) => {
+                                                            if (data[0] == "การขอดับไฟ") {
+                                                                return (
+                                                                    data.map((data1: any, index1: number) => {
+                                                                        if (index1 > 0) {
+                                                                            return (
+                                                                                <option >{data1}</option>
+                                                                            )
+                                                                        }
+                                                                    })
+                                                                )
+
+                                                            }
+                                                        })}
+                                                    </select>
 
 
 
