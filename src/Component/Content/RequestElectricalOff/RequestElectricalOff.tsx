@@ -38,9 +38,9 @@ const RequestElectricalOff = () => {
         , NumberLetter: ""
         , DateLetter: ""
         , NameLetter: ""
-        , RequestElectoff: [["", ""]]
+        , RequestElectoff: [[{ contentForDetail: "", personelControl: "", contactPersonelControl: "", positionPersonelControl: "", personelCoordinate: "", contactPersonelCoordinate: "", numberPersonelCoordinate: "" }, { requestOffDetail: "", fromDate: "", destinationDate: "", typeOfRequestOff: "" }]]
         , indexSelect: 0
-        ,
+        , otherData: [["", ""]]
 
     }
     const reducer = (state: any, action: any) => {
@@ -70,6 +70,8 @@ const RequestElectricalOff = () => {
                 dispatch({ type: "setstate", payload: { name: "linkSubstation", value: res.data.data_substation_diagram_out } })
                 dispatch({ type: "setstate", payload: { name: "SwitchGear", value: res.data.Switchgear } })
                 dispatch({ type: "setstate", payload: { name: "SwitchYard", value: res.data.SwitchYard } })
+                dispatch({ type: "setstate", payload: { name: "otherData", value: res.data.Data_Other_data } })
+                dispatch({ type: "setstate", payload: { name: "personalInformation", value: res.data.Data_personal}})
 
                 let SwitchGear_Checkbox = res.data.Switchgear.map((data: any, index: number) => {
                     return (
