@@ -11,6 +11,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import dayjs from "dayjs";
 import newAdapter from "../Webscraping/Test";
+import ExportDocx from "./ExportDocx";
 
 
 
@@ -39,7 +40,7 @@ const RequestElectricalOff = () => {
         , NameLetter: ""
         , RequestElectoff: [[{ contentForDetail: "", personelControl: "", contactPersonelControl: "", positionPersonelControl: "", personelCoordinate: "", contactPersonelCoordinate: "", numberPersonelCoordinate: "" }, { requestOffDetail: "", fromDate: "", destinationDate: "", typeOfRequestOff: "" }]]
         , indexSelect: 0
-        , otherData: [["", ""],["", ""],["", ""],["", ""],["", ""],["", ""],["", ""]]
+        , otherData: [["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""]]
         , personalInformation: [""]
 
     }
@@ -162,7 +163,7 @@ const RequestElectricalOff = () => {
         }
     }
     console.log(state.indexSelect)
-    
+
     const setstateOtherData = (valueData: string, text: any) => {
         let ArrayData = [...state.otherData]
         state.otherData.map((data: any, index: number) => {
@@ -199,7 +200,7 @@ const RequestElectricalOff = () => {
                             <div className="flex justify-center flex-col mx-1 w-1/3">
                                 <div className="text-center text-red-800 font-semibold">เลือกบันทึก</div>
                                 <select className="border rounded-md" >
-                                    <option>ไม่มีบันทึก</option>                                    
+                                    <option>ไม่มีบันทึก</option>
                                 </select>
                             </div>
                             <div className="flex justify-center flex-col mx-1 w-1/3">
@@ -212,7 +213,14 @@ const RequestElectricalOff = () => {
                     </div>
                 </div>
 
-                <Link to={`https://drive.usercontent.google.com/download?id=${state.substationSelect[2]}&export=download`}>Dowload</Link>
+                <div className="flex justify-start my-2">
+                    <div className="mx-2">
+                        <Link to={`https://drive.usercontent.google.com/download?id=${state.substationSelect[2]}&export=download`} className="btn btn-success">Dowload</Link>
+                    </div>
+                    <div className="btn btn-primary mx-2" onClick={() => { ExportDocx() }}>
+                        Docx
+                    </div>
+                </div>
                 <div className="flex justify-center w-full h-96">
                     <iframe src={`https://drive.google.com/file/d/${state.substationSelect[2]}/preview`} width="100%" height="100%" allow="autoplay"></iframe>
                 </div>
@@ -280,21 +288,21 @@ const RequestElectricalOff = () => {
                     <div className="flex w-full my-2">
                         <div className="flex w-1/2 mx-2">
                             <label className="bg-slate-200  w-10 rounded-l-lg text-center">จาก</label>
-                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "จาก") }} value={state.otherData[0][1]}/>
+                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "จาก") }} value={state.otherData[0][1]} />
                         </div>
                         <div className="flex w-1/2 mx-2">
                             <label className="bg-slate-200  w-10 rounded-l-lg text-center">ถึง</label>
-                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "ถึง") }} value={state.otherData[1][1]}/>
+                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "ถึง") }} value={state.otherData[1][1]} />
                         </div>
                     </div>
                     <div className="flex w-full my-2">
                         <div className="flex w-1/2 mx-2">
                             <label className="bg-slate-200  w-10 rounded-l-lg text-center">เลขที่</label>
-                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "เลขที่") }} value={state.otherData[2][1]}/>
+                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "เลขที่") }} value={state.otherData[2][1]} />
                         </div>
                         <div className="flex w-1/2 mx-2">
                             <label className="bg-slate-200  w-10 rounded-l-lg text-center">วันที่</label>
-                            <input type="text" className="border rounded-none rounded-r-lg" value={state.otherData[3][1]}/>
+                            <input type="text" className="border rounded-none rounded-r-lg" value={state.otherData[3][1]} />
                         </div>
                     </div>
                     <div className="flex my-2">
