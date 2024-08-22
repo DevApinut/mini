@@ -38,7 +38,7 @@ const RequestElectricalOff = () => {
         , NumberLetter: ""
         , DateLetter: ""
         , NameLetter: ""
-        , RequestElectoff: [[{ contentForDetail: "", personelControl: "", contactPersonelControl: "", positionPersonelControl: "", personelCoordinate: "", contactPersonelCoordinate: "", numberPersonelCoordinate: "" }, { requestOffDetail: "", fromDate: "", destinationDate: "", typeOfRequestOff: "" }]]
+        , RequestElectoff: [[{ contentForDetail: "", checkPersonelControl:false,personelControl: "", contactPersonelControl: "", positionPersonelControl: "",checkPersonelCoordinate:false, personelCoordinate: "", contactPersonelCoordinate: "", numberPersonelCoordinate: "" }, { requestOffDetail: "", fromDate: "", destinationDate: "", typeOfRequestOff: "" }]]
         , indexSelect: 0
         , otherData: [["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""]]
         , personalInformation: [""]
@@ -98,14 +98,14 @@ const RequestElectricalOff = () => {
 
     const addnewrequest = (index: any) => {
         let Array_data = [...state.RequestElectoff]
-        Array_data.splice(index + 1, 0, ["", ""])
+        Array_data.splice(index + 1, 0, [{ contentForDetail: "", checkPersonelControl:false,personelControl: "", contactPersonelControl: "", positionPersonelControl: "",checkPersonelCoordinate:false, personelCoordinate: "", contactPersonelCoordinate: "", numberPersonelCoordinate: "" }, { requestOffDetail: "", fromDate: "", destinationDate: "", typeOfRequestOff: "" }])
         console.log(Array_data)
         dispatch({ type: "setstate", payload: { name: "RequestElectoff", value: Array_data } })
 
     }
-    const changestate = (index: any, index1: any, event: any) => {
+    const changestate = (index: any, index1: any, event: any,text:any) => {
         let Array_data = [...state.RequestElectoff]
-        Array_data[index][index1] = event.target.value
+        Array_data[index][index1][text] = event.target.value
         dispatch({ type: "setstate", payload: { name: "RequestElectoff", value: Array_data } })
 
     }
@@ -178,7 +178,7 @@ const RequestElectricalOff = () => {
     }
 
     const changeStateArrayContent = (content: string, indexArray: number, textForType: string) => {
-
+       
     }
 
     return (
@@ -358,9 +358,9 @@ const RequestElectricalOff = () => {
 
 
                         <div>
-                            <input type="text" className="border"  onChange={(e) => { setstateOtherData(e.target.value, "ผู้ขอดับไฟ") }} value={state.otherData[7][1]}/>
+                            <input type="text" className="border" onChange={(e) => { setstateOtherData(e.target.value, "ผู้ขอดับไฟ") }} value={state.otherData[7][1]} />
                         </div>
-                        
+
                         <div>
                             จะทำการขอดับไฟ
                         </div>
@@ -394,7 +394,7 @@ const RequestElectricalOff = () => {
                                                 <div className="w-full flex my-2 flex-col">
                                                     <div className="flex justify-center w-full">
                                                         <label className="bg-slate-200 w-10 rounded-l-lg text-center items-center flex justify-center">{`${index + 1}.1`}</label>
-                                                        <textarea className="border w-full" onChange={(e) => { changestate(index, 0, e) }} value={data[0].contentForDetail}></textarea>
+                                                        <textarea className="border w-full" onChange={(e) => { changestate(index, 0, e,"contentForDetail") }} value={data[0].contentForDetail}></textarea>
                                                     </div>
                                                     <div className="flex justify-start flex-wrap my-2">
                                                         <div className="flex justify-start w-full flex-wrap my-2">
@@ -404,9 +404,9 @@ const RequestElectricalOff = () => {
                                                             </div>
 
                                                             <select className="w-48 border rounded-lg grow my-1">
-                                                                {state.personalInformation.map((data: any) => {
+                                                                {state.personalInformation.map((data: any,index:number) => {
                                                                     return (
-                                                                        <option value={data[1]}>{data[1]}</option>
+                                                                        <option key={`personelControl_${index}`}value={data[1]}>{data[1]}</option>
                                                                     )
                                                                 })}
 
@@ -427,10 +427,13 @@ const RequestElectricalOff = () => {
                                                                 <input type="checkbox" className="w-4 h-4" />
                                                                 <div className="flex justify-center items-center my-1">ผู้ประสานงาน</div>
                                                             </div>
-                                                            <select className="w-48 border rounded-lg grow my-2">
-                                                                <option>A</option>
-                                                                <option>B</option>
-                                                                <option>C</option>
+                                                            <select className="w-48 border rounded-lg grow my-1">
+                                                                {state.personalInformation.map((data: any) => {
+                                                                    return (
+                                                                        <option value={data[1]}>{data[1]}</option>
+                                                                    )
+                                                                })}
+
                                                             </select>
                                                             <div className="flex justify-center grow flex-row m-2">
                                                                 <label className="border rounded-l-lg bg-slate-200 w-24 text-center">ตำเเหน่ง</label>
@@ -449,7 +452,7 @@ const RequestElectricalOff = () => {
                                                 <div className="w-full flex my-2 flex-col">
                                                     <div className="flex justify-center">
                                                         <label className="bg-slate-200  w-10 rounded-l-lg text-center flex justify-center text-center items-center">{`${index + 1}.2`}</label>
-                                                        <textarea className="border w-full" onChange={(e) => { changestate(index, 1, e) }} value={data[1].requestOffDetail}></textarea>
+                                                        <textarea className="border w-full" onChange={(e) => { changestate(index, 1, e,"requestOffDetail") }} value={data[1].requestOffDetail}></textarea>
                                                     </div>
 
                                                     <div className="flex items-center my-2">
