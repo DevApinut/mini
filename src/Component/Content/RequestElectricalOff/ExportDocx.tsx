@@ -6,6 +6,7 @@ import { Logo_image2 } from "../Export/Image";
 
 
 const ExportDocx = () => {
+    const cmTab = 586.181
     // Used to export the file into a .docx file
     const doc = new Document({
         sections: [
@@ -65,7 +66,7 @@ const ExportDocx = () => {
                             //                             size: 28,
                             //                             text: "รายละเอียดของงานที่ปฏิบัติ",
                             //                             bold: true,
-                            //                             font: "Angsana New",
+                            //                             font: "TH SarabunIT๙",
                             //                         }),
 
                             //                     ],
@@ -426,7 +427,7 @@ const ExportDocx = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 32,
-                                                        text: "เรื่อง",                                                        
+                                                        text: "เรื่อง",
                                                         font: "TH SarabunIT๙",
                                                     }),
 
@@ -460,8 +461,8 @@ const ExportDocx = () => {
                                             type: WidthType.DXA,
                                         },
                                         columnSpan: 1,
-                                    }),   
-                                    
+                                    }),
+
                                     new TableCell({
                                         children: [
                                             new Paragraph({
@@ -515,7 +516,7 @@ const ExportDocx = () => {
                                                 children: [
                                                     new TextRun({
                                                         size: 32,
-                                                        text: "เรียน",                                                        
+                                                        text: "เรียน",
                                                         font: "TH SarabunIT๙",
                                                     }),
 
@@ -549,8 +550,8 @@ const ExportDocx = () => {
                                             type: WidthType.DXA,
                                         },
                                         columnSpan: 1,
-                                    }),   
-                                    
+                                    }),
+
                                     new TableCell({
                                         children: [
                                             new Paragraph({
@@ -599,11 +600,102 @@ const ExportDocx = () => {
                         ],
                     }),
 
+                    new Paragraph({
+                        // alignment: AlignmentType.LEFT,
+                        // 1cm == 568.181
+                        tabStops: [
+                            {
+                                type: TabStopType.LEFT,
+                                position: 2.5*(cmTab),
+                            },
+                            {
+                                type: TabStopType.CENTER,
+                                position: 6*(cmTab),
+                            },
+                            {
+                                type: TabStopType.LEFT,
+                                position: 10*(cmTab),
+                            },
+                            {
+                                type: TabStopType.CENTER,
+                                position: 12*(cmTab),
+                            },
+                            {
+                                type: TabStopType.LEFT,
+                                position: 14*(cmTab),
+                            },
 
-
-
-
-
+                        ],
+                        children: [
+                            new TextRun({
+                                size: 32,
+                                text: `\tด้วยในวันที่`,
+                                font: "TH SarabunIT๙",
+                            }),
+                            new TextRun({
+                                size: 32,
+                                text: ` 19 สิงหาคม 2567`,
+                                font: "TH SarabunIT๙",
+                                // underline: {
+                                //     type: UnderlineType.DOTTED,
+                                // },
+                            }),
+                            new TextRun({
+                                size: 32,
+                                text: ` ผสม.กสฟ.(ต.1) `,
+                                font: "TH SarabunIT๙",                                
+                            }),
+                            new TextRun({
+                                size: 32,
+                                text: `จะทำการดับไฟ ระบบ `,
+                                font: "TH SarabunIT๙",                               
+                            }),
+                           
+                            new SymbolRun({
+                                size: 28,
+                                char: `F071`,
+                                bold: true,
+                                italics: false,
+                            }),
+                            new TextRun({
+                                size: 32,
+                                text: ` 22kV `,
+                                font: "TH SarabunIT๙",                               
+                            }),
+                            new SymbolRun({
+                                size: 28,
+                                char: `F0FE`,
+                                bold: true,
+                                italics: false,
+                            }),
+                            new TextRun({
+                                size: 32,
+                                text: ` 115kV `,
+                                font: "TH SarabunIT๙",                               
+                            }),
+                            new TextRun({
+                                size: 32,
+                                text: `พร้อมแนบผังจุดปฏิบัติงานมาด้วย จำนวน 1 แผ่น โดยมีรายละเอียดที่ปฏิบัติงานดังนี้`,
+                                font: "TH SarabunIT๙",                               
+                            }),
+                            // new TextRun({
+                            //     size: 28,
+                            //     text: "Substation",
+                            //     font: "TH SarabunIT๙",
+                            // }),
+                            // new SymbolRun({
+                            //     size: 28,
+                            //     char: `{data.type_substation == "Unmanned" ? "F0FE" : "F071"}`,
+                            //     bold: true,
+                            //     italics: false,
+                            // }),
+                            // new TextRun({
+                            //     size: 28,
+                            //     text: " Unmanned Substation",
+                            //     font: "TH SarabunIT๙",
+                            // }),
+                        ],
+                    }),
                 ]
             }
         ],

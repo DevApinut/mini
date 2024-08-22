@@ -40,7 +40,7 @@ const RequestElectricalOff = () => {
         , NameLetter: ""
         , RequestElectoff: [[{ contentForDetail: "", personelControl: "", contactPersonelControl: "", positionPersonelControl: "", personelCoordinate: "", contactPersonelCoordinate: "", numberPersonelCoordinate: "" }, { requestOffDetail: "", fromDate: "", destinationDate: "", typeOfRequestOff: "" }]]
         , indexSelect: 0
-        , otherData: [["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""]]
+        , otherData: [["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""]]
         , personalInformation: [""]
 
     }
@@ -164,7 +164,7 @@ const RequestElectricalOff = () => {
     }
     console.log(state.indexSelect)
 
-    const setstateOtherData = (valueData: string, text: any) => {
+    const setstateOtherData = (valueData: any, text: any) => {
         let ArrayData = [...state.otherData]
         state.otherData.map((data: any, index: number) => {
             if (data[0] == text) {
@@ -173,7 +173,11 @@ const RequestElectricalOff = () => {
 
             }
         })
-        dispatch({ type: "setstate", payload: { name: "SwitchYardCheckbox", value: ArrayData } })
+        dispatch({ type: "setstate", payload: { name: "otherData", value: ArrayData } })
+
+    }
+
+    const changeStateArrayContent = (content: string, indexArray: number, textForType: string) => {
 
     }
 
@@ -288,33 +292,33 @@ const RequestElectricalOff = () => {
                     <div className="flex w-full my-2">
                         <div className="flex w-1/2 mx-2">
                             <label className="bg-slate-200  w-10 rounded-l-lg text-center">จาก</label>
-                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "จาก") }} value={state.otherData[0][1]} />
+                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "จาก") }} value={state.otherData[1][1]} />
                         </div>
                         <div className="flex w-1/2 mx-2">
                             <label className="bg-slate-200  w-10 rounded-l-lg text-center">ถึง</label>
-                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "ถึง") }} value={state.otherData[1][1]} />
+                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "ถึง") }} value={state.otherData[2][1]} />
                         </div>
                     </div>
                     <div className="flex w-full my-2">
                         <div className="flex w-1/2 mx-2">
                             <label className="bg-slate-200  w-10 rounded-l-lg text-center">เลขที่</label>
-                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "เลขที่") }} value={state.otherData[2][1]} />
+                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "เลขที่") }} value={state.otherData[3][1]} />
                         </div>
                         <div className="flex w-1/2 mx-2">
                             <label className="bg-slate-200  w-10 rounded-l-lg text-center">วันที่</label>
-                            <input type="text" className="border rounded-none rounded-r-lg" value={state.otherData[3][1]} />
+                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "วันที่") }} value={state.otherData[4][1]} />
                         </div>
                     </div>
                     <div className="flex my-2">
                         <div className="flex mx-2 w-full">
                             <label className="bg-slate-200  w-10 rounded-l-lg text-center">เรื่อง</label>
-                            <input type="text" className="border rounded-none rounded-r-lg" />
+                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "เลขที่") }} value={state.otherData[5][1]} />
                         </div>
                     </div>
                     <div className="flex my-2">
                         <div className="flex mx-2 w-full">
                             <label className="bg-slate-200  w-10 rounded-l-lg text-center">เรียน</label>
-                            <input type="text" className="border rounded-none rounded-r-lg" />
+                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "เรียน") }} value={state.otherData[6][1]} />
                         </div>
                     </div>
                     <div className="flex items-center flex-wrap grow">
@@ -325,9 +329,9 @@ const RequestElectricalOff = () => {
                                     <DatePicker
                                         label="เลือกวันที่"
                                         format="DD MMMYYYY"
-                                        onChange={(newValue) => { }}
+                                        onChange={(newValue: any) => { setstateOtherData(newValue.$d, "เนื่องด้วยวันที่") }}
                                         defaultValue={dayjs(new Date)}
-                                        value={dayjs(new Date)}
+                                        value={dayjs(state.otherData[9][1])}
                                         slotProps={{ textField: { size: 'small' } }}
 
                                     />
@@ -341,9 +345,9 @@ const RequestElectricalOff = () => {
                                     <DatePicker
                                         label="เลือกวันที่"
                                         format="DD MMMYYYY"
-                                        onChange={(newValue) => { }}
+                                        onChange={(newValue: any) => { setstateOtherData(newValue.$d, "ถึงวันที่") }}
                                         defaultValue={dayjs(new Date)}
-                                        value={dayjs(new Date)}
+                                        value={dayjs(state.otherData[10][1])}
                                         slotProps={{ textField: { size: 'small' } }}
 
                                     />
@@ -354,23 +358,23 @@ const RequestElectricalOff = () => {
 
 
                         <div>
-                            <input type="text" className="border" />
+                            <input type="text" className="border"  onChange={(e) => { setstateOtherData(e.target.value, "ผู้ขอดับไฟ") }} value={state.otherData[7][1]}/>
                         </div>
-
+                        
                         <div>
                             จะทำการขอดับไฟ
                         </div>
                         <div className="form-check m-2">
-                            <input className="form-check-input" type="checkbox" id="LCC_Lamp" />
-                            <label className="form-check-label" htmlFor="LCC_Lamp">22/33 kV</label>
+                            <input className="form-check-input" type="checkbox" id="22kv" onChange={(e) => { setstateOtherData(e.target.checked, "22kv") }} />
+                            <label className="form-check-label" htmlFor="22kv">22/33 kV</label>
                         </div>
                         <div className="form-check m-2">
-                            <input className="form-check-input" type="checkbox" id="LCC_Lamp" />
-                            <label className="form-check-label" htmlFor="LCC_Lamp">115 kV</label>
+                            <input className="form-check-input" type="checkbox" id="115kv" onChange={(e) => { setstateOtherData(e.target.checked, "115kv") }} />
+                            <label className="form-check-label" htmlFor="115kv">115 kV</label>
                         </div>
                         <div >พร้อมแนบผังจุดปฏิบัติงานมาด้วย จำนวน</div>
                         <div className="w-10">
-                            <input type="text" className="border" />
+                            <input type="text" className="border" onChange={(e) => { setstateOtherData(e.target.checked, "ฉบับ") }} />
                         </div>
                         <div>
                             ฉบับ โดยมีรายละเอียดที่ปฏิบัติงานดังนี้
