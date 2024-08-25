@@ -521,12 +521,12 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('P3').value = data.Position_Personal
         worksheet.getCell('T3').value = props.Detail_Work[0].affiliation
         worksheet.getCell('F4').value = props.Detail_Work[0].for_personal
-        worksheet.getCell('U4').value = props.Detail_Work[0].obj
+        worksheet.getCell('T4').value = props.Detail_Work[0].obj
         worksheet.getCell('M5').value = props.Detail_Work[0].date_permission_buddha
         worksheet.getCell('G5').value = props.Detail_Work[0].Number_command
         worksheet.getCell('F6').value = props.Detail_Work[0].location_work
         worksheet.getCell('Q7').value = props.Detail_Work[0].type_car
-        worksheet.getCell('U7').value = props.Detail_Work[0].serial_car
+        worksheet.getCell('T7').value = props.Detail_Work[0].serial_car
         worksheet.getCell('W8').value = props.Detail_Work[0].number_day
         worksheet.getCell('Y8').value = props.Detail_Work[0].number_night
         worksheet.getCell('F8').value = `${new Date(work_information_romeve_deplicate[0].date_from).getDate()} ${changedate1(new Date(work_information_romeve_deplicate[0].date_from))}${(new Date(work_information_romeve_deplicate[0].date_from).getFullYear() + 543).toString().substr(-2)}`
@@ -2303,7 +2303,7 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('L4').alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell('M4').alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell('P4').alignment = { vertical: 'middle', horizontal: 'left' }
-        worksheet.getCell('U4').alignment = { vertical: 'middle', horizontal: 'left', wrapText: true }
+        worksheet.getCell('T4').alignment = { vertical: 'top', horizontal: 'left', wrapText: true }
         worksheet.getCell('AA4').alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell('AB4').alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell('A5').alignment = { vertical: 'middle', horizontal: 'center' }
@@ -2314,12 +2314,12 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('L5').alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell('M5').alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell('P5').alignment = { vertical: 'middle', horizontal: 'center' }
-        worksheet.getCell('T5').alignment = { vertical: 'middle', horizontal: 'center' }
+        // worksheet.getCell('T5').alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell('AA5').alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell('AB5').alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell('A6').alignment = { vertical: 'middle', horizontal: 'center' }
-        worksheet.getCell('E6').alignment = { vertical: 'middle', horizontal: 'left' }
-        worksheet.getCell('F6').alignment = { vertical: 'middle', horizontal: 'left', wrapText: true }
+        worksheet.getCell('E6').alignment = { vertical: 'bottom', horizontal: 'left' }
+        worksheet.getCell('F6').alignment = { vertical: 'bottom', horizontal: 'left', wrapText: true }
         worksheet.getCell('L6').alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell('M6').alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell('N6').alignment = { vertical: 'middle', horizontal: 'center' }
@@ -2328,7 +2328,7 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('Q6').alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell('R6').alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell('S6').alignment = { vertical: 'middle', horizontal: 'center' }
-        worksheet.getCell('T6').alignment = { vertical: 'middle', horizontal: 'center' }
+        // worksheet.getCell('T6').alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell('AA6').alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell('AB6').alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell('A7').alignment = { vertical: 'middle', horizontal: 'center' }
@@ -3218,7 +3218,7 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('F79').alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell('G79').alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell('H79').alignment = { vertical: 'middle', horizontal: 'center' }
-        worksheet.getCell('I79').alignment = { vertical: 'middle', horizontal: 'center' }
+        worksheet.getCell('I79').alignment = { vertical: 'bottom', horizontal: 'center' }
         worksheet.getCell('M79').alignment = { vertical: 'middle', horizontal: 'left' }
         worksheet.getCell('Q79').alignment = { vertical: 'middle', horizontal: 'right' }
         worksheet.getCell('S79').alignment = { vertical: 'middle', horizontal: 'center' }
@@ -3345,7 +3345,7 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('L4').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: true, }
         worksheet.getCell('M4').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
         worksheet.getCell('P4').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: true, }
-        worksheet.getCell('U4').font = { name: 'TH SarabunPSK', size: 14, italic: false, bold: false, }
+        worksheet.getCell('T4').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
         worksheet.getCell('AA4').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
         worksheet.getCell('AB4').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
         worksheet.getCell('A5').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
@@ -3356,7 +3356,7 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('L5').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: true, }
         worksheet.getCell('M5').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
         worksheet.getCell('P5').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: true, }
-        worksheet.getCell('T5').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: true, }
+        // worksheet.getCell('T5').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
         worksheet.getCell('AA5').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
         worksheet.getCell('AB5').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
         worksheet.getCell('A6').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: true, }
@@ -3370,7 +3370,7 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('Q6').font = { name: 'Tahoma', size: 11, italic: false, bold: false, }
         worksheet.getCell('R6').font = { name: 'Tahoma', size: 11, italic: false, bold: false, }
         worksheet.getCell('S6').font = { name: 'Tahoma', size: 11, italic: false, bold: false, }
-        worksheet.getCell('T6').font = { name: 'Tahoma', size: 11, italic: false, bold: false, }
+        // worksheet.getCell('T6').font = { name: 'Tahoma', size: 11, italic: false, bold: false, }
         worksheet.getCell('AA6').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
         worksheet.getCell('AB6').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
         worksheet.getCell('A7').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: true, }

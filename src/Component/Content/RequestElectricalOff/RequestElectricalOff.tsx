@@ -38,7 +38,8 @@ const RequestElectricalOff = () => {
         , NumberLetter: ""
         , DateLetter: ""
         , NameLetter: ""
-        , RequestElectoff: [[{ contentForDetail: "", checkPersonelControl:false,personelControl: "", contactPersonelControl: "", positionPersonelControl: "",checkPersonelCoordinate:false, personelCoordinate: "", contactPersonelCoordinate: "", numberPersonelCoordinate: "" }, { requestOffDetail: "", fromDate: "", destinationDate: "", typeOfRequestOff: "" }]]
+        , AreaReponability: [""]
+        , RequestElectoff: [[{ contentForDetail: "ปฏิบัติงาน ...... ที่ ......", checkPersonelControl: true, personelControl: "", contactPersonelControl: "", positionPersonelControl: "", checkPersonelCoordinate: true, personelCoordinate: "", positionPersonelCoordinate: "", contactPersonelCoordinate: "" }, { requestOffDetail: "", fromDate: "", destinationDate: "", typeOfRequestOff: "" }]]
         , indexSelect: 0
         , otherData: [["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""]]
         , personalInformation: [""]
@@ -91,19 +92,27 @@ const RequestElectricalOff = () => {
                 })
                 dispatch({ type: "setstate", payload: { name: "SwitchGearCheckbox", value: SwitchGear_Checkbox } })
                 dispatch({ type: "setstate", payload: { name: "SwitchYardCheckbox", value: SwitchYard_Checkbox } })
-                dispatch({ type: "setstate", payload: { name: "otherData", value: res.data.Data_Other_data } })
+                if(e == "" ) dispatch({ type: "setstate", payload: { name: "otherData", value: res.data.Data_Other_data } })               
+
                 dispatch({ type: "setstate", payload: { name: "personalInformation", value: res.data.Data_personal } })
+                dispatch({ type: "setstate", payload: { name: "AreaReponability", value: res.data.Data_Area } })
             })
     }
 
     const addnewrequest = (index: any) => {
         let Array_data = [...state.RequestElectoff]
-        Array_data.splice(index + 1, 0, [{ contentForDetail: "", checkPersonelControl:false,personelControl: "", contactPersonelControl: "", positionPersonelControl: "",checkPersonelCoordinate:false, personelCoordinate: "", contactPersonelCoordinate: "", numberPersonelCoordinate: "" }, { requestOffDetail: "", fromDate: "", destinationDate: "", typeOfRequestOff: "" }])
+        Array_data.splice(index + 1, 0, [{ contentForDetail: "ปฏิบัติงาน ...... ที่ ......", checkPersonelControl: true, personelControl: "", contactPersonelControl: "", positionPersonelControl: "", checkPersonelCoordinate: true, personelCoordinate: "", positionPersonelCoordinate: "", contactPersonelCoordinate: "" }, { requestOffDetail: "", fromDate: "", destinationDate: "", typeOfRequestOff: "" }])
         console.log(Array_data)
         dispatch({ type: "setstate", payload: { name: "RequestElectoff", value: Array_data } })
 
     }
-    const changestate = (index: any, index1: any, event: any,text:any) => {
+    const delrequest = (index: any) => {
+        let Array_data = [...state.RequestElectoff]
+        Array_data.splice(index, 1)
+        dispatch({ type: "setstate", payload: { name: "RequestElectoff", value: Array_data } })
+
+    }
+    const changestate = (index: any, index1: any, event: any, text: any) => {
         let Array_data = [...state.RequestElectoff]
         Array_data[index][index1][text] = event.target.value
         dispatch({ type: "setstate", payload: { name: "RequestElectoff", value: Array_data } })
@@ -112,10 +121,12 @@ const RequestElectricalOff = () => {
     const InsertMessage = (selectInsert: any, numberTypeinFeeder: number, text: string) => {
         let Array_data = [...state.RequestElectoff]
         // Array_data[selectInsert][1] = `${Array_data[selectInsert][1]}test`
+        let AreaResponability = [...state.AreaReponability]
+        let oterData = [...state.otherData]
 
         if (text == "SwitchGear") {
             let array_Data1 = [...state.SwitchGearCheckbox]
-            let text = ""
+            let text = ""            
 
             if (Array_data[selectInsert][1].requestOffDetail == "") text = `${selectInsert + 1}. สฟฟ.${state.substationSelect[0]}`
 
@@ -136,7 +147,7 @@ const RequestElectricalOff = () => {
         else if (text == "SwitchYard") {
             let array_Data1 = [...state.SwitchYardCheckbox]
             let text = ""
-            if (Array_data[selectInsert][1].requestOffDetail == "") text = `${selectInsert + 1}. สฟฟ.${state.substationSelect[0]}`
+            if (Array_data[selectInsert][1].requestOffDetail == "") text = `${Number(selectInsert) + 1}. สฟฟ.${state.substationSelect[0]}`
             array_Data1[numberTypeinFeeder].map((word: any) => {
                 if (word[0] == true) {
                     if (word[1][word[1].length - 4] == "B") text = `${text},ปลด CB 115kV รหัส ${word[1]}`
@@ -149,6 +160,25 @@ const RequestElectricalOff = () => {
             Array_data[selectInsert][1].requestOffDetail = `${Array_data[selectInsert][1].requestOffDetail}${text}`
         }
 
+        AreaResponability.map((data:any,index:any)=>{
+            if(data[0] === state.substationSelect[0]){
+                oterData[2][1] = `${state.otherData[2][1]}, ${data[6]}`
+                oterData[6][1] = `${state.otherData[6][1]}, ผจก.${data[5]}`
+            }
+        })
+
+        oterData[2][1] = oterData[2][1].split(",").filter(function(item:any, pos:any) {
+            return oterData[2][1].split(",").indexOf(item) == pos;
+        })
+
+        oterData[6][1] = oterData[6][1].split(",").filter(function(item:any, pos:any) {
+            return oterData[6][1].split(",").indexOf(item) == pos;
+        })
+
+
+
+
+        dispatch({ type: "setstate", payload: { name: "otherData", value: oterData } })
         dispatch({ type: "setstate", payload: { name: "RequestElectoff", value: Array_data } })
     }
     const changestateCheck = (index: number, typeofFeeder: number, check: any, nameType: any) => {
@@ -162,7 +192,7 @@ const RequestElectricalOff = () => {
             dispatch({ type: "setstate", payload: { name: "SwitchYardCheckbox", value: Array_data } })
         }
     }
-    console.log(state.indexSelect)
+    
 
     const setstateOtherData = (valueData: any, text: any) => {
         let ArrayData = [...state.otherData]
@@ -177,8 +207,40 @@ const RequestElectricalOff = () => {
 
     }
 
-    const changeStateArrayContent = (content: string, indexArray: number, textForType: string) => {
-       
+    const selectPersonelControl = (event: any, index: number) => {
+        let arrayData = [...state.personalInformation]
+        let Array_data = [...state.RequestElectoff]
+        let personelContact = ""
+        let personelPosition = ""
+        arrayData.map((data: any, index: number) => {
+            if (data[1] === event.target.value) {
+                personelPosition = data[2]
+                personelContact = data[4]
+            }
+        })
+        Array_data[index][0].personelControl = event.target.value
+        Array_data[index][0].contactPersonelControl = personelContact
+        Array_data[index][0].positionPersonelControl = personelPosition
+
+        dispatch({ type: "setstate", payload: { name: "RequestElectoff", value: Array_data } })
+    }
+
+    const selectPersonelCoordinate = (event: any, index: number) => {
+        let arrayData = [...state.personalInformation]
+        let Array_data = [...state.RequestElectoff]
+        let personelContact = ""
+        let personelPosition = ""
+        arrayData.map((data: any, index: number) => {
+            if (data[1] === event.target.value) {
+                personelPosition = data[2]
+                personelContact = data[4]
+            }
+        })
+        Array_data[index][0].personelCoordinate = event.target.value
+        Array_data[index][0].contactPersonelCoordinate = personelContact
+        Array_data[index][0].positionPersonelCoordinate = personelPosition
+
+        dispatch({ type: "setstate", payload: { name: "RequestElectoff", value: Array_data } })
     }
 
     return (
@@ -312,7 +374,7 @@ const RequestElectricalOff = () => {
                     <div className="flex my-2">
                         <div className="flex mx-2 w-full">
                             <label className="bg-slate-200  w-10 rounded-l-lg text-center">เรื่อง</label>
-                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "เลขที่") }} value={state.otherData[5][1]} />
+                            <input type="text" className="border rounded-none rounded-r-lg" onChange={(e) => { setstateOtherData(e.target.value, "เรื่อง") }} value={state.otherData[5][1]} />
                         </div>
                     </div>
                     <div className="flex my-2">
@@ -374,7 +436,7 @@ const RequestElectricalOff = () => {
                         </div>
                         <div >พร้อมแนบผังจุดปฏิบัติงานมาด้วย จำนวน</div>
                         <div className="w-10">
-                            <input type="text" className="border" onChange={(e) => { setstateOtherData(e.target.checked, "ฉบับ") }} />
+                            <input type="text" className="border text-center" onChange={(e) => { setstateOtherData(e.target.value, "ฉบับ") }} />
                         </div>
                         <div>
                             ฉบับ โดยมีรายละเอียดที่ปฏิบัติงานดังนี้
@@ -394,55 +456,86 @@ const RequestElectricalOff = () => {
                                                 <div className="w-full flex my-2 flex-col">
                                                     <div className="flex justify-center w-full">
                                                         <label className="bg-slate-200 w-10 rounded-l-lg text-center items-center flex justify-center">{`${index + 1}.1`}</label>
-                                                        <textarea className="border w-full" onChange={(e) => { changestate(index, 0, e,"contentForDetail") }} value={data[0].contentForDetail}></textarea>
+                                                        <textarea className="border w-full" onChange={(e) => { changestate(index, 0, e, "contentForDetail") }} value={data[0].contentForDetail}></textarea>
                                                     </div>
                                                     <div className="flex justify-start flex-wrap my-2">
                                                         <div className="flex justify-start w-full flex-wrap my-2">
                                                             <div className="flex justify-center items-center">
-                                                                <input type="checkbox" className="w-4 h-4" />
+                                                                <input type="checkbox" className="w-4 h-4" checked={data[0].checkPersonelControl} onChange={(e) => {
+                                                                    let event = { target: { value: e.target.checked } }
+                                                                    changestate(index, 0, event, "checkPersonelControl")
+                                                                }} />
                                                                 <div className="flex justify-center items-center my-1">ผู้ควบคุมงาน</div>
                                                             </div>
 
-                                                            <select className="w-48 border rounded-lg grow my-1">
-                                                                {state.personalInformation.map((data: any,index:number) => {
+                                                            {data[0].checkPersonelControl && <select className="w-48 border rounded-lg grow my-1" onChange={(e) => {
+                                                                selectPersonelControl(e, index)
+                                                            }}>
+                                                                {state.personalInformation.map((data: any, index: number) => {
                                                                     return (
-                                                                        <option key={`personelControl_${index}`}value={data[1]}>{data[1]}</option>
+                                                                        <option key={`personelControl_${index}`} value={data[1]}>{data[1]}</option>
                                                                     )
                                                                 })}
 
-                                                            </select>
+                                                            </select>}
+
+
+                                                            {!data[0].checkPersonelControl && <div className="flex justify-center grow flex-row m-2">
+                                                                <label className="border rounded-l-lg bg-slate-200 w-24 text-center">ผู้ควบคุมงาน</label>
+                                                                <input type="text" className="border rounded-none rounded-r-xl"
+                                                                    onChange={(e) => { changestate(index, 0, e, "PersonelControl") }} value={data[0].PersonelControl}
+                                                                />
+                                                            </div>}
                                                             <div className="flex justify-center grow flex-row m-2 ">
                                                                 <label className="border rounded-l-lg bg-slate-200 w-24 text-center">ตำเเหน่ง</label>
-                                                                <input type="text" className="border rounded-none rounded-r-xl"
+                                                                <input type="text" className="border rounded-none rounded-r-xl" onChange={(e) => { changestate(index, 0, e, "positionPersonelControl") }} value={data[0].positionPersonelControl}
                                                                 />
                                                             </div>
                                                             <div className="flex justify-center grow flex-row m-2">
                                                                 <label className="border rounded-l-lg bg-slate-200 w-24 text-center">เบอร์โทร</label>
-                                                                <input type="text" className="border rounded-none rounded-r-xl"
+                                                                <input type="text" className="border rounded-none rounded-r-xl" onChange={(e) => { changestate(index, 0, e, "contactPersonelControl") }} value={data[0].contactPersonelControl}
                                                                 />
                                                             </div>
                                                         </div>
                                                         <div className="flex justify-start w-full flex-wrap my-2">
                                                             <div className="flex justify-center items-center">
-                                                                <input type="checkbox" className="w-4 h-4" />
+                                                                <input type="checkbox" className="w-4 h-4" checked={data[0].checkPersonelCoordinate} onChange={(e) => {
+                                                                    let event = { target: { value: e.target.checked } }
+                                                                    changestate(index, 0, event, "checkPersonelCoordinate")
+                                                                }} />
                                                                 <div className="flex justify-center items-center my-1">ผู้ประสานงาน</div>
                                                             </div>
-                                                            <select className="w-48 border rounded-lg grow my-1">
+                                                            {data[0].checkPersonelCoordinate && <select className="w-48 border rounded-lg grow my-1" onChange={(e) => {
+                                                                selectPersonelCoordinate(e, index)
+                                                            }}>
                                                                 {state.personalInformation.map((data: any) => {
                                                                     return (
                                                                         <option value={data[1]}>{data[1]}</option>
                                                                     )
                                                                 })}
 
-                                                            </select>
+                                                            </select>}
+
+                                                            {!data[0].checkPersonelCoordinate && <div className="flex justify-center grow flex-row m-2">
+                                                                <label className="border rounded-l-lg bg-slate-200 w-24 text-center">ผู้ประสานงาน</label>
+                                                                <input type="text" className="border rounded-none rounded-r-xl"
+                                                                    onChange={(e) => { changestate(index, 0, e, "PersonelCoordinate") }} value={data[0].PersonelCoordinate}
+                                                                />
+                                                            </div>}
+
+
                                                             <div className="flex justify-center grow flex-row m-2">
                                                                 <label className="border rounded-l-lg bg-slate-200 w-24 text-center">ตำเเหน่ง</label>
                                                                 <input type="text" className="border rounded-none rounded-r-xl"
+                                                                    onChange={(e) => { changestate(index, 0, e, "positionPersonelCoordinate") }} value={data[0].positionPersonelCoordinate}
+
+
                                                                 />
                                                             </div>
                                                             <div className="flex justify-center grow flex-row m-2">
                                                                 <label className="border rounded-l-lg bg-slate-200 w-24 text-center">เบอร์โทร</label>
                                                                 <input type="text" className="border rounded-none rounded-r-xl"
+                                                                    onChange={(e) => { changestate(index, 0, e, "contactPersonelCoordinate") }} value={data[0].contactPersonelCoordinate}
                                                                 />
                                                             </div>
                                                         </div>
@@ -452,7 +545,7 @@ const RequestElectricalOff = () => {
                                                 <div className="w-full flex my-2 flex-col">
                                                     <div className="flex justify-center">
                                                         <label className="bg-slate-200  w-10 rounded-l-lg text-center flex justify-center text-center items-center">{`${index + 1}.2`}</label>
-                                                        <textarea className="border w-full" onChange={(e) => { changestate(index, 1, e,"requestOffDetail") }} value={data[1].requestOffDetail}></textarea>
+                                                        <textarea className="border w-full" onChange={(e) => { changestate(index, 1, e, "requestOffDetail") }} value={data[1].requestOffDetail}></textarea>
                                                     </div>
 
                                                     <div className="flex items-center my-2">
@@ -463,9 +556,14 @@ const RequestElectricalOff = () => {
                                                                     <DatePicker
                                                                         label="เลือกวันที่"
                                                                         format="DD MMMYYYY"
-                                                                        onChange={(newValue) => { }}
+                                                                        onChange={(newValue: any) => {
+                                                                            let event = { target: { value: "" } }
+                                                                            event.target.value = newValue.$d
+
+                                                                            changestate(index, 1, event, "fromDate")
+                                                                        }}
                                                                         defaultValue={dayjs(new Date)}
-                                                                        value={dayjs(new Date)}
+                                                                        value={dayjs(data[1].fromDate)}
                                                                         slotProps={{ textField: { size: 'small' } }}
 
                                                                     />
@@ -479,9 +577,15 @@ const RequestElectricalOff = () => {
                                                                     <DatePicker
                                                                         label="เลือกวันที่"
                                                                         format="DD MMMYYYY"
-                                                                        onChange={(newValue) => { }}
+                                                                        onChange={(newValue: any) => {
+                                                                            let event = { target: { value: "" } }
+                                                                            event.target.value = newValue.$d
+
+
+                                                                            changestate(index, 1, event, "destinationDate")
+                                                                        }}
                                                                         defaultValue={dayjs(new Date)}
-                                                                        value={dayjs(new Date)}
+                                                                        value={dayjs(data[1].destinationDate)}
                                                                         slotProps={{ textField: { size: 'small' } }}
 
                                                                     />
@@ -489,7 +593,7 @@ const RequestElectricalOff = () => {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <select className="border rounded h-full">
+                                                    <select className="border rounded h-full" onChange={(e) => { changestate(index, 1, e, "typeOfRequestOff") }} value={data[1].typeOfRequestOff}>
                                                         {state.otherData.map((data: any, index: number) => {
                                                             if (data[0] == "การขอดับไฟ") {
                                                                 return (
@@ -509,9 +613,15 @@ const RequestElectricalOff = () => {
 
 
                                                 </div>
-                                                <div>
-                                                    <div className="btn btn-success" onClick={() => { addnewrequest(index) }}>NEW</div>
+                                                <div className="flex justify-start flex-wrap">
+                                                    <div className="mx-2">
+                                                        <div className="btn btn-success" onClick={() => { addnewrequest(index) }}>NEW</div>
+                                                    </div>
+                                                    <div className="mx-2">
+                                                        <div className="btn btn-danger" onClick={() => { delrequest(index) }}>DEL</div>
+                                                    </div>
                                                 </div>
+
 
 
                                             </div>

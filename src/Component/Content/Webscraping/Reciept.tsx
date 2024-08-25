@@ -22,7 +22,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { faCalculator } from '@fortawesome/free-solid-svg-icons'
-
+import pdfToText from 'react-pdftotext'
 
 
 
@@ -43,8 +43,8 @@ function Reciept() {
                 await dispatch({ type: "setstate", payload: { name: "data_account_buy", value: res.data.data_account_buy } })
                 await dispatch({ type: "setstate", payload: { name: "data_log_file", value: res.data.data_log_file } })
 
-                let Array_data_work_detail = [...state.Detail_Work]                
-                var Obj_data_1 = { ...Array_data_work_detail[0], affiliation: res.data.data_other_data[0][0], for_personal: res.data.data_other_data[0][1],Department_head:res.data.data_other_data[0][2],Department_head_position:res.data.data_other_data[0][3], }              
+                let Array_data_work_detail = [...state.Detail_Work]
+                var Obj_data_1 = { ...Array_data_work_detail[0], affiliation: res.data.data_other_data[0][0], for_personal: res.data.data_other_data[0][1], Department_head: res.data.data_other_data[0][2], Department_head_position: res.data.data_other_data[0][3], }
 
 
                 Array_data_work_detail[0] = Obj_data_1
@@ -443,8 +443,30 @@ function Reciept() {
 
 
     }
+
+
+
+    function extractText(event: any) {
+        const file = event.target.files[0]
+        pdfToText(file)
+            .then(text => console.log(text))
+            .catch(error => console.error("Failed to extract text from pdf"))
+    }
+
+
+
+
+
     return (
         <div>
+            {/* 
+            <div className="App">
+                <div>AAAAAAAAAAAAA</div>
+                <header className="App-header">
+                    <input type="file" accept="application/pdf" onChange={extractText} />
+                </header>
+            </div> */}
+
             <div className='d-flex justify-content-between align-items-center row'>
 
                 <div className='d-flex justify-content-center align-items-center col-lg-7'>
@@ -842,7 +864,7 @@ function Reciept() {
                                     <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                         <div className='mx-1 d-flex justify-content-center'>
                                             <button className='btn btn-success mx-1' onClick={() => { handleforAddwork(index + 1) }}>Add</button>
-                                            {state.Work_Infomation.length > 1  && <button className="btn btn-danger mx-1" onClick={() => { handlefordeletework(index) }}>Del</button>}
+                                            {state.Work_Infomation.length > 1 && <button className="btn btn-danger mx-1" onClick={() => { handlefordeletework(index) }}>Del</button>}
                                         </div>
                                     </td>
                                 </tr>
@@ -929,7 +951,7 @@ function Reciept() {
                                     <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                         <div className='mx-1 d-flex justify-content-center'>
                                             <button className='btn btn-success mx-1' onClick={() => { handleforAddwork_for_work(index + 1) }}>Add</button>
-                                            {state.work_for_work.length >1 && <button className="btn btn-danger mx-1" onClick={() => { handlefordeletework_for_work(index) }}>Del</button>}
+                                            {state.work_for_work.length > 1 && <button className="btn btn-danger mx-1" onClick={() => { handlefordeletework_for_work(index) }}>Del</button>}
                                         </div>
                                     </td>
                                 </tr>
