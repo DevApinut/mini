@@ -283,7 +283,7 @@ const RequestElectricalOff = () => {
                     <div className="mx-2">
                         <Link to={`https://drive.usercontent.google.com/download?id=${state.substationSelect[2]}&export=download`} className="btn btn-success">Dowload</Link>
                     </div>
-                    <div className="btn btn-primary mx-2" onClick={() => { ExportDocx() }}>
+                    <div className="btn btn-primary mx-2" onClick={() => { ExportDocx({...state}) }}>
                         Docx
                     </div>
                 </div>
