@@ -39,7 +39,7 @@ const RequestElectricalOff = () => {
         , DateLetter: ""
         , NameLetter: ""
         , AreaReponability: [""]
-        , RequestElectoff: [[{ contentForDetail: "ปฏิบัติงาน ...... ที่ ......", checkPersonelControl: true, personelControl: "", contactPersonelControl: "", positionPersonelControl: "", checkPersonelCoordinate: true, personelCoordinate: "", positionPersonelCoordinate: "", contactPersonelCoordinate: "" }, { requestOffDetail: "", fromDate: "", destinationDate: "", typeOfRequestOff: "" }]]
+        , RequestElectoff: [[{ contentForDetail: "ปฏิบัติงาน ...... ที่ ......", checkPersonelControl: true, personelControl: "", contactPersonelControl: "", positionPersonelControl: "", checkPersonelCoordinate: true, personelCoordinate: "", positionPersonelCoordinate: "", contactPersonelCoordinate: "" }, { requestOffDetail: "", fromDate: "", destinationDate: "", typeOfRequestOff: "", Timefrom: "8.30", Timedestination: "16.30" }]]
         , indexSelect: 0
         , otherData: [["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""]]
         , personalInformation: [""]
@@ -92,7 +92,7 @@ const RequestElectricalOff = () => {
                 })
                 dispatch({ type: "setstate", payload: { name: "SwitchGearCheckbox", value: SwitchGear_Checkbox } })
                 dispatch({ type: "setstate", payload: { name: "SwitchYardCheckbox", value: SwitchYard_Checkbox } })
-                if(e == "" ) dispatch({ type: "setstate", payload: { name: "otherData", value: res.data.Data_Other_data } })               
+                if (e == "") dispatch({ type: "setstate", payload: { name: "otherData", value: res.data.Data_Other_data } })
 
                 dispatch({ type: "setstate", payload: { name: "personalInformation", value: res.data.Data_personal } })
                 dispatch({ type: "setstate", payload: { name: "AreaReponability", value: res.data.Data_Area } })
@@ -101,7 +101,7 @@ const RequestElectricalOff = () => {
 
     const addnewrequest = (index: any) => {
         let Array_data = [...state.RequestElectoff]
-        Array_data.splice(index + 1, 0, [{ contentForDetail: "ปฏิบัติงาน ...... ที่ ......", checkPersonelControl: true, personelControl: "", contactPersonelControl: "", positionPersonelControl: "", checkPersonelCoordinate: true, personelCoordinate: "", positionPersonelCoordinate: "", contactPersonelCoordinate: "" }, { requestOffDetail: "", fromDate: "", destinationDate: "", typeOfRequestOff: "" }])
+        Array_data.splice(index + 1, 0, [{ contentForDetail: "ปฏิบัติงาน ...... ที่ ......", checkPersonelControl: true, personelControl: "", contactPersonelControl: "", positionPersonelControl: "", checkPersonelCoordinate: true, personelCoordinate: "", positionPersonelCoordinate: "", contactPersonelCoordinate: "" }, { requestOffDetail: "", fromDate: "", destinationDate: "", typeOfRequestOff: "", Timefrom: "8.30", Timedestination: "16.30"  }])
         console.log(Array_data)
         dispatch({ type: "setstate", payload: { name: "RequestElectoff", value: Array_data } })
 
@@ -126,7 +126,7 @@ const RequestElectricalOff = () => {
 
         if (text == "SwitchGear") {
             let array_Data1 = [...state.SwitchGearCheckbox]
-            let text = ""            
+            let text = ""
 
             if (Array_data[selectInsert][1].requestOffDetail == "") text = `${selectInsert + 1}. สฟฟ.${state.substationSelect[0]}`
 
@@ -160,18 +160,18 @@ const RequestElectricalOff = () => {
             Array_data[selectInsert][1].requestOffDetail = `${Array_data[selectInsert][1].requestOffDetail}${text}`
         }
 
-        AreaResponability.map((data:any,index:any)=>{
-            if(data[0] === state.substationSelect[0]){
+        AreaResponability.map((data: any, index: any) => {
+            if (data[0] === state.substationSelect[0]) {
                 oterData[2][1] = `${state.otherData[2][1]}, ${data[6]}`
                 oterData[6][1] = `${state.otherData[6][1]}, ผจก.${data[5]}`
             }
         })
 
-        oterData[2][1] = oterData[2][1].split(",").filter(function(item:any, pos:any) {
+        oterData[2][1] = oterData[2][1].split(",").filter(function (item: any, pos: any) {
             return oterData[2][1].split(",").indexOf(item) == pos;
         })
 
-        oterData[6][1] = oterData[6][1].split(",").filter(function(item:any, pos:any) {
+        oterData[6][1] = oterData[6][1].split(",").filter(function (item: any, pos: any) {
             return oterData[6][1].split(",").indexOf(item) == pos;
         })
 
@@ -192,7 +192,7 @@ const RequestElectricalOff = () => {
             dispatch({ type: "setstate", payload: { name: "SwitchYardCheckbox", value: Array_data } })
         }
     }
-    
+
 
     const setstateOtherData = (valueData: any, text: any) => {
         let ArrayData = [...state.otherData]
@@ -283,7 +283,7 @@ const RequestElectricalOff = () => {
                     <div className="mx-2">
                         <Link to={`https://drive.usercontent.google.com/download?id=${state.substationSelect[2]}&export=download`} className="btn btn-success">Dowload</Link>
                     </div>
-                    <div className="btn btn-primary mx-2" onClick={() => { ExportDocx({...state}) }}>
+                    <div className="btn btn-primary mx-2" onClick={() => { ExportDocx({ ...state }) }}>
                         Docx
                     </div>
                 </div>
@@ -580,8 +580,6 @@ const RequestElectricalOff = () => {
                                                                         onChange={(newValue: any) => {
                                                                             let event = { target: { value: "" } }
                                                                             event.target.value = newValue.$d
-
-
                                                                             changestate(index, 1, event, "destinationDate")
                                                                         }}
                                                                         defaultValue={dayjs(new Date)}
@@ -593,22 +591,40 @@ const RequestElectricalOff = () => {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <select className="border rounded h-full" onChange={(e) => { changestate(index, 1, e, "typeOfRequestOff") }} value={data[1].typeOfRequestOff}>
-                                                        {state.otherData.map((data: any, index: number) => {
-                                                            if (data[0] == "การขอดับไฟ") {
-                                                                return (
-                                                                    data.map((data1: any, index1: number) => {
-                                                                        if (index1 > 0) {
-                                                                            return (
-                                                                                <option >{data1}</option>
-                                                                            )
-                                                                        }
-                                                                    })
-                                                                )
+                                                    <div className="flex justify-center">
+                                                        <div className="flex justify-center">
+                                                            <div className="flex justify-center mx-2">
+                                                                <div>เวลา</div>
+                                                                <input type="text" className="text-center border" onChange={(event: any) => { changestate(index, 1, event, "Timefrom") }} value={data[1].Timefrom}/>
+                                                                <div>น.</div>
+                                                            </div>
+                                                            <div className="flex justify-center mx-2">
+                                                                <div>ถึง</div>
+                                                                <input type="text" className="text-center border"
+                                                                    onChange={(event: any) => { changestate(index, 1, event, "Timedestination") }} value={data[1].Timedestination}/>
+                                                                <div>น.</div>
+                                                            </div>
+                                                        </div>
+                                                        <select className="border rounded grow" onChange={(e) => { changestate(index, 1, e, "typeOfRequestOff") }} value={data[1].typeOfRequestOff}>
+                                                            {state.otherData.map((data: any, index: number) => {
+                                                                if (data[0] == "การขอดับไฟ") {
+                                                                    return (
+                                                                        data.map((data1: any, index1: number) => {
+                                                                            if (index1 > 0) {
+                                                                                return (
+                                                                                    <option >{data1}</option>
+                                                                                )
+                                                                            }
+                                                                        })
+                                                                    )
 
-                                                            }
-                                                        })}
-                                                    </select>
+                                                                }
+                                                            })}
+                                                        </select>
+
+
+
+                                                    </div>
 
 
 
