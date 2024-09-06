@@ -704,6 +704,7 @@ const ExportDocx = (props: any) => {
                             },
 
                         ],
+                        alignment: AlignmentType.THAI_DISTRIBUTE,
                         children: [
                             new TextRun({
                                 size: 32,
@@ -773,7 +774,12 @@ const ExportDocx = (props: any) => {
                                 children: [
                                     new TextRun({
                                         size: 32,
-                                        text: `\t${index + 1}. ${data[0].contentForDetail}`,
+                                        text: `\t${props.RequestElectoff.length < 2 ? "" : `${index + 1}.` }`,
+                                        font: "TH SarabunIT๙",
+                                    }),
+                                    new TextRun({
+                                        size: 32,
+                                        text: ` ${data[0].contentForDetail}`,
                                         font: "TH SarabunIT๙",
                                     }),
                                 ],
@@ -810,7 +816,12 @@ const ExportDocx = (props: any) => {
                                 children: [
                                     new TextRun({
                                         size: 32,
-                                        text: `\t${data[1].requestOffDetail} วันที่ ${changeFormatDate(data[1].fromDate,data[1].destinationDate)} เวลา ${data[1].Timefrom} น. ถึง ${data[1].Timedestination} (${data[1].typeOfRequestOff}) `,
+                                        text: `\t${props.RequestElectoff.length < 2 ? "" : `${index + 1}.` }`,
+                                        font: "TH SarabunIT๙",
+                                    }),
+                                    new TextRun({
+                                        size: 32,
+                                        text: `${data[1].requestOffDetail} วันที่ ${changeFormatDate(data[1].fromDate,data[1].destinationDate)} เวลา ${data[1].Timefrom} น. ถึง ${data[1].Timedestination} (${data[1].typeOfRequestOff}) `,
                                         font: "TH SarabunIT๙",
                                     }),
                                 ],

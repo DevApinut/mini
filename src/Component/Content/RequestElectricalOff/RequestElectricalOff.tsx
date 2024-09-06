@@ -128,12 +128,13 @@ const RequestElectricalOff = () => {
             let array_Data1 = [...state.SwitchGearCheckbox]
             let text = ""
 
-            if (Array_data[selectInsert][1].requestOffDetail == "") text = `${selectInsert + 1}. สฟฟ.${state.substationSelect[0]}`
+            if (Array_data[selectInsert][1].requestOffDetail == "") text = `สฟฟ.${state.substationSelect[0]}`
 
             array_Data1[numberTypeinFeeder].map((word: any) => {
                 if (word[0] == true) {
                     if ((word[1][word[1].length - 4] == "B") && (array_Data1[1][1][1] == "AIS")) text = `${text},ปลด CB 22kV รหัส ${word[1]} พร้อม Out Service`
-                    if ((word[1][word[1].length - 4] == "B") && (array_Data1[1][1][1] == "GIS")) text = `${text},ปลด CB 22kV รหัส ${word[1]}`
+                    if ((word[1][3] == "T") && (word[1][word[1].length - 4] == "S")) text = `${text},ปลด LBS รหัส ${word[1]}`
+                    else if ((word[1][word[1].length - 4] == "B") && (array_Data1[1][1][1] == "GIS")) text = `${text},ปลด CB 22kV รหัส ${word[1]}`
                     else if (word[1][word[1].length - 4] == "G") text = `${text},Close ES รหัส ${word[1]}`
                     else if (word[1][word[1].length - 4] == "S") text = `${text},ปลด DS รหัส ${word[1]}`
                     // console.log(word[1][word[1].length - 4])
