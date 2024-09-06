@@ -33,7 +33,7 @@ code {
     monospace;
 }
 
-th,
+/* th,
 td {
   @apply bg-red-200 text-green-200
-}
+} */
