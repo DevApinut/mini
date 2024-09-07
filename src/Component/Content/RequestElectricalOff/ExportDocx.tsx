@@ -782,6 +782,11 @@ const ExportDocx = (props: any) => {
                                         text: ` ${data[0].contentForDetail}`,
                                         font: "TH SarabunIT๙",
                                     }),
+                                    new TextRun({
+                                        size: 32,
+                                        text: ` โดยมี ${data[0].personelControl} ตำเเหน่ง ${data[0].positionPersonelControl} เป็นผู้ควบคุมงาน เบอร์โทร ${data[0].contactPersonelControl} และ ${data[0].personelCoordinate} ตำเเหน่ง ${data[0].positionPersonelCoordinate} เป็นผู้ประสานงาน เบอร์โทร ${data[0].contactPersonelCoordinate} `,
+                                        font: "TH SarabunIT๙",
+                                    }),
                                 ],
                             })
                         )

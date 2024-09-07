@@ -148,7 +148,7 @@ const RequestElectricalOff = () => {
         else if (text == "SwitchYard") {
             let array_Data1 = [...state.SwitchYardCheckbox]
             let text = ""
-            if (Array_data[selectInsert][1].requestOffDetail == "") text = `${Number(selectInsert) + 1}. สฟฟ.${state.substationSelect[0]}`
+            if (Array_data[selectInsert][1].requestOffDetail == "") text = `สฟฟ.${state.substationSelect[0]}`
             array_Data1[numberTypeinFeeder].map((word: any) => {
                 if (word[0] == true) {
                     if (word[1][word[1].length - 4] == "B") text = `${text},ปลด CB 115kV รหัส ${word[1]}`
