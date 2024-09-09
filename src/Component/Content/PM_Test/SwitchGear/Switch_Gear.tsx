@@ -6,7 +6,7 @@ import ReactLoading from 'react-loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { faFileExcel } from '@fortawesome/free-solid-svg-icons'
-import {ExportExcellSwitchGear}  from "./Switch_Gear_export"
+import { ExportExcellSwitchGear } from "./Switch_Gear_export"
 
 type SubstationInfomation = {
     SubstationThai: string,
@@ -169,7 +169,7 @@ const SwitchGear = () => {
         await fetchSwitchGearTest(state.SubstationSelect, state.SubstationEngSelect, e.target.value);
     }
 
-    const SaveData = async() => {
+    const SaveData = async () => {
         await dispatch({ type: "setstate", payload: { name: "loading", value: false } })
         let formData = new FormData()
         formData.append('Sender', "Noname")
@@ -191,7 +191,7 @@ const SwitchGear = () => {
         formData.append('Counter', state.Counter)
         formData.append('Remark', state.Remark)
         axios.post(`https://script.google.com/macros/s/AKfycbxhREXdjo7IVZ0LyJpWeN0IxYHEtrOh5rbXl8WkK72Z9T8dAae7YgfeFD1VD9nAsRb73A/exec`, formData)
-            .then(async (res: any) => {                
+            .then(async (res: any) => {
                 await fetchSwitchGearTest(state.SubstationSelect, state.SubstationEngSelect, state.YearSelect);
             })
     }
@@ -332,18 +332,18 @@ const SwitchGear = () => {
                             <div className="flex justify-center">
                                 <div className="mx-2">
                                     <div className="w-full text-center">phaseA</div>
-                                    <input type={"text"} className="border text-center" 
-                                    onChange={(e)=>{dispatch({type:"setstate",payload:{name:"VaccuumA",value:e.target.value}})}}/>
+                                    <input type={"text"} className="border text-center"
+                                        onChange={(e) => { dispatch({ type: "setstate", payload: { name: "VaccuumA", value: e.target.value } }) }} />
                                 </div>
                                 <div className="mx-2">
                                     <div className="w-full text-center">phaseB</div>
-                                    <input type={"text"} className="border text-center" 
-                                    onChange={(e)=>{dispatch({type:"setstate",payload:{name:"VaccuumB",value:e.target.value}})}}/>
+                                    <input type={"text"} className="border text-center"
+                                        onChange={(e) => { dispatch({ type: "setstate", payload: { name: "VaccuumB", value: e.target.value } }) }} />
                                 </div>
                                 <div className="mx-2">
                                     <div className="w-full text-center">phaseC</div>
-                                    <input type={"text"} className="border text-center" 
-                                    onChange={(e)=>{dispatch({type:"setstate",payload:{name:"VaccuumC",value:e.target.value}})}}/>
+                                    <input type={"text"} className="border text-center"
+                                        onChange={(e) => { dispatch({ type: "setstate", payload: { name: "VaccuumC", value: e.target.value } }) }} />
                                 </div>
                             </div>
                         </div>
@@ -353,18 +353,18 @@ const SwitchGear = () => {
                             <div className="flex justify-center">
                                 <div className="mx-2">
                                     <div className="w-full text-center">phaseA</div>
-                                    <input type={"text"} className="border text-center" 
-                                    onChange={(e)=>{dispatch({type:"setstate",payload:{name:"ContactA",value:e.target.value}})}}/>
+                                    <input type={"text"} className="border text-center"
+                                        onChange={(e) => { dispatch({ type: "setstate", payload: { name: "ContactA", value: e.target.value } }) }} />
                                 </div>
                                 <div className="mx-2">
                                     <div className="w-full text-center">phaseB</div>
-                                    <input type={"text"} className="border text-center" 
-                                     onChange={(e)=>{dispatch({type:"setstate",payload:{name:"ContactB",value:e.target.value}})}}/>
+                                    <input type={"text"} className="border text-center"
+                                        onChange={(e) => { dispatch({ type: "setstate", payload: { name: "ContactB", value: e.target.value } }) }} />
                                 </div>
                                 <div className="mx-2">
                                     <div className="w-full text-center">phaseC</div>
-                                    <input type={"text"} className="border text-center" 
-                                     onChange={(e)=>{dispatch({type:"setstate",payload:{name:"ContactC",value:e.target.value}})}}/>
+                                    <input type={"text"} className="border text-center"
+                                        onChange={(e) => { dispatch({ type: "setstate", payload: { name: "ContactC", value: e.target.value } }) }} />
                                 </div>
                             </div>
                         </div>
@@ -375,35 +375,35 @@ const SwitchGear = () => {
                                 <div className="flex my-1">
                                     <div className="mx-2">
                                         <div className="w-full text-center">phaseAG</div>
-                                        <input type={"text"} className="border text-center" 
-                                        onChange={(e)=>{dispatch({type:"setstate",payload:{name:"InsulationAG",value:e.target.value}})}}/>
+                                        <input type={"text"} className="border text-center"
+                                            onChange={(e) => { dispatch({ type: "setstate", payload: { name: "InsulationAG", value: e.target.value } }) }} />
                                     </div>
                                     <div className="mx-2">
                                         <div className="w-full text-center">phaseBG</div>
-                                        <input type={"text"} className="border text-center" 
-                                        onChange={(e)=>{dispatch({type:"setstate",payload:{name:"InsulationBG",value:e.target.value}})}}/>
+                                        <input type={"text"} className="border text-center"
+                                            onChange={(e) => { dispatch({ type: "setstate", payload: { name: "InsulationBG", value: e.target.value } }) }} />
                                     </div>
                                     <div className="mx-2">
                                         <div className="w-full text-center">phaseCG</div>
-                                        <input type={"text"} className="border text-center" 
-                                        onChange={(e)=>{dispatch({type:"setstate",payload:{name:"InsulationCG",value:e.target.value}})}}/>
+                                        <input type={"text"} className="border text-center"
+                                            onChange={(e) => { dispatch({ type: "setstate", payload: { name: "InsulationCG", value: e.target.value } }) }} />
                                     </div>
                                 </div>
                                 <div className="flex my-1">
                                     <div className="mx-2">
                                         <div className="w-full text-center">phaseAB</div>
-                                        <input type={"text"} className="border text-center" 
-                                        onChange={(e)=>{dispatch({type:"setstate",payload:{name:"InsulationAB",value:e.target.value}})}}/>
+                                        <input type={"text"} className="border text-center"
+                                            onChange={(e) => { dispatch({ type: "setstate", payload: { name: "InsulationAB", value: e.target.value } }) }} />
                                     </div>
                                     <div className="mx-2">
                                         <div className="w-full text-center">phaseBC</div>
-                                        <input type={"text"} className="border text-center" 
-                                        onChange={(e)=>{dispatch({type:"setstate",payload:{name:"InsulationBC",value:e.target.value}})}}/>
+                                        <input type={"text"} className="border text-center"
+                                            onChange={(e) => { dispatch({ type: "setstate", payload: { name: "InsulationBC", value: e.target.value } }) }} />
                                     </div>
                                     <div className="mx-2">
                                         <div className="w-full text-center">phaseCA</div>
-                                        <input type={"text"} className="border text-center" 
-                                        onChange={(e)=>{dispatch({type:"setstate",payload:{name:"InsulationCA",value:e.target.value}})}}/>
+                                        <input type={"text"} className="border text-center"
+                                            onChange={(e) => { dispatch({ type: "setstate", payload: { name: "InsulationCA", value: e.target.value } }) }} />
                                     </div>
                                 </div>
                             </div>
@@ -414,19 +414,21 @@ const SwitchGear = () => {
                             <div className="flex justify-center">
                                 <div className="mx-2 w-1/4">
                                     <div className="w-full text-center">Counter</div>
-                                    <input type={"text"} className="border text-center" 
-                                    onChange={(e)=>{dispatch({type:"setstate",payload:{name:"Counter",value:e.target.value}})}}/>
+                                    <input type={"text"} className="border text-center"
+                                        onChange={(e) => { dispatch({ type: "setstate", payload: { name: "Counter", value: e.target.value } }) }} />
                                 </div>
                                 <div className="mx-2 w-3/4">
                                     <div className="w-full text-center">Remark</div>
-                                    <input type={"text"} className="border text-center" 
-                                    onChange={(e)=>{dispatch({type:"setstate",payload:{name:"Remark",value:e.target.value}})}}/>
+                                    <input type={"text"} className="border text-center"
+                                        onChange={(e) => { dispatch({ type: "setstate", payload: { name: "Remark", value: e.target.value } }) }} />
                                 </div>
                             </div>
                         </div>
                         <div className="rounded-xl w-full my-3 flex justify-center">
                             <div className="btn btn-success mx-2" onClick={SaveData}>บันทึก</div>
-                            <div className="btn btn-success mx-2" onClick={()=>{ExportExcellSwitchGear({...state})}}>Excel <FontAwesomeIcon icon={faFileExcel} /></div>
+                            <div className="btn btn-success mx-2" onClick={() => { ExportExcellSwitchGear({ ...state }) }}>Excel <FontAwesomeIcon icon={faFileExcel} /></div>
+                            <div className="btn btn-primary mx-1">DOCX</div>
+                            <div className="btn btn-danger mx-1">PDF</div>
                         </div>
                     </div>
                     <div className="text-center w-full">ตารางเเสดงผล</div>
@@ -441,6 +443,7 @@ const SwitchGear = () => {
                                     <th colSpan={6} className="font-semibold align-middle">Insulation&#40;&#62;1G&#937;&#41;</th>
                                     <th rowSpan={2} className="font-semibold align-middle">Counter</th>
                                     <th rowSpan={2} className="font-semibold align-middle">Remark</th>
+                                    <th rowSpan={2} className="font-semibold align-middle">Export</th>
                                 </tr>
                                 <tr>
                                     <th className="font-semibold align-middle">A</th>
@@ -482,6 +485,13 @@ const SwitchGear = () => {
                                         {/* Counter & remark */}
                                         <td className="align-middle text-center align-middle">{data[21]}</td>
                                         <td className="align-middle text-center align-middle">{data[22]}</td>
+                                        <td className="align-middle text-center align-middle">
+                                            <div className="flex justify-center">
+                                                <div className="btn btn-primary mx-1">DOCX</div>
+                                                <div className="btn btn-danger mx-1">PDF</div>
+                                            </div>
+
+                                        </td>
                                     </tr>)
                                 })}
 
