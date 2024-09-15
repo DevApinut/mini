@@ -23,6 +23,8 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { faCalculator } from '@fortawesome/free-solid-svg-icons'
 import pdfToText from 'react-pdftotext'
+import Navbar1 from '../Navbar/Navbar1';
+import Footer from '../Footer/Footer';
 
 
 
@@ -458,7 +460,9 @@ function Reciept() {
 
 
     return (
-        <div>
+        <> 
+        <Navbar1/>       
+        <div className='grow container'>
             {/* 
             <div className="App">
                 <div>AAAAAAAAAAAAA</div>
@@ -973,6 +977,8 @@ function Reciept() {
                 <button onClick={() => { test_frorearang() }} className='btn btn-success mx-2'>Test</button>
             </div>
         </div >
+        <Footer/>
+        </>
     )
 
 }

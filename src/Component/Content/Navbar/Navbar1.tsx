@@ -21,7 +21,7 @@ const Navbar1 = () => {
 
     //--------------------สำหรับ dropdown รายงาน-----------------------------
     const [isOpen, setIsOpen] = useState([false, false, false])
-    const [SubisOpen, setSubIsOpen] = useState([false, false])
+    const [SubisOpen, setSubIsOpen] = useState([false, false,false])
     const [MenuresponsiveisOpen, setMenuresponsiveisOpen] = useState(false)
 
     let menu_response = MenuresponsiveisOpen ? "toggle-active" : "active"
@@ -58,7 +58,7 @@ const Navbar1 = () => {
                 if (subdropdown.current != null) {
                     if (!subdropdown.current.contains(event.target)) {
                         setIsOpen([false, false, false]);
-                        setSubIsOpen([false, false])
+                        setSubIsOpen([false, false,false])
                         setMenuresponsiveisOpen(false)
                     } else {
 
@@ -66,7 +66,7 @@ const Navbar1 = () => {
                 }
                 else {
                     setIsOpen([false, false, false]);
-                    setSubIsOpen([false, false])
+                    setSubIsOpen([false, false,false])
                     setMenuresponsiveisOpen(false)
                 }
             }
@@ -158,6 +158,23 @@ const Navbar1 = () => {
                                             </div>}
                                         </div>
                                         <div className="m-2 text-black hover:bg-slate-200 relative">
+                                            <div onClick={() => sub_menu_data(2)}>เอกสาร/รายงาน</div>
+                                            <FontAwesomeIcon icon={faPlay} className="text-slate-400 absolute right-0 top-1/4 text-sm" />
+                                            {SubisOpen[2] && <div className="Subheader2"
+                                            >
+                                                <div className="no-underline m-2 text-black hover:bg-slate-200 relative">
+                                                    <Link to={'/workpermit'} className="no-underline text-black">Work permit</Link>
+                                                </div>
+                                                <div className="no-underline m-2 text-black hover:bg-slate-200 relative">
+                                                    <Link to={'/RequestElectricalOff'} className="no-underline text-black">ขออนุมัติดับไฟ</Link>
+                                                </div>
+                                                <div className="no-underline m-2 text-black hover:bg-slate-200 relative">
+                                                    <Link to={'/Reciept'} className="no-underline text-black">เบิกเบี้ยเลี้ยง</Link>
+                                                </div>
+                                                
+                                            </div>}
+                                        </div>
+                                        <div className="m-2 text-black hover:bg-slate-200 relative">
                                             <Link to={'/Dashboard'} className="no-underline text-black">DashBoard</Link>
                                             {/* <FontAwesomeIcon icon={faPlay} className="text-slate-400 absolute right-0 top-1/4 text-sm" /> */}
                                         </div>
@@ -167,6 +184,7 @@ const Navbar1 = () => {
                             </div>
                         </div>
 
+                        {/* Drop Down list show when login for logout  */}
                         {getusername() !== null && <div className="BarMenu relative">
                             <div className="flex justify-center flex-col hover:cursor-pointer h-auto">
                                 <div onClick={(e) => Active_class(2)} className="my-0"

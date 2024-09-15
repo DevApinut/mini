@@ -15,6 +15,7 @@ import SwitchGear from "../Content/PM_Test/SwitchGear/Switch_Gear";
 import Tranfromer from "../Content/PM_Test/Transformer/Tranformer";
 import RequestElectricalOff from "../Content/RequestElectricalOff/RequestElectricalOff"
 import MainEquiment from "../Content/Equimentinfo/mainEquiment";
+import SaleAssess from "../Content/SaleAssess/SaleAssess";
 const Myrouter = () => {
     return (
         <BrowserRouter>
@@ -31,6 +32,7 @@ const Myrouter = () => {
                 <Route path="/Transformer" element={<Tranfromer/>} />
                 <Route path="/RequestElectricalOff" element={<RequestElectricalOff/>} />
                 <Route path="/mainEquiment" element={<MainEquiment/>} />
+                <Route path="/SaleAssess" element={<SaleAssess/>} />
                     
                 {/* <Route  path="/Login" Component={Login}/>             */}
                 {/* <Route  path="/Register" Component={Register}/>             */}

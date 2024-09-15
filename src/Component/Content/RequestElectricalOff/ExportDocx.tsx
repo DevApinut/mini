@@ -1,8 +1,9 @@
 
-import { HeightRule, WidthType, Document, Packer, Paragraph, TextRun, ImageRun, AlignmentType, VerticalAlign, SymbolRun, TabStopType, TabStopPosition, TableRow, Table, UnderlineType, TableCell, BorderStyle,Footer } from "docx";
+import { HeightRule, WidthType, Document, Packer, Paragraph, TextRun, ImageRun, AlignmentType, VerticalAlign, SymbolRun, TabStopType, TabStopPosition, TableRow, Table, UnderlineType, TableCell, BorderStyle, Footer } from "docx";
 import { Buffer } from 'buffer';
 import { saveAs } from "file-saver";
 import { Logo_image2 } from "../Export/Image";
+
 
 
 const ExportDocx = (props: any) => {
@@ -41,36 +42,36 @@ const ExportDocx = (props: any) => {
         textDate = `${new Date(props.otherData[9][1]).getDate()} ${changedate(new Date(props.otherData[9][1]))} ${(new Date(props.otherData[9][1]).getFullYear() + 543).toString()} - ${new Date(props.otherData[10][1]).getDate()} ${changedate(new Date(props.otherData[10][1]))} ${(new Date(props.otherData[10][1]).getFullYear() + 543).toString()}`
     }
 
-    const changeFormatDate = (Date1:any,Date2:any) =>{
+    const changeFormatDate = (Date1: any, Date2: any) => {
         let textFormatDate = ""
         if (((new Date(Date1)).getDate() == (new Date(Date2)).getDate()) && ((new Date(Date1)).getMonth() == (new Date(Date2)).getMonth()) && ((new Date(Date1)).getFullYear() == (new Date(Date2)).getFullYear())) {
             textFormatDate = `${new Date(Date1).getDate()} ${changedate(new Date(Date1))}${(new Date(Date1).getFullYear() + 543).toString()}`
-    
+
         } else if ((new Date(Date1).getMonth() == new Date(Date2).getMonth()) && (new Date(Date1).getFullYear() == new Date(Date2).getFullYear())) {
             textFormatDate = `${new Date(Date1).getDate()} - ${new Date(Date2).getDate()} ${changedate(new Date(Date1))} ${(new Date(Date1).getFullYear() + 543).toString()}`
-    
+
         } else if ((new Date(Date1).getMonth() !== new Date(Date2).getMonth()) && (new Date(Date1).getFullYear() == new Date(Date2).getFullYear())) {
             textFormatDate = `${new Date(Date1).getDate()} ${changedate(new Date(Date1))} - ${new Date(Date2).getDate()} ${changedate(new Date(Date2))} ${(new Date(Date1).getFullYear() + 543).toString()}`
-    
+
         } else if ((new Date(Date1).getMonth() !== new Date(Date2).getMonth()) && (new Date(Date1).getFullYear() !== new Date(Date2).getFullYear())) {
             textFormatDate = `${new Date(Date1).getDate()} ${changedate(new Date(Date1))} ${(new Date(Date1).getFullYear() + 543).toString()} - ${new Date(Date2).getDate()} ${changedate(new Date(Date2))} ${(new Date(Date2).getFullYear() + 543).toString()}`
         }
 
-        return textFormatDate 
-    
+        return textFormatDate
+
     }
 
     console.log(textDate)
 
-    
 
-    
+
+
 
 
     const cmTab = 586.181
     // Used to export the file into a .docx file
     const doc = new Document({
-        
+
         sections: [
             {
                 properties: {
@@ -110,8 +111,8 @@ const ExportDocx = (props: any) => {
                             })
                         ],
                     }),
-                },              
-                
+                },
+
                 children: [
                     new Paragraph({
                         children: [
@@ -774,7 +775,7 @@ const ExportDocx = (props: any) => {
                                 children: [
                                     new TextRun({
                                         size: 32,
-                                        text: `\t${props.RequestElectoff.length < 2 ? "" : `${index + 1}.` }`,
+                                        text: `\t${props.RequestElectoff.length < 2 ? "" : `${index + 1}.`}`,
                                         font: "TH SarabunIT๙",
                                     }),
                                     new TextRun({
@@ -798,7 +799,7 @@ const ExportDocx = (props: any) => {
                                 position: 2.5 * (cmTab),
                             },
                         ],
-                        
+
                         children: [
                             new TextRun({
                                 size: 32,
@@ -821,12 +822,12 @@ const ExportDocx = (props: any) => {
                                 children: [
                                     new TextRun({
                                         size: 32,
-                                        text: `\t${props.RequestElectoff.length < 2 ? "" : `${index + 1}.` }`,
+                                        text: `\t${props.RequestElectoff.length < 2 ? "" : `${index + 1}.`}`,
                                         font: "TH SarabunIT๙",
                                     }),
                                     new TextRun({
                                         size: 32,
-                                        text: `${data[1].requestOffDetail} วันที่ ${changeFormatDate(data[1].fromDate,data[1].destinationDate)} เวลา ${data[1].Timefrom} น. ถึง ${data[1].Timedestination} (${data[1].typeOfRequestOff}) `,
+                                        text: `${data[1].requestOffDetail} วันที่ ${changeFormatDate(data[1].fromDate, data[1].destinationDate)} เวลา ${data[1].Timefrom} น. ถึง ${data[1].Timedestination} (${data[1].typeOfRequestOff}) `,
                                         font: "TH SarabunIT๙",
                                     }),
                                 ],
@@ -840,7 +841,7 @@ const ExportDocx = (props: any) => {
                                 position: 7.5 * (cmTab),
                             },
                         ],
-                        
+
                         children: [
                             new TextRun({
                                 size: 32,
@@ -1187,10 +1188,13 @@ const ExportDocx = (props: any) => {
     });
 
     Packer.toBlob(doc).then((blob) => {
+
         console.log(blob);
         saveAs(blob, `test.docx`);
-        console.log("Document created successfully");
+        // console.log("Document created successfully");
     });
+
+   
 }
 
 export default ExportDocx

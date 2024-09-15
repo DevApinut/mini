@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { faFileExcel } from '@fortawesome/free-solid-svg-icons'
 import {ExportExcellSwitchGear}  from "./Switch_Gear_export"
+import Exportdocx from "./Exportdocx"
 
 type SubstationInfomation = {
     SubstationThai: string,
@@ -427,6 +428,7 @@ const SwitchGear = () => {
                         <div className="rounded-xl w-full my-3 flex justify-center">
                             <div className="btn btn-success mx-2" onClick={SaveData}>บันทึก</div>
                             <div className="btn btn-success mx-2" onClick={()=>{ExportExcellSwitchGear({...state})}}>Excel <FontAwesomeIcon icon={faFileExcel} /></div>
+                            <div className="btn btn-primary mx-1" onClick={()=>{Exportdocx()}}>docx</div>
                         </div>
                     </div>
                     <div className="text-center w-full">ตารางเเสดงผล</div>
@@ -441,6 +443,7 @@ const SwitchGear = () => {
                                     <th colSpan={6} className="font-semibold align-middle">Insulation&#40;&#62;1G&#937;&#41;</th>
                                     <th rowSpan={2} className="font-semibold align-middle">Counter</th>
                                     <th rowSpan={2} className="font-semibold align-middle">Remark</th>
+                                    <th rowSpan={2} className="font-semibold align-middle">Export</th>
                                 </tr>
                                 <tr>
                                     <th className="font-semibold align-middle">A</th>
@@ -482,6 +485,12 @@ const SwitchGear = () => {
                                         {/* Counter & remark */}
                                         <td className="align-middle text-center align-middle">{data[21]}</td>
                                         <td className="align-middle text-center align-middle">{data[22]}</td>
+                                        <td className="align-middle text-center align-middle">
+                                            <div className="btn btn-primary">
+                                                docx
+                                            </div>
+
+                                        </td>
                                     </tr>)
                                 })}
 
