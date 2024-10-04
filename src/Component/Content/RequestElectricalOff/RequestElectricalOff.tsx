@@ -101,7 +101,7 @@ const RequestElectricalOff = () => {
 
     const addnewrequest = (index: any) => {
         let Array_data = [...state.RequestElectoff]
-        Array_data.splice(index + 1, 0, [{ contentForDetail: "ปฏิบัติงาน ...... ที่ ......", checkPersonelControl: true, personelControl: "", contactPersonelControl: "", positionPersonelControl: "", checkPersonelCoordinate: true, personelCoordinate: "", positionPersonelCoordinate: "", contactPersonelCoordinate: "" }, { requestOffDetail: "", fromDate: "", destinationDate: "", typeOfRequestOff: "", Timefrom: "8.30", Timedestination: "16.30"  }])
+        Array_data.splice(index + 1, 0, [{ contentForDetail: "ปฏิบัติงาน ...... ที่ ......", checkPersonelControl: true, personelControl: "", contactPersonelControl: "", positionPersonelControl: "", checkPersonelCoordinate: true, personelCoordinate: "", positionPersonelCoordinate: "", contactPersonelCoordinate: "" }, { requestOffDetail: "", fromDate: "", destinationDate: "", typeOfRequestOff: "", Timefrom: "8.30", Timedestination: "16.30" }])
         console.log(Array_data)
         dispatch({ type: "setstate", payload: { name: "RequestElectoff", value: Array_data } })
 
@@ -118,7 +118,7 @@ const RequestElectricalOff = () => {
         dispatch({ type: "setstate", payload: { name: "RequestElectoff", value: Array_data } })
 
     }
-    const InsertMessage = (selectInsert: any, numberTypeinFeeder: number, text: string) => {
+    const InsertMessage = async (selectInsert: any, numberTypeinFeeder: number, text: string) => {
         let Array_data = [...state.RequestElectoff]
         // Array_data[selectInsert][1] = `${Array_data[selectInsert][1]}test`
         let AreaResponability = [...state.AreaReponability]
@@ -129,17 +129,36 @@ const RequestElectricalOff = () => {
             let text = ""
 
             if (Array_data[selectInsert][1].requestOffDetail == "") text = `สฟฟ.${state.substationSelect[0]}`
+            let count22DS = 0
+            let totalofDS22 = 0
 
-            array_Data1[numberTypeinFeeder].map((word: any) => {
+            await array_Data1[numberTypeinFeeder].map((word: any) => {
+                if (word[1][word[1].length - 4] == "S") {
+                    totalofDS22++
+                }
+            })
+
+
+            await array_Data1[numberTypeinFeeder].map((word: any) => {
                 if (word[0] == true) {
-                    if ((word[1][word[1].length - 4] == "B") && (array_Data1[1][1][1] == "AIS")) text = `${text},ปลด CB 22kV รหัส ${word[1]} พร้อม Out Service`
-                    if ((word[1][3] == "T") && (word[1][word[1].length - 4] == "S")) text = `${text},ปลด LBS รหัส ${word[1]}`
-                    else if ((word[1][word[1].length - 4] == "B") && (array_Data1[1][1][1] == "GIS")) text = `${text},ปลด CB 22kV รหัส ${word[1]}`
+                    if ((word[1][word[1].length - 4] == "B") && (array_Data1[1][1][1] == "AIS")) text = `${text},ปลด 22kV CB รหัส ${word[1]} พร้อม Out Service`
+                    if ((word[1][3] == "T") && (word[1][word[1].length - 4] == "S")) text = `${text},Open LBS รหัส ${word[1]}`
+                    else if ((word[1][word[1].length - 4] == "B") && (array_Data1[1][1][1] == "GIS")) text = `${text},ปลด 22kV CB รหัส ${word[1]}`
                     else if (word[1][word[1].length - 4] == "G") text = `${text},Close ES รหัส ${word[1]}`
-                    else if (word[1][word[1].length - 4] == "S") text = `${text},ปลด DS รหัส ${word[1]}`
-                    // console.log(word[1][word[1].length - 4])
-                    // console.log(word[1])
-                    // console.log(array_Data1[1][1])
+                    else if (word[1][word[1].length - 4] == "S") {
+                        count22DS++
+                        if (count22DS <= 1) {
+                            text = `${text},พร้อมทั้ง Open DS รหัส ${word[1]}`
+                        }
+                        else if (count22DS == totalofDS22) {
+                            text = `${text},และ Open DS รหัส ${word[1]}`
+                        }
+                        else {
+                            text = `${text},Open DS รหัส ${word[1]}`
+                        }
+
+                    }
+
                 }
             });
             // console.log(text)
@@ -148,13 +167,33 @@ const RequestElectricalOff = () => {
         else if (text == "SwitchYard") {
             let array_Data1 = [...state.SwitchYardCheckbox]
             let text = ""
+            let count115DS = 0
+            let totalofDS115 = 0
+
+            await array_Data1[numberTypeinFeeder].map((word: any) => {
+
+                if (word[1][word[1].length - 4] == "S") {
+                    totalofDS115++
+                }
+            });
+
             if (Array_data[selectInsert][1].requestOffDetail == "") text = `สฟฟ.${state.substationSelect[0]}`
-            array_Data1[numberTypeinFeeder].map((word: any) => {
+            await array_Data1[numberTypeinFeeder].map((word: any) => {
                 if (word[0] == true) {
-                    if (word[1][word[1].length - 4] == "B") text = `${text},ปลด CB 115kV รหัส ${word[1]}`
+                    if (word[1][word[1].length - 4] == "B") text = `${text},ปลด 115kV CB รหัส ${word[1]}`
                     else if (word[1][word[1].length - 4] == "G") text = `${text},Close ES รหัส ${word[1]}`
-                    else if (word[1][word[1].length - 4] == "S") text = `${text},ปลด DS รหัส ${word[1]}`
-                    console.log(word[1][word[1].length - 4])
+                    else if (word[1][word[1].length - 4] == "S") {
+                        count115DS++
+                        if (count115DS <= 1) {
+                            text = `${text},พร้อมทั้ง Open DS รหัส ${word[1]}`
+                        }
+                        else if (count115DS == totalofDS115) {
+                            text = `${text},และ Open DS รหัส ${word[1]}`
+                        }
+                        else {
+                            text = `${text},Open DS รหัส ${word[1]}`
+                        }
+                    }
                 }
             });
             // console.log(text)
@@ -596,13 +635,13 @@ const RequestElectricalOff = () => {
                                                         <div className="flex justify-center">
                                                             <div className="flex justify-center mx-2">
                                                                 <div>เวลา</div>
-                                                                <input type="text" className="text-center border" onChange={(event: any) => { changestate(index, 1, event, "Timefrom") }} value={data[1].Timefrom}/>
+                                                                <input type="text" className="text-center border" onChange={(event: any) => { changestate(index, 1, event, "Timefrom") }} value={data[1].Timefrom} />
                                                                 <div>น.</div>
                                                             </div>
                                                             <div className="flex justify-center mx-2">
                                                                 <div>ถึง</div>
                                                                 <input type="text" className="text-center border"
-                                                                    onChange={(event: any) => { changestate(index, 1, event, "Timedestination") }} value={data[1].Timedestination}/>
+                                                                    onChange={(event: any) => { changestate(index, 1, event, "Timedestination") }} value={data[1].Timedestination} />
                                                                 <div>น.</div>
                                                             </div>
                                                         </div>

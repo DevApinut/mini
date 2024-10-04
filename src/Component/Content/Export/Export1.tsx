@@ -450,8 +450,8 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('Q68').border = { top: { style: 'hair' }, bottom: { style: 'hair' } }
         worksheet.getCell('R68').border = { top: { style: 'hair' }, bottom: { style: 'hair' }, right: { style: 'thin' } }
 
-        worksheet.getCell('D69').border = { top: { style: 'hair' }, bottom: { style: 'hair' }, left: { style: 'thin' } }
-        worksheet.getCell('E69').border = { top: { style: 'hair' }, bottom: { style: 'hair' }, left: { style: 'thin' } }
+        worksheet.getCell('D69').border = { top: { style: 'hair' }, bottom: { style: 'hair' },}
+        worksheet.getCell('E69').border = { top: { style: 'hair' }, bottom: { style: 'hair' },}
         worksheet.getCell('F69').border = { top: { style: 'hair' }, bottom: { style: 'hair' } }
         worksheet.getCell('G69').border = { top: { style: 'hair' }, bottom: { style: 'hair' } }
         worksheet.getCell('H69').border = { top: { style: 'hair' }, bottom: { style: 'hair' } }
@@ -466,8 +466,8 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('Q69').border = { top: { style: 'hair' }, bottom: { style: 'hair' } }
         worksheet.getCell('R69').border = { top: { style: 'hair' }, bottom: { style: 'hair' }, right: { style: 'thin' } }
 
-        worksheet.getCell('D70').border = { top: { style: 'hair' }, bottom: { style: 'hair' }, left: { style: 'thin' } }
-        worksheet.getCell('E70').border = { top: { style: 'hair' }, bottom: { style: 'hair' }, left: { style: 'thin' } }
+        worksheet.getCell('D70').border = { top: { style: 'hair' }, bottom: { style: 'hair' }}
+        worksheet.getCell('E70').border = { top: { style: 'hair' }, bottom: { style: 'hair' }}
         worksheet.getCell('F70').border = { top: { style: 'hair' }, bottom: { style: 'hair' } }
         worksheet.getCell('G70').border = { top: { style: 'hair' }, bottom: { style: 'hair' } }
         worksheet.getCell('H70').border = { top: { style: 'hair' }, bottom: { style: 'hair' } }

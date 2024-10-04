@@ -50,9 +50,9 @@ const Docx_export = (props:any) => {
                     page: {
                         margin: {
                             top: 350,
-                            right: 1262,
+                            right: 1250,
                             bottom: 350,
-                            left: 1262,
+                            left: 1250,
                         },
                     },
                 },
@@ -117,11 +117,11 @@ const Docx_export = (props:any) => {
                         tabStops: [
                             {
                                 type: TabStopType.CENTER,
-                                position: 2200,
+                                position: 4 * 567,
                             },
                             {
                                 type: TabStopType.LEFT,
-                                position: 4000,
+                                position: 7.5 * 567,
                             },
                             {
                                 type: TabStopType.CENTER,
@@ -192,27 +192,27 @@ const Docx_export = (props:any) => {
                             {
                                 //multiply by 567 example want 5 cm * 567 = 2835
                                 type: TabStopType.CENTER,
-                                position: 5.25 * 567,
+                                position: 5.75 * 567,
                             },
                             {
                                 type: TabStopType.LEFT,
-                                position: 6 * 567,
+                                position: 7.5 * 567,
                             },
                             {
                                 type: TabStopType.CENTER,
-                                position: 10 * 567,
+                                position: 11.25 * 567,
                             },
                             {
                                 type: TabStopType.LEFT,
-                                position: 12.25 * 567,
+                                position: 13.25 * 567,
                             },
                             {
                                 type: TabStopType.CENTER,
-                                position: 14.5 * 567,
+                                position: 15.5 * 567,
                             },
                             {
                                 type: TabStopType.LEFT,
-                                position: 16 * 567,
+                                position: 16.5 * 567,
                             },
 
                         ],
@@ -278,27 +278,27 @@ const Docx_export = (props:any) => {
                             {
                                 //multiply by 567 example want 5 cm * 567 = 2835
                                 type: TabStopType.CENTER,
-                                position: 4.5 * 567,
+                                position: 5.25 * 567,
                             },
                             {
                                 type: TabStopType.LEFT,
-                                position: 6 * 567,
+                                position: 7.5 * 567,
                             },
                             {
                                 type: TabStopType.CENTER,
-                                position: 10 * 567,
+                                position: 11.25 * 567,
                             },
                             {
                                 type: TabStopType.LEFT,
-                                position: 12.25 * 567,
+                                position: 13.25 * 567,
                             },
                             {
                                 type: TabStopType.CENTER,
-                                position: 14.5 * 567,
+                                position: 15.5 * 567,
                             },
                             {
                                 type: TabStopType.LEFT,
-                                position: 16 * 567,
+                                position: 16.5 * 567,
                             },
 
                         ],

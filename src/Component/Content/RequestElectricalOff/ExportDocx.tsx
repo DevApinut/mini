@@ -77,10 +77,10 @@ const ExportDocx = (props: any) => {
                 properties: {
                     page: {
                         margin: {
-                            top: 1129,
-                            right: 1129,
-                            bottom: 1129,
-                            left: 1693,
+                            top: 1.5*564,
+                            right: 2*564,
+                            bottom: 0.5*564,
+                            left: 3*564,
                         },
                     },
                 },
@@ -136,6 +136,7 @@ const ExportDocx = (props: any) => {
                             }),
                         ],
                     }),
+                    new Paragraph({ children: [new TextRun({ text: "", }),], }),
                     new Paragraph({ children: [new TextRun({ text: "", }),], }),
                     new Paragraph({ children: [new TextRun({ text: "", }),], }),
                     new Paragraph({ children: [new TextRun({ text: "", }),], }),
@@ -456,7 +457,7 @@ const ExportDocx = (props: any) => {
                                                 children: [
                                                     new TextRun({
                                                         size: 32,
-                                                        text: `${props.otherData[1][1]}`,
+                                                        text: ``,
                                                         font: "TH SarabunIT๙",
                                                     }),
 
