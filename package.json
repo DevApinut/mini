@@ -76,6 +76,7 @@
     "react-slideshow-image": "^4.3.1",
     "react-to-pdf": "^1.0.1",
     "reactjs-pdf-reader": "^1.0.12",
+    "read-excel-file": "^5.8.6",
     "sheetjs": "^2.0.0",
     "sheetjs-style": "^0.15.8",
     "sweetalert2": "^11.11.0",

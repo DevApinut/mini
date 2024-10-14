@@ -142,16 +142,16 @@ const RequestElectricalOff = () => {
             await array_Data1[numberTypeinFeeder].map((word: any) => {
                 if (word[0] == true) {
                     if ((word[1][word[1].length - 4] == "B") && (array_Data1[1][1][1] == "AIS")) text = `${text},ปลด 22kV CB รหัส ${word[1]} พร้อม Out Service`
-                    if ((word[1][3] == "T") && (word[1][word[1].length - 4] == "S")) text = `${text},Open LBS รหัส ${word[1]}`
+                    if ((word[1][3] == "T") && (word[1][word[1].length - 4] == "S")) text = `${text}, Open LBS รหัส ${word[1]}`
                     else if ((word[1][word[1].length - 4] == "B") && (array_Data1[1][1][1] == "GIS")) text = `${text},ปลด 22kV CB รหัส ${word[1]}`
-                    else if (word[1][word[1].length - 4] == "G") text = `${text},Close ES รหัส ${word[1]}`
+                    else if (word[1][word[1].length - 4] == "G") text = `${text}, Close ES รหัส ${word[1]}`
                     else if (word[1][word[1].length - 4] == "S") {
                         count22DS++
                         if (count22DS <= 1) {
-                            text = `${text},พร้อมทั้ง Open DS รหัส ${word[1]}`
+                            text = `${text} พร้อมทั้ง Open DS รหัส ${word[1]}`
                         }
                         else if (count22DS == totalofDS22) {
-                            text = `${text},และ Open DS รหัส ${word[1]}`
+                            text = `${text} และ Open DS รหัส ${word[1]}`
                         }
                         else {
                             text = `${text},Open DS รหัส ${word[1]}`
@@ -180,18 +180,18 @@ const RequestElectricalOff = () => {
             if (Array_data[selectInsert][1].requestOffDetail == "") text = `สฟฟ.${state.substationSelect[0]}`
             await array_Data1[numberTypeinFeeder].map((word: any) => {
                 if (word[0] == true) {
-                    if (word[1][word[1].length - 4] == "B") text = `${text},ปลด 115kV CB รหัส ${word[1]}`
-                    else if (word[1][word[1].length - 4] == "G") text = `${text},Close ES รหัส ${word[1]}`
+                    if (word[1][word[1].length - 4] == "B") text = `${text}, ปลด 115kV CB รหัส ${word[1]}`
+                    else if (word[1][word[1].length - 4] == "G") text = `${text}, Close ES รหัส ${word[1]}`
                     else if (word[1][word[1].length - 4] == "S") {
                         count115DS++
                         if (count115DS <= 1) {
-                            text = `${text},พร้อมทั้ง Open DS รหัส ${word[1]}`
+                            text = `${text} พร้อมทั้ง Open DS รหัส ${word[1]}`
                         }
                         else if (count115DS == totalofDS115) {
-                            text = `${text},และ Open DS รหัส ${word[1]}`
+                            text = `${text} และ Open DS รหัส ${word[1]}`
                         }
                         else {
-                            text = `${text},Open DS รหัส ${word[1]}`
+                            text = `${text}, Open DS รหัส ${word[1]}`
                         }
                     }
                 }
