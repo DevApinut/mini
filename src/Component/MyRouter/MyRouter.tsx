@@ -17,6 +17,7 @@ import RequestElectricalOff from "../Content/RequestElectricalOff/RequestElectri
 import MainEquiment from "../Content/Equimentinfo/mainEquiment";
 import SaleAssess from "../Content/SaleAssess/SaleAssess";
 import PMTiming from "../Content/Webscraping/PMTimming";
+import Assess from "../Content/Sapassess/Assess";
 const Myrouter = () => {
     return (
         <BrowserRouter>
@@ -35,6 +36,7 @@ const Myrouter = () => {
                 <Route path="/mainEquiment" element={<MainEquiment/>} />
                 <Route path="/SaleAssess" element={<SaleAssess/>} />
                 <Route path="/PMTiming" element={<PMTiming/>} />
+                <Route path="/Assess" element={<Assess/>} />
                     
                 {/* <Route  path="/Login" Component={Login}/>             */}
                 {/* <Route  path="/Register" Component={Register}/>             */}
