@@ -1,0 +1,22 @@
+@tailwind components;
+
+@layer components {
+    .container-personel{
+        @apply px-40 flex w-full flex-wrap ;
+    }
+    .personel-infomation{
+        @apply flex justify-start my-3 w-1/2 items-center ;
+    }
+    @media only screen and (max-width: 900px) {
+        .container-personel{
+            @apply px-0 flex w-full flex-wrap ;
+        }
+        .personel-infomation{
+            @apply flex justify-start my-3 w-full items-center;
+        }
+
+
+    }
+
+
+}

@@ -1,0 +1,22 @@
+@tailwind components;
+
+@layer components {
+
+    .footer-bar{
+        @apply w-full h-auto bg-fuchsia-600; 
+    }
+    .copyright-menu{
+        @apply flex  justify-start text-xs mt-2 mx-2
+    } 
+    .ulmenu{
+        @apply flex 
+    }
+    li{
+        @apply text-white mx-2 hover:cursor-pointer hover:text-yellow-400
+    }
+
+
+    @media only screen and (max-width: 900px) {
+
+    }
+}

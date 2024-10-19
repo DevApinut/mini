@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import '../src/CSS/Navbar.css';
+@import '../src/CSS/Footer.css';
+@import '../src/CSS/Home.css';
+@import '../src/CSS/Login.css';
+@import '../src/CSS/Register.css';
+@import '../src/CSS/Personel.css';
+@import '../src/CSS/SwitchGear.css';
+
+html {
+  @apply h-full flex flex-col
+}
+
+body {
+  @apply h-full;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  @apply h-full flex flex-col
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* th,
+td {
+  @apply bg-red-200 text-green-200
+} */
