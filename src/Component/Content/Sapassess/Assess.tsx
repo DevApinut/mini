@@ -6,42 +6,10 @@ const Assess = () => {
 
    // use Reducer initials 
    const initials = {
-      Assess: [""]
+      Assess: [""],
+      searchtext: "",
+      Assessfromsearch: [""]
    }
-
-   const test = [["AAA", "XX", "CCC"], ["AAA", "BBXX", "CCC"], ["AAA", "TT", "CCC"], ["AAA", "YY", "CCC"]]
-   console.log(test)
-
-
-
-   // const Test2 = test.map((data: any) => {
-   //    var PATTERN = 'BB'
-   //    if (data[1].includes(PATTERN)) {
-   //       console.log("EiEi")
-   //       return data
-   //    }
-   //    else{ 
-   //       console.log("test")
-   //       }
-   //    // filtered = test.filter(function (str) { return str.includes(PATTERN); });
-   //    // console.log(filtered)
-   // })
-
-   const Test2 = test.filter(function (data: any) {
-      var PATTERN = 'T'
-      
-      if (data[0].includes(PATTERN) || data[1].includes(PATTERN) || data[2].includes(PATTERN)        
-      ) {
-         console.log("EiEi")
-         return data
-      }
-      else {
-         console.log("test")
-      }
-
-   });
-   console.log(Test2)
-
 
    const reducer = (state: any, action: any) => {
       switch (action.type) {
@@ -53,6 +21,29 @@ const Assess = () => {
       }
    }
    const [state, dispatch] = useReducer(reducer, initials)
+
+   // Function for change state and searchtext
+   const searchtext = async (textsearch: string) => {
+      await dispatch({ type: "setstate", payload: { name: "searchtext", value: textsearch } })
+      if (textsearch !== "") {
+         const arrayFromsearch = await state.Assess.filter(function (data: any) {
+            var PATTERN = textsearch
+
+            if (data[3].includes(PATTERN)
+            ) {
+               return data
+            }
+            else {
+               // console.log("test")
+            }
+         });
+         console.log(arrayFromsearch)
+         await dispatch({ type: "setstate", payload: { name: "arrayFromsearch", value: arrayFromsearch } })
+
+      }
+
+
+   }
 
 
    axios.get(`https://script.google.com/macros/s/AKfycbxCRTiN6jVKCDTf-qJM1kblnd6t9Iym8A3v0dLBqWNz5rP3ds4DgCtO6tBky8bicz34/exec`)
@@ -66,7 +57,7 @@ const Assess = () => {
          <div className="grow container flex items-center flex-col">
             <div>รายการค้นหาข้อมูลสถานีใน SAP</div>
             <div className="w-full flex justify-center my-2">
-               <input type="text" placeholder="Search......" className="text-xl border w-1/4 border" />
+               <input type="text" placeholder="Search......" className="text-xl border w-1/4 border" onChange={(e) => { searchtext(e.target.value) }} />
             </div>
 
             <div className="flex jusify-center">
