@@ -8,7 +8,8 @@ const Assess = () => {
    const initials = {
       Assess: [""],
       searchtext: "",
-      Assessfromsearch: [""]
+      Assessfromsearch: [""],
+      searchtextstatus:true
    }
 
    const reducer = (state: any, action: any) => {
@@ -38,8 +39,10 @@ const Assess = () => {
             }
          });
          console.log(arrayFromsearch)
-         await dispatch({ type: "setstate", payload: { name: "arrayFromsearch", value: arrayFromsearch } })
+         await dispatch({ type: "setstate", payload: { name: "Assessfromsearch", value: arrayFromsearch } })
 
+      }else{
+         await dispatch({ type: "setstate", payload: { name: "Assessfromsearch", value: [""] } })
       }
 
 
@@ -50,6 +53,7 @@ const Assess = () => {
       .then(res => {
          console.log(res)
          dispatch({ type: "setstate", payload: { name: "Assess", value: res.data.Assess } })
+         dispatch({ type: "setstate", payload: { name: "searchtextstatus", value: false } })
       })
    return (
       <>
@@ -57,14 +61,41 @@ const Assess = () => {
          <div className="grow container flex items-center flex-col">
             <div>รายการค้นหาข้อมูลสถานีใน SAP</div>
             <div className="w-full flex justify-center my-2">
-               <input type="text" placeholder="Search......" className="text-xl border w-1/4 border" onChange={(e) => { searchtext(e.target.value) }} />
+               <input type="text" placeholder="Search......" className="text-xl border w-1/4 border" onChange={(e) => { searchtext(e.target.value) }} disabled={state.searchtextstatus}/>
             </div>
 
-            <div className="flex jusify-center">
+            <table className="table">
+               <thead>
+                  <tr>
+                     <td>เลือก</td>
+                     <td>อุปกรณ์</td>
+                     <td>สินทรัพย์</td>
+                     <td>พท.ซ่อมบำรุง</td>
+                     <td>คำอธิบาย</td>
+                     <td>คำอธิบาย4</td>
+                     <td>ชื่อผลิตภัณฑ์</td>
+                  </tr>
+               </thead>
+               <tbody>
+                  {state.Assessfromsearch.map((data: any, index: number) => {
+                     return (
+                        <tr>
+                           <td key={`select_${index}`}><div className="btn btn-success">sel</div></td>
+                           <td key={`row0_${index}`}>{data[0]}</td>
+                           <td key={`row1_${index}`}>{data[1]}</td>
+                           <td key={`row2_${index}`}>{data[2]}</td>
+                           <td key={`row3_${index}`}>{data[3]}</td>
+                           <td key={`row4_${index}`}>{data[4]}</td>
+                           <td key={`row5_${index}`}>{data[5]}</td>
+                        </tr>
+                     )
 
-            </div>
+                  })}
+               </tbody>
 
-         </div>
+            </table>
+
+         </div >
          <Footer />
       </>
    )
