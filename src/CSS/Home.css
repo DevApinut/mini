@@ -2,11 +2,11 @@
 
 @layer components {
     .container-class-view {
-       
+
         height: 100vh;
 
     }
-    
+
     .Header-welcome {
         @apply flex flex-col justify-center items-center w-full mt-4
     }
@@ -14,20 +14,21 @@
     .subHeader-welcome1 {
         @apply text-2xl;
         position: relative;
-        color: hsl(309, 8%, 51%);        
+        color: hsl(309, 8%, 51%);
         font-weight: bold !important;
         font-family: "Anonymous Pro", monospace !important;
-        letter-spacing: 1px !important;        
+        letter-spacing: 1px !important;
         overflow: hidden;
         border-right: 2px solid hsl(0, 0%, 80%);
         white-space: nowrap;
         animation: typewriter 4s steps(44) 1s 1 normal both,
-        blinkTextCursor 500ms infinite;
+            blinkTextCursor 500ms infinite;
     }
+
     .subHeader-welcome1:hover {
         @apply cursor-pointer;
         animation: pulse 2s infinite;
-        
+
     }
 
     .subHeader-welcome {
@@ -35,43 +36,49 @@
     }
 
     .Header-news {
-        @apply flex my-5 
+        @apply flex my-5
     }
 
     .subHeader-news {
-        @apply mx-3  p-3 
+        @apply mx-3 p-3
     }
+
     .subHeader-news:hover {
         @apply mx-3 border-b-8 border-y-lime-500 cursor-pointer
     }
-    .container-news{
-        @apply flex 
+
+    .container-news {
+        @apply flex
     }
 
-    .content-news{
-        @apply border w-1/4  my-3 rounded-lg mx-3
+    .content-news {
+        @apply border w-1/4 my-3 rounded-lg mx-3
     }
-    .sub-content-news{
-       @apply my-3 cursor-pointer h-full m-0
+
+    .sub-content-news {
+        @apply my-3 cursor-pointer h-full m-0
     }
-    .image-hover:hover{
-        animation: pulse-img 2s infinite; 
+
+    .image-hover:hover {
+        animation: pulse-img 2s infinite;
         overflow: hidden;
     }
 
-    .Head_news{
+    .Head_news {
         @apply text-lg
     }
-    .symbolofdata{
+
+    .symbolofdata {
         @apply absolute right-0 bottom-1/2 ms-5;
     }
-    .read_other{
+
+    .read_other {
         @apply hidden
     }
-    
-    
 
-    
+
+
+
 
     @keyframes typewriter {
         from {
@@ -96,77 +103,112 @@
     @keyframes pulse {
         0% {
             transform: scale(0.95);
-            
+
         }
+
         100% {
-            transform: scale(1);            
+            transform: scale(1);
         }
     }
+
     @keyframes pulse-img {
         0% {
-            transform: scale(1);            
+            transform: scale(1);
         }
+
         100% {
-            transform: scale(1.05);            
+            transform: scale(1.05);
         }
     }
+
+    @keyframes fadeInDown {
+        0% {
+            opacity: 0;
+            transform: translateY(-1.25em);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    
+
+    .popupmodalselect {
+        animation-name: fadeInDown;
+        animation-duration: 0.5s;
+    }
+
 
 
 
     @media only screen and (max-width: 900px) {
         .subHeader-welcome1 {
-            @apply text-lg; 
+            @apply text-lg;
             animation: typewriter 4s steps(44) 1s 1 normal both,
         }
+
         .subHeader-welcome2 {
-            @apply text-base; 
-           
+            @apply text-base;
+
         }
-        .subHeader-news{
+
+        .subHeader-news {
             @apply text-xs w-1/4
         }
-        .container-news{
+
+        .container-news {
             @apply w-full flex-wrap
         }
-        .content-news{
+
+        .content-news {
             @apply w-5/12 mx-2
         }
-        .symbolofdata{
+
+        .symbolofdata {
             @apply hidden bottom-0;
         }
-        .read_other{
-            @apply w-full flex justify-center my-3 text-center no-underline text-slate-50 bg-green-400 p-1 rounded-xl hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50 
+
+        .read_other {
+            @apply w-full flex justify-center my-3 text-center no-underline text-slate-50 bg-green-400 p-1 rounded-xl hover:border hover:p-1 hover:bg-slate-800 hover:rounded-xl hover:text-slate-50
         }
+
         @keyframes typewriter {
             from {
                 width: 0;
             }
-    
+
             to {
                 width: 375px;
             }
         }
     }
+
     @media only screen and (max-width: 500px) {
         .subHeader-welcome1 {
-            @apply text-base; 
+            @apply text-base;
             animation: typewriter 4s steps(44) 1s 1 normal both,
         }
+
         .subHeader-welcome2 {
-            @apply text-xs; 
-           
+            @apply text-xs;
+
         }
-        .container-news{
+
+        .container-news {
             @apply w-full flex-wrap
         }
-        .content-news{
+
+        .content-news {
             @apply w-full mx-2
         }
+
         @keyframes typewriter {
             from {
                 width: 0;
             }
-    
+
             to {
                 width: 330px;
             }
