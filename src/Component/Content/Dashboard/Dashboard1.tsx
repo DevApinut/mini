@@ -32,7 +32,7 @@ const Dashboard = () => {
                 <div className='w-1/4'>
                     <div className='w-1/4 my-2 input-group'>
                         <div className="input-group-prepend">
-                            <span className="input-group-text" id="basic-addon1">รายงานผลผระจำปี</span>
+                            <span className="input-group-text" id="basic-addon1">รายงานผลประจำปี</span>
                         </div>
                         <input type="number" className="form-control" defaultValue="2567"placeholder="ปีการทดสอบ" aria-label="Username" aria-describedby="basic-addon1" />
                     </div>

@@ -30,31 +30,31 @@ const ExportDocx = (props: any) => {
     }
 
     if (((new Date(props.otherData[9][1])).getDate() == (new Date(props.otherData[10][1])).getDate()) && ((new Date(props.otherData[9][1])).getMonth() == (new Date(props.otherData[10][1])).getMonth()) && ((new Date(props.otherData[9][1])).getFullYear() == (new Date(props.otherData[10][1])).getFullYear())) {
-        textDate = `${new Date(props.otherData[9][1]).getDate()} ${changedate(new Date(props.otherData[9][1]))}${(new Date(props.otherData[9][1]).getFullYear() + 543).toString()}`
+        textDate = `${new Date(props.otherData[9][1]).getDate()} ${changedate(new Date(props.otherData[9][1]))} พ.ศ. ${(new Date(props.otherData[9][1]).getFullYear() + 543).toString()}`
 
     } else if ((new Date(props.otherData[9][1]).getMonth() == new Date(props.otherData[10][1]).getMonth()) && (new Date(props.otherData[9][1]).getFullYear() == new Date(props.otherData[10][1]).getFullYear())) {
-        textDate = `${new Date(props.otherData[9][1]).getDate()} - ${new Date(props.otherData[10][1]).getDate()} ${changedate(new Date(props.otherData[9][1]))} ${(new Date(props.otherData[9][1]).getFullYear() + 543).toString()}`
+        textDate = `${new Date(props.otherData[9][1]).getDate()} - ${new Date(props.otherData[10][1]).getDate()} ${changedate(new Date(props.otherData[9][1]))} พ.ศ. ${(new Date(props.otherData[9][1]).getFullYear() + 543).toString()}`
 
     } else if ((new Date(props.otherData[9][1]).getMonth() !== new Date(props.otherData[10][1]).getMonth()) && (new Date(props.otherData[9][1]).getFullYear() == new Date(props.otherData[10][1]).getFullYear())) {
-        textDate = `${new Date(props.otherData[9][1]).getDate()} ${changedate(new Date(props.otherData[9][1]))} - ${new Date(props.otherData[10][1]).getDate()} ${changedate(new Date(props.otherData[10][1]))} ${(new Date(props.otherData[9][1]).getFullYear() + 543).toString()}`
+        textDate = `${new Date(props.otherData[9][1]).getDate()} ${changedate(new Date(props.otherData[9][1]))} - ${new Date(props.otherData[10][1]).getDate()} ${changedate(new Date(props.otherData[10][1]))} พ.ศ. ${(new Date(props.otherData[9][1]).getFullYear() + 543).toString()}`
 
     } else if ((new Date(props.otherData[9][1]).getMonth() !== new Date(props.otherData[10][1]).getMonth()) && (new Date(props.otherData[9][1]).getFullYear() !== new Date(props.otherData[10][1]).getFullYear())) {
-        textDate = `${new Date(props.otherData[9][1]).getDate()} ${changedate(new Date(props.otherData[9][1]))} ${(new Date(props.otherData[9][1]).getFullYear() + 543).toString()} - ${new Date(props.otherData[10][1]).getDate()} ${changedate(new Date(props.otherData[10][1]))} ${(new Date(props.otherData[10][1]).getFullYear() + 543).toString()}`
+        textDate = `${new Date(props.otherData[9][1]).getDate()} ${changedate(new Date(props.otherData[9][1]))} ${(new Date(props.otherData[9][1]).getFullYear() + 543).toString()} - ${new Date(props.otherData[10][1]).getDate()} ${changedate(new Date(props.otherData[10][1]))} พ.ศ. ${(new Date(props.otherData[10][1]).getFullYear() + 543).toString()}`
     }
 
     const changeFormatDate = (Date1: any, Date2: any) => {
         let textFormatDate = ""
         if (((new Date(Date1)).getDate() == (new Date(Date2)).getDate()) && ((new Date(Date1)).getMonth() == (new Date(Date2)).getMonth()) && ((new Date(Date1)).getFullYear() == (new Date(Date2)).getFullYear())) {
-            textFormatDate = `${new Date(Date1).getDate()} ${changedate(new Date(Date1))}${(new Date(Date1).getFullYear() + 543).toString()}`
+            textFormatDate = `${new Date(Date1).getDate()} ${changedate(new Date(Date1))} พ.ศ. ${(new Date(Date1).getFullYear() + 543).toString()}`
 
         } else if ((new Date(Date1).getMonth() == new Date(Date2).getMonth()) && (new Date(Date1).getFullYear() == new Date(Date2).getFullYear())) {
-            textFormatDate = `${new Date(Date1).getDate()} - ${new Date(Date2).getDate()} ${changedate(new Date(Date1))} ${(new Date(Date1).getFullYear() + 543).toString()}`
+            textFormatDate = `${new Date(Date1).getDate()} - ${new Date(Date2).getDate()} ${changedate(new Date(Date1))} พ.ศ. ${(new Date(Date1).getFullYear() + 543).toString()}`
 
         } else if ((new Date(Date1).getMonth() !== new Date(Date2).getMonth()) && (new Date(Date1).getFullYear() == new Date(Date2).getFullYear())) {
-            textFormatDate = `${new Date(Date1).getDate()} ${changedate(new Date(Date1))} - ${new Date(Date2).getDate()} ${changedate(new Date(Date2))} ${(new Date(Date1).getFullYear() + 543).toString()}`
+            textFormatDate = `${new Date(Date1).getDate()} ${changedate(new Date(Date1))} - ${new Date(Date2).getDate()} ${changedate(new Date(Date2))} พ.ศ. ${(new Date(Date1).getFullYear() + 543).toString()}`
 
         } else if ((new Date(Date1).getMonth() !== new Date(Date2).getMonth()) && (new Date(Date1).getFullYear() !== new Date(Date2).getFullYear())) {
-            textFormatDate = `${new Date(Date1).getDate()} ${changedate(new Date(Date1))} ${(new Date(Date1).getFullYear() + 543).toString()} - ${new Date(Date2).getDate()} ${changedate(new Date(Date2))} ${(new Date(Date2).getFullYear() + 543).toString()}`
+            textFormatDate = `${new Date(Date1).getDate()} ${changedate(new Date(Date1))} ${(new Date(Date1).getFullYear() + 543).toString()} - ${new Date(Date2).getDate()} ${changedate(new Date(Date2))} พ.ศ. ${(new Date(Date2).getFullYear() + 543).toString()}`
         }
 
         return textFormatDate

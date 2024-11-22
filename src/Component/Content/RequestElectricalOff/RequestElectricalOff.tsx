@@ -523,7 +523,7 @@ const RequestElectricalOff = () => {
                                                             {!data[0].checkPersonelControl && <div className="flex justify-center grow flex-row m-2">
                                                                 <label className="border rounded-l-lg bg-slate-200 w-24 text-center">ผู้ควบคุมงาน</label>
                                                                 <input type="text" className="border rounded-none rounded-r-xl"
-                                                                    onChange={(e) => { changestate(index, 0, e, "PersonelControl") }} value={data[0].PersonelControl}
+                                                                    onChange={(e) => { changestate(index, 0, e, "personelControl") }} value={data[0].personelControl}
                                                                 />
                                                             </div>}
                                                             <div className="flex justify-center grow flex-row m-2 ">
