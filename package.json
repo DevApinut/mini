@@ -25,6 +25,8 @@
     "@types/node": "^16.18.85",
     "@types/react": "^18.2.60",
     "@types/react-dom": "^18.2.19",
+    "@xmldom/xmldom": "^0.9.5",
+    "angular-expressions": "^1.4.2",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "buddha-react-calendar": "^2.19.2-buddha",
@@ -40,6 +42,8 @@
     "dayjs": "^1.11.10",
     "docx": "^8.5.0",
     "docx-pdf": "^0.0.1",
+    "docxtemplater": "^3.55.0",
+    "edit-office-files": "^1.0.2",
     "excel4node": "^1.8.2",
     "exceljs": "^4.4.0",
     "express": "^4.18.3",
@@ -49,6 +53,7 @@
     "image-to-base64": "^2.2.0",
     "moment": "^2.30.1",
     "moment-timezone": "^0.5.45",
+    "pizzip": "^3.1.7",
     "puppeteer": "^22.5.0",
     "quill-blot-formatter": "^1.0.5",
     "quill-image-resize-module-react": "^3.0.0",
@@ -88,7 +93,7 @@
     "xlsx": "^0.18.5"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts --max-http-header-size=1024 start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

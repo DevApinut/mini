@@ -3,8 +3,9 @@ import Footer from "../Footer/Footer"
 import axios from "axios"
 import { useEffect, useReducer } from "react"
 import Chart from 'chart.js/auto'
-import { Bar, Pie, Line } from "react-chartjs-2";
+import { Bar, Pie, Line, PolarArea } from "react-chartjs-2";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+
 const SwitchGearDashboard = () => {
 
     // Chart JS Config Test
@@ -13,7 +14,7 @@ const SwitchGearDashboard = () => {
 
     const styles = {
         progressBar: {
-            height: 250,
+            height: 100,
             '& progress-bar': {
                 backgroundColor: 'black'
             },
@@ -21,7 +22,9 @@ const SwitchGearDashboard = () => {
     }
 
 
-
+    // useEffect(() => {
+    //     duplicateArray(0)
+    // }, [])
 
 
     const initials = {
@@ -45,7 +48,8 @@ const SwitchGearDashboard = () => {
     axios.get(`https://script.google.com/macros/s/AKfycbzSh7EVC-cVVK6XUSoWCOLubD9vCieJsUNFmFIgiu4DDfUwNuLS7Am4Jt5g1ypGWH1P4A/exec`)
         .then(res => {
             dispatch({ type: "setstate", payload: { name: "switchGearInformation", value: res.data.SwitchGear } })
-            // console.log(res.data.SwitchGear)                 
+            // console.log(res.data.SwitchGear)   
+            duplicateArray(0)
         })
 
 
@@ -63,19 +67,30 @@ const SwitchGearDashboard = () => {
         }
     }
 
+    
+
+
+
 
     // การเลือกเฉพาะข้อมูลนั้นเช่นเลือกเฉพาะข้อมูลจาก บ้านโป่ง
     // const Finddata = (data: string, index1: number) => {
     const Finddata = (data1: any, index1: number) => {
 
-        var newData = [[""]]
-        data1.map((data: any, index: number) => {            
-            const finddata = state.switchGearInformation.filter((item: any, index: any) => item[index1] === data[index1]);          
-            newData.push([data[index1],finddata.length])  
-        })        
+        const Label = [""]
+        const Data = [""]
+        data1.map((data: any, index: number) => {
+            const finddata = state.switchGearInformation.filter((item: any, index: any) => item[index1] === data[index1]);
 
-        console.log(newData)
-        // console.log(data[0][0])
+            if (Data[0] === "") { Data[0] = finddata.length }
+            else Data.push(finddata.length)
+            if (Label[0] == "") { Label[0] = data[index1] }
+            else Label.push(data[index1])
+            // Label.push(data[index1])  
+            // Data.push(finddata.length)  
+        })
+
+        dispatch({ type: "setstate", payload: { name: "DuplicateSubstation", value: [Label, Data] } })
+
 
     }
 
@@ -86,6 +101,7 @@ const SwitchGearDashboard = () => {
 
         const finddata = state.switchGearInformation.filter((item: any, index: any) => item[index1] === data);
         dispatch({ type: "setstate", payload: { name: "DuplicateSubstation", value: finddata } })
+        // return finddata
     }
 
     // // สำหรับสร้าง Array ขึ้นมาใหม่เพื่อทำการนับข้อมูล
@@ -109,13 +125,13 @@ const SwitchGearDashboard = () => {
                         <div className="font-bold">
                             จำนวนสถานีทั้งหมด
                         </div>
-                        <div className="text-lg"> 40 </div>
+                        <div className="text-lg"> {state.DuplicateSubstation[0].length - 2}  </div>
                     </div>
                     <div className="w-1/4 h-12 mx-2 rounded-xl border flex justify-center items-center flex-col py-8">
                         <div className="font-bold">
                             จำนวนอุปกรณ์ 22/33 kV
                         </div>
-                        <div className="text-lg"> 40 </div>
+                        <div className="text-lg"> {state.switchGearInformation.length - 2} </div>
                     </div>
                     <div className="w-1/4 h-12 mx-2 rounded-xl border flex justify-center items-center flex-col py-8">
                         <div className="font-bold">
@@ -138,24 +154,24 @@ const SwitchGearDashboard = () => {
                         </div>
                     </div>
                 </div>
-                <div className="flex justify-center items-center">
+                {/* <div className="flex justify-center items-center">
                     <div>
                         <button className="btn btn-success" onClick={() => { duplicateArray(0) }}>finddata</button>
                     </div>
                     <div>
                         <button className="btn btn-success" onClick={() => { CountArray("บ้านโป่ง2", 0) }}>InsertArrayData</button>
                     </div>
-                </div>
+                </div> */}
 
                 {/* ใช้การหาข้อมูลที่ซับซ้อนของสถานีก่อนจากนั้นนำข้อมูลดังกล่าวมาทำการหาข้อมูลเฉพาะตัวนั้นเพื่อทำการนับข้อมูล */}
-                <div className='w-full'>
+                <div className='w-full border'>
                     <Bar width="100%" height="100%"
                         data={{
-                            labels: [`TP(ABB)`, `CB 22 kV(ABB)`, `CB 22 kV(Schneider)`, 'Green', 'Purple', 'Orange'],
+                            labels: state.DuplicateSubstation[0],
                             datasets: [
                                 {
-                                    label: '# ผลิตภัณฑ์ Circuit Breaker SwitchGear',
-                                    data: [3, 19, 3, 5, 2, 3],
+                                    label: '# จำนวนอุปกรณ์ 22/33 kV ในเเต่ละสถานี',
+                                    data: state.DuplicateSubstation[1],
                                     borderWidth: 1,
                                     backgroundColor: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']
                                 }
@@ -163,8 +179,21 @@ const SwitchGearDashboard = () => {
                         }}
                     />
                 </div>
-
-
+                <div className='w-1/2 border'>
+                    <Pie width="100%" height="100%"
+                        data={{
+                            labels: ["แล้วเสร็จ", "ยังไม่ดำเนินการ"],
+                            datasets: [
+                                {
+                                    label: '# สถานะการบำรุงรักษา',
+                                    data: [100, 200],
+                                    borderWidth: 1,
+                                    backgroundColor: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']
+                                }
+                            ]
+                        }}
+                    />
+                </div>
 
             </div>
             <Footer />
