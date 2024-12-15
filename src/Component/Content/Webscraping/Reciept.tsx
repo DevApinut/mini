@@ -283,7 +283,7 @@ function Reciept() {
         else if (month === 9) { month = "ก.ย." }
         else if (month === 10) { month = "ต.ค." }
         else if (month === 11) { month = "พ.ย." }
-        else if (month === 12) { month = "ํธ.ค." }
+        else if (month === 12) { month = "ธ.ค." }
 
         const year = date.getFullYear() + 543
         const Buddhayear = `${day} ${month}${year.toString().substr(-2)}`
@@ -310,7 +310,7 @@ function Reciept() {
         else if (month === 9) { month = "ก.ย." }
         else if (month === 10) { month = "ต.ค." }
         else if (month === 11) { month = "พ.ย." }
-        else if (month === 12) { month = "ํธ.ค." }
+        else if (month === 12) { month = "ธ.ค." }
 
         const year = date.getFullYear() + 543
         const Buddhayear = `${day} ${month}${year.toString().substr(-2)}`
@@ -464,7 +464,7 @@ function Reciept() {
                 else if (month === 9) { month = "ก.ย." }
                 else if (month === 10) { month = "ต.ค." }
                 else if (month === 11) { month = "พ.ย." }
-                else if (month === 12) { month = "ํธ.ค." }
+                else if (month === 12) { month = "ธ.ค." }
 
                 const year = date.getFullYear() + 543
                 const Buddhayear = `${day} ${month}${year.toString().substr(-2)}`

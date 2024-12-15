@@ -1,3 +1,5 @@
+//  ************************** Read File From Upload file ***********************************************
+
 // import React, { Component } from 'react';
 // import Docxtemplater from 'docxtemplater';
 // import PizZip from 'pizzip';
@@ -22,12 +24,9 @@
 //             }
 //             console.log(data)
 //             console.log("XX")
-          
+
 //             var zip = new PizZip(data);
 //           });
-
-
-
 
 
 
@@ -86,16 +85,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-import React, { Component } from 'react';
+import React, { Component, useEffect, useReducer } from 'react';
 import Docxtemplater from 'docxtemplater';
 import PizZip from 'pizzip';
 import PizZipUtils from 'pizzip/utils/index.js';
@@ -103,14 +93,43 @@ import { saveAs } from 'file-saver';
 import expressionParser from 'docxtemplater/expressions';
 import axios from 'axios';
 
-const docxTest = () => {
+const DocxTest = () => {
+
+    useEffect(() => {
+        FetchFilename()
+    }, [])
+
+    const initials = {
+        Filename: [""]
+    }
+
+    const reducer = (state: any, action: any) => {
+        switch (action.type) {
+            case "setstate":
+                return {
+                    ...state,
+                    [action.payload.name]: action.payload.value
+                }
+        }
+    }
+
+    const [state, dispatch] = useReducer(reducer, initials)
+
+    const FetchFilename = () => {
+        axios.get(`${process.env.REACT_APP_API}/ReadnameFile`)
+            .then(res => {
+                dispatch({ type: "setstate", payload: { name: "Filename", value: res.data.message } })
+            })
+    }
+
+
     function loadFile(url: any, callback: any) {
         PizZipUtils.getBinaryContent(url, callback);
     }
 
     const generateDocument = () => {
         loadFile(
-            'http://localhost:9000/api/Dowloadfile',
+            'http://localhost:9000/api/uploadFile',
             function (error: any, content: any) {
                 if (error) {
                     throw error;
@@ -140,15 +159,16 @@ const docxTest = () => {
         );
     };
 
-    const sendfile = (e:any) =>{
+    const sendfile = (e: any) => {
         // console.log(e.target.files[0])
         const formData = new FormData()
-        formData.append('file',e.target.files[0])
-        axios.post(`${process.env.REACT_APP_API}/Dowloadfile`,formData)
-        .then(res=>{
-            // alert("success")
-            console.log(res.data)
-        })
+        formData.append('file', e.target.files[0])
+        axios.post(`${process.env.REACT_APP_API}/uploadFile`, formData)
+            .then(res => {
+                // alert("success")
+                console.log(res.data)
+                FetchFilename()
+            })
     }
 
     return (
@@ -161,10 +181,21 @@ const docxTest = () => {
                     You can edit the data in your code in this example. In your app, the
                     data would come from your database for example.
                 </p>
-                <input type="file" onChange={(e)=>{sendfile(e)}}/>
+                <input type="file" onChange={(e) => { sendfile(e) }} />
+                <div className='flex flex-col'>
+                    {state.Filename.map((data: any) => {
+                        return (
+                            <div className='flex justify-center'>
+                                <div className='btn btn-success'>{data}</div>
+                                <div>del</div>
+                            </div>
+                        )
+                    })}
+                </div>
+
             </div>
         </>
     )
 }
 
-export default docxTest
+export default DocxTest

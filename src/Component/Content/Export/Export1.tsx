@@ -446,12 +446,12 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('M68').border = { top: { style: 'hair' }, bottom: { style: 'hair' } }
         worksheet.getCell('N68').border = { top: { style: 'hair' }, bottom: { style: 'hair' } }
         worksheet.getCell('O68').border = { top: { style: 'hair' }, bottom: { style: 'hair' } }
-        worksheet.getCell('P68').border = { top: { style: 'hair' }, bottom: { style: 'hair' },}
+        worksheet.getCell('P68').border = { top: { style: 'hair' }, bottom: { style: 'hair' }, }
         worksheet.getCell('Q68').border = { top: { style: 'hair' }, bottom: { style: 'hair' } }
         worksheet.getCell('R68').border = { top: { style: 'hair' }, bottom: { style: 'hair' }, right: { style: 'thin' } }
 
-        worksheet.getCell('D69').border = { top: { style: 'hair' }, bottom: { style: 'hair' },}
-        worksheet.getCell('E69').border = { top: { style: 'hair' }, bottom: { style: 'hair' },}
+        worksheet.getCell('D69').border = { top: { style: 'hair' }, bottom: { style: 'hair' }, }
+        worksheet.getCell('E69').border = { top: { style: 'hair' }, bottom: { style: 'hair' }, }
         worksheet.getCell('F69').border = { top: { style: 'hair' }, bottom: { style: 'hair' } }
         worksheet.getCell('G69').border = { top: { style: 'hair' }, bottom: { style: 'hair' } }
         worksheet.getCell('H69').border = { top: { style: 'hair' }, bottom: { style: 'hair' } }
@@ -466,8 +466,8 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('Q69').border = { top: { style: 'hair' }, bottom: { style: 'hair' } }
         worksheet.getCell('R69').border = { top: { style: 'hair' }, bottom: { style: 'hair' }, right: { style: 'thin' } }
 
-        worksheet.getCell('D70').border = { top: { style: 'hair' }, bottom: { style: 'hair' }}
-        worksheet.getCell('E70').border = { top: { style: 'hair' }, bottom: { style: 'hair' }}
+        worksheet.getCell('D70').border = { top: { style: 'hair' }, bottom: { style: 'hair' } }
+        worksheet.getCell('E70').border = { top: { style: 'hair' }, bottom: { style: 'hair' } }
         worksheet.getCell('F70').border = { top: { style: 'hair' }, bottom: { style: 'hair' } }
         worksheet.getCell('G70').border = { top: { style: 'hair' }, bottom: { style: 'hair' } }
         worksheet.getCell('H70').border = { top: { style: 'hair' }, bottom: { style: 'hair' } }
@@ -596,7 +596,8 @@ export const ExcelExport = (props: any) => {
                     worksheet.getCell(`C${index_for_work_date}`).value = data1.for_work
                     worksheet.mergeCells(`C${index_for_work_date}:R${index_for_work_date}`)
                     index_for_work_date++
-                } else if ((new Date(data1.date_from_for_work).getMonth() !== new Date(data1.date_destination_for_work).getMonth()) && (new Date(data1.date_from_for_work).getFullYear() == new Date(data1.date_fdestination_for_work).getFullYear())) {
+                    
+                } else if ((new Date(data1.date_from_for_work).getMonth() !== new Date(data1.date_destination_for_work).getMonth()) && (new Date(data1.date_from_for_work).getFullYear() == new Date(data1.date_destination_for_work).getFullYear())) {
                     worksheet.getCell(`A${index_for_work_date}`).value = `${new Date(data1.date_from_for_work).getDate()} ${changedate(new Date(data1.date_from_for_work))}-${new Date(data1.date_destination_for_work).getDate()} ${changedate(new Date(data1.date_destination_for_work))} ${(new Date(data1.date_from_for_work).getFullYear() + 543).toString().substr(-2)}`
                     worksheet.getCell(`C${index_for_work_date}`).value = data1.for_work
                     worksheet.mergeCells(`C${index_for_work_date}:R${index_for_work_date}`)
@@ -609,6 +610,10 @@ export const ExcelExport = (props: any) => {
                 }
             }
         })
+
+        if(props.Detail_Work[0].budget == "WBS"){
+            worksheet.getCell(`T1`).value = number_order[0]
+        }
 
         const result = props.Additional_buy.map((item: any, index: number) => {
             if (item.Name_personal == data.Name_Personal) {
@@ -641,7 +646,7 @@ export const ExcelExport = (props: any) => {
         worksheet.mergeCells(`C${(71 - result1.length - 6)}:R${(71 - result1.length - 6)}`)
         worksheet.getCell(`C${(71 - result1.length - 6)}`).font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: true, }
         worksheet.getCell(`C${(71 - result1.length - 6)}`).alignment = { vertical: 'middle', horizontal: 'center' }
-        worksheet.getCell(`C${(71 - result1.length - 6)}`).border = { right: { style: 'thin' }, left: { style: 'hair' },bottom:{ style: 'hair' } }
+        worksheet.getCell(`C${(71 - result1.length - 6)}`).border = { right: { style: 'thin' }, left: { style: 'hair' }, bottom: { style: 'hair' } }
 
 
         worksheet.getCell(`C${(71 - result1.length - 5)}`).value = `${number_order.toString()}`
@@ -686,7 +691,7 @@ export const ExcelExport = (props: any) => {
             worksheet.mergeCells(`C${(71 - result1.length - 3)}:E${(71 - result1.length - 3)}`)
             worksheet.mergeCells(`L${(71 - result1.length - 3)}:O${(71 - result1.length - 3)}`)
             worksheet.mergeCells(`P${(71 - result1.length - 3)}:R${(71 - result1.length - 3)}`)
-            worksheet.getCell(`P${(71 - result1.length - 3)}`).border = { right: { style: 'thin' },bottom:{ style: 'hair' } }
+            worksheet.getCell(`P${(71 - result1.length - 3)}`).border = { right: { style: 'thin' }, bottom: { style: 'hair' } }
             worksheet.getCell(`C${(71 - result1.length - 3)}`).border = { left: { style: 'thin' } }
 
 
@@ -755,7 +760,7 @@ export const ExcelExport = (props: any) => {
             worksheet.mergeCells(`C${(71 - result1.length - 1)}:E${(71 - result1.length - 1)}`)
             worksheet.mergeCells(`L${(71 - result1.length - 1)}:O${(71 - result1.length - 1)}`)
             worksheet.mergeCells(`P${(71 - result1.length - 1)}:R${(71 - result1.length - 1)}`)
-            worksheet.getCell(`P${(71 - result1.length - 1)}`).border = { right: { style: 'thin' },bottom:{ style: 'hair' } }
+            worksheet.getCell(`P${(71 - result1.length - 1)}`).border = { right: { style: 'thin' }, bottom: { style: 'hair' } }
             worksheet.getCell(`C${(71 - result1.length - 1)}`).border = { left: { style: 'thin' } }
 
             worksheet.getCell(`C${(71 - result1.length - 0)}`).value = `ค่าที่พักเหมาจ่าย`
@@ -1472,28 +1477,28 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('A6').border = { right: { style: 'thin' }, left: { style: 'thin' }, }
         worksheet.getCell('E6').border = { left: { style: 'thin' }, }
         worksheet.getCell('AA6').border = { left: { style: 'thin' }, }
-        worksheet.getCell('A7').border = {  left: { style: 'thin' }, right: { style: 'thin' }, }
-        worksheet.getCell('L7').border = {  }
-        worksheet.getCell('Q7').border = {  }
-        worksheet.getCell('U7').border = {  right: { style: 'thin' } }
+        worksheet.getCell('A7').border = { left: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell('L7').border = {}
+        worksheet.getCell('Q7').border = {}
+        worksheet.getCell('U7').border = { right: { style: 'thin' } }
         worksheet.getCell('AA7').border = { left: { style: 'thin' }, }
-        worksheet.getCell('A8').border = {  left: { style: 'thin' }, right: { style: 'thin' }, }
-        worksheet.getCell('E8').border = {  left: { style: 'thin' },  }
-        worksheet.getCell('F8').border = {   }
-        worksheet.getCell('H8').border = {   }
-        worksheet.getCell('I8').border = {   }
-        worksheet.getCell('L8').border = {   }
-        worksheet.getCell('M8').border = {   }
-        worksheet.getCell('P8').border = {   }
-        worksheet.getCell('R8').border = {   }
-        worksheet.getCell('T8').border = {   }
-        worksheet.getCell('W8').border = {   }
-        worksheet.getCell('X8').border = {   }
-        worksheet.getCell('Y8').border = {   }
-        worksheet.getCell('Z8').border = {   right: { style: 'thin' }, }
+        worksheet.getCell('A8').border = { left: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell('E8').border = { left: { style: 'thin' }, }
+        worksheet.getCell('F8').border = {}
+        worksheet.getCell('H8').border = {}
+        worksheet.getCell('I8').border = {}
+        worksheet.getCell('L8').border = {}
+        worksheet.getCell('M8').border = {}
+        worksheet.getCell('P8').border = {}
+        worksheet.getCell('R8').border = {}
+        worksheet.getCell('T8').border = {}
+        worksheet.getCell('W8').border = {}
+        worksheet.getCell('X8').border = {}
+        worksheet.getCell('Y8').border = {}
+        worksheet.getCell('Z8').border = { right: { style: 'thin' }, }
         worksheet.getCell('AA8').border = { left: { style: 'thin' }, }
         worksheet.getCell('AB8').border = {}
-        worksheet.getCell('A9').border = {  left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
+        worksheet.getCell('A9').border = { left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
         worksheet.getCell('E9').border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
         worksheet.getCell('AA9').border = { left: { style: 'thin' }, }
         worksheet.getCell('AB9').border = {}
@@ -1903,71 +1908,71 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('Z35').border = { right: { style: 'thin' }, }
         worksheet.getCell('AA35').border = { left: { style: 'thin' }, }
         worksheet.getCell('A36').border = { left: { style: 'thin' }, }
-        worksheet.getCell('B36').border = { }
+        worksheet.getCell('B36').border = {}
         worksheet.getCell('C36').border = { right: { style: 'thin' }, }
         worksheet.getCell('D36').border = { left: { style: 'thin' }, }
-        worksheet.getCell('E36').border = { }
+        worksheet.getCell('E36').border = {}
         worksheet.getCell('F36').border = { right: { style: 'thin' }, }
         worksheet.getCell('G36').border = { left: { style: 'thin' }, }
-        worksheet.getCell('H36').border = { }
-        worksheet.getCell('I36').border = { }
+        worksheet.getCell('H36').border = {}
+        worksheet.getCell('I36').border = {}
         worksheet.getCell('J36').border = { right: { style: 'thin' }, }
         worksheet.getCell('K36').border = { left: { style: 'thin' }, }
-        worksheet.getCell('L36').border = { }
-        worksheet.getCell('M36').border = { }
-        worksheet.getCell('N36').border = { }
-        worksheet.getCell('O36').border = { }
+        worksheet.getCell('L36').border = {}
+        worksheet.getCell('M36').border = {}
+        worksheet.getCell('N36').border = {}
+        worksheet.getCell('O36').border = {}
         worksheet.getCell('P36').border = { right: { style: 'thin' }, }
         worksheet.getCell('Q36').border = { left: { style: 'thin' }, }
-        worksheet.getCell('R36').border = { }
-        worksheet.getCell('S36').border = { }
-        worksheet.getCell('T36').border = { }
+        worksheet.getCell('R36').border = {}
+        worksheet.getCell('S36').border = {}
+        worksheet.getCell('T36').border = {}
         worksheet.getCell('U36').border = { right: { style: 'thin' }, }
         worksheet.getCell('V36').border = { left: { style: 'thin' }, }
-        worksheet.getCell('W36').border = { }
-        worksheet.getCell('X36').border = { }
-        worksheet.getCell('Y36').border = { }
+        worksheet.getCell('W36').border = {}
+        worksheet.getCell('X36').border = {}
+        worksheet.getCell('Y36').border = {}
         worksheet.getCell('Z36').border = { right: { style: 'thin' }, }
         worksheet.getCell('AA36').border = { left: { style: 'thin' }, }
         worksheet.getCell('A37').border = { left: { style: 'thin' }, right: { style: 'thin' }, }
         worksheet.getCell('D37').border = { left: { style: 'thin' }, right: { style: 'thin' }, }
         worksheet.getCell('G37').border = { left: { style: 'thin' }, }
-        worksheet.getCell('H37').border = { }
-        worksheet.getCell('I37').border = { }
+        worksheet.getCell('H37').border = {}
+        worksheet.getCell('I37').border = {}
         worksheet.getCell('J37').border = { right: { style: 'thin' }, }
         worksheet.getCell('K37').border = { left: { style: 'thin' }, right: { style: 'thin' }, }
         worksheet.getCell('Q37').border = { left: { style: 'thin' }, right: { style: 'thin' }, }
         worksheet.getCell('V37').border = { left: { style: 'thin' }, right: { style: 'thin' }, }
         worksheet.getCell('AA37').border = { left: { style: 'thin' }, }
         worksheet.getCell('A38').border = { left: { style: 'thin' }, }
-        worksheet.getCell('B38').border = { }
+        worksheet.getCell('B38').border = {}
         worksheet.getCell('C38').border = { right: { style: 'thin' }, }
         worksheet.getCell('D38').border = { left: { style: 'thin' }, }
-        worksheet.getCell('E38').border = { }
+        worksheet.getCell('E38').border = {}
         worksheet.getCell('F38').border = { right: { style: 'thin' }, }
         worksheet.getCell('G38').border = { left: { style: 'thin' }, }
-        worksheet.getCell('H38').border = { }
-        worksheet.getCell('I38').border = { }
+        worksheet.getCell('H38').border = {}
+        worksheet.getCell('I38').border = {}
         worksheet.getCell('J38').border = { right: { style: 'thin' }, }
         worksheet.getCell('K38').border = { left: { style: 'thin' }, }
-        worksheet.getCell('L38').border = { }
-        worksheet.getCell('M38').border = { }
-        worksheet.getCell('N38').border = { }
-        worksheet.getCell('O38').border = { }
+        worksheet.getCell('L38').border = {}
+        worksheet.getCell('M38').border = {}
+        worksheet.getCell('N38').border = {}
+        worksheet.getCell('O38').border = {}
         worksheet.getCell('P38').border = { right: { style: 'thin' }, }
         worksheet.getCell('Q38').border = { left: { style: 'thin' }, }
-        worksheet.getCell('R38').border = { }
-        worksheet.getCell('S38').border = { }
-        worksheet.getCell('T38').border = { }
+        worksheet.getCell('R38').border = {}
+        worksheet.getCell('S38').border = {}
+        worksheet.getCell('T38').border = {}
         worksheet.getCell('U38').border = { right: { style: 'thin' }, }
         worksheet.getCell('V38').border = { left: { style: 'thin' }, right: { style: 'thin' }, }
         worksheet.getCell('AA38').border = { left: { style: 'thin' }, }
-        worksheet.getCell('A39').border = { left: { style: 'thin' }, right: { style: 'thin' },bottom: { style: 'thin' }, }
-        worksheet.getCell('D39').border = { left: { style: 'thin' }, right: { style: 'thin' },bottom: { style: 'thin' }, }
-        worksheet.getCell('G39').border = { left: { style: 'thin' }, right: { style: 'thin' },bottom: { style: 'thin' }, }
-        worksheet.getCell('K39').border = { left: { style: 'thin' }, right: { style: 'thin' },bottom: { style: 'thin' }, }
-        worksheet.getCell('Q39').border = { left: { style: 'thin' }, right: { style: 'thin' },bottom: { style: 'thin' }, }
-        worksheet.getCell('V39').border = { left: { style: 'thin' }, right: { style: 'thin' },bottom: { style: 'thin' }, }
+        worksheet.getCell('A39').border = { left: { style: 'thin' }, right: { style: 'thin' }, bottom: { style: 'thin' }, }
+        worksheet.getCell('D39').border = { left: { style: 'thin' }, right: { style: 'thin' }, bottom: { style: 'thin' }, }
+        worksheet.getCell('G39').border = { left: { style: 'thin' }, right: { style: 'thin' }, bottom: { style: 'thin' }, }
+        worksheet.getCell('K39').border = { left: { style: 'thin' }, right: { style: 'thin' }, bottom: { style: 'thin' }, }
+        worksheet.getCell('Q39').border = { left: { style: 'thin' }, right: { style: 'thin' }, bottom: { style: 'thin' }, }
+        worksheet.getCell('V39').border = { left: { style: 'thin' }, right: { style: 'thin' }, bottom: { style: 'thin' }, }
         worksheet.getCell('AA39').border = { left: { style: 'thin' }, }
         worksheet.getCell('A44').border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
         worksheet.getCell('C44').border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, }
@@ -2051,7 +2056,7 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('R69').border = { right: { style: 'thin' }, bottom: { style: 'hair' }, }
         worksheet.getCell('R70').border = { right: { style: 'thin' }, bottom: { style: 'hair' }, }
         worksheet.getCell('R71').border = { right: { style: 'thin' }, bottom: { style: 'hair' }, }
-        worksheet.getCell('Z64').border = { right: { style: 'thin' },  top: { style: 'hair' } }
+        worksheet.getCell('Z64').border = { right: { style: 'thin' }, top: { style: 'hair' } }
         worksheet.getCell('Z65').border = { right: { style: 'thin' }, bottom: { style: 'hair' }, top: { style: 'hair' } }
         worksheet.getCell('Z66').border = { right: { style: 'thin' }, bottom: { style: 'hair' }, top: { style: 'hair' } }
         worksheet.getCell('Z67').border = { right: { style: 'thin' }, bottom: { style: 'hair' }, top: { style: 'hair' } }
@@ -4338,7 +4343,7 @@ export const ExcelExport = (props: any) => {
             worksheet.mergeCells(`A${count_for_work_information + 1}:F${count_for_work_information + 2}`)
             worksheet.getCell(`A${count_for_work_information + 1}`).font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: true, }
             worksheet.getCell('A30').value = "เป็นงาน PM มีหมายเลขใบสั่งอยู่ด้านหลัง"
-        } else if (count_for_work_information <= 16 && props.Detail_Work[0].Continue_Command_select == "ต่อเนื่อง") {
+        } else if (count_for_work_information >= 16 && props.Detail_Work[0].Continue_Command_select == "ต่อเนื่อง") {
             worksheet.getCell(`A30`).value = `คำสั่งต่อเนื่องจาก ${props.Detail_Work[0].Continue_Command_number}`
         } else {
             worksheet.getCell('A30').value = "เป็นงาน PM มีหมายเลขใบสั่งอยู่ด้านหลัง"

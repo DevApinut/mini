@@ -19,7 +19,7 @@ import SaleAssess from "../Content/SaleAssess/SaleAssess";
 import PMTiming from "../Content/Webscraping/PMTimming";
 import Assess from "../Content/Sapassess/Assess";
 import SwitchGearDashboard from "../Content/Dashboard/SwitchGear";
-import docxTest from "../Content/Template/docxTest";
+import DocxTest from "../Content/Template/docxTest";
 const Myrouter = () => {
     return (
         <BrowserRouter>
@@ -41,7 +41,7 @@ const Myrouter = () => {
                 <Route path="/Assess" element={<Assess/>} />
                 <Route path="/SwitchGearDashboard" element={<SwitchGearDashboard/>} />
                 
-                <Route path="/docxTest" Component={docxTest} />
+                <Route path="/docxTest" Component={DocxTest} />
                 {/* <Route  path="/Login" Component={Login}/>             */}
                 {/* <Route  path="/Register" Component={Register}/>             */}
 
