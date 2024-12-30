@@ -71,7 +71,7 @@ function Reciept() {
         //รายการเบิกของเพิ่มเติม
         Additional_buy: [{ Name_personal: "", Number_account: "", list_material: "ระบุรายการเบิก", other_list_material: "", price: "", vat: "", total_price: "", ohter_list_material_hidden: "hidden" }],
         //รายระเอียดงานว่าคำสั่งชื่อว่าอะไร
-        Detail_Work: [{ Number_command: "", Continue_Command_select: "ไม่ต่อเนื่อง", Continue_Command_check: "Hidden", Continue_Command_number: "", date_permission: "", date_permission_buddha: "", location_work: "", obj: "", type_car: "รถยนต์ กฟภ. ทะเบียน", serial_car: "", budget: "ทำการ", other_budget: "", type_order: "หมายเลขใบสั่ง", other_type_order: "", other_type_order_hidden: "Hidden", Number_order: "", affiliation: "", for_personal: "", number_day: "", number_night: "", Department_head: "", Department_head_position: "",Number_network:"" }],
+        Detail_Work: [{ Number_command: "", Continue_Command_select: "ไม่ต่อเนื่อง", Continue_Command_check: "Hidden", Continue_Command_number: "", date_permission: "", date_permission_buddha: "", location_work: "", obj: "", type_car: "รถยนต์ กฟภ. ทะเบียน", serial_car: "", budget: "ทำการ", other_budget: "", type_order: "หมายเลขใบสั่ง", other_type_order: "", other_type_order_hidden: "Hidden", Number_order: "", affiliation: "", for_personal: "", number_day: "", number_night: "", Department_head: "", Department_head_position: "" }],
         data_location: [""],
         data_personal_information: [""],
         data_account_buy: [""],
@@ -421,9 +421,9 @@ function Reciept() {
                 const separateDatefromTime = res.data.date_personel_permit_val.split(" ")
                 let separateDate = separateDatefromTime[0].split("/")
                 const DatePermittion = `20${separateDate[2] - 43}-${separateDate[1]}-${separateDate[0]}`
-                detailwork[0].date_permission = DatePermittion
-
-
+                detailwork[0].date_permission = DatePermittion 
+                
+                
 
                 // For set personel 
                 let Personal_Infomation_data = [{}]
@@ -449,7 +449,7 @@ function Reciept() {
                 })
 
 
-
+                
                 let date = new Date(DatePermittion)
                 const day = date.getDate();
                 let month: any = date.getMonth() + 1;
@@ -468,10 +468,10 @@ function Reciept() {
 
                 const year = date.getFullYear() + 543
                 const Buddhayear = `${day} ${month}${year.toString().substr(-2)}`
-                const Christyear = `${day} ${month}${date.getFullYear()}`
+                const Christyear = `${day} ${month}${date.getFullYear()}` 
 
-                detailwork[0].date_permission_buddha = Buddhayear
-
+                detailwork[0].date_permission_buddha = Buddhayear 
+                
                 dispatch({ type: "setstate", payload: { name: "Detail_Work", value: detailwork } })
                 dispatch({ type: "setstate", payload: { name: "Personal_Infomation", value: Array_data } })
             })
@@ -602,33 +602,27 @@ function Reciept() {
                 <table>
                     <thead>
                         <tr>
-                            <th className="col-4" style={{ textAlign: 'center', verticalAlign: 'middle' }}>เลขที่คำสั่ง</th>
-                            <th className="col-4" style={{ textAlign: 'center', verticalAlign: 'middle' }}>ต่อเนื่อง</th>
-                            <th className="col-2" style={{ textAlign: 'center', verticalAlign: 'middle' }}>ลงวันที่</th>
-
+                            <th className="col-1" style={{ textAlign: 'center', verticalAlign: 'middle' }}>เลขที่คำสั่ง</th>
+                            <th className="col-1" style={{ textAlign: 'center', verticalAlign: 'middle' }}>ต่อเนื่อง</th>
+                            <th className="col-1" style={{ textAlign: 'center', verticalAlign: 'middle' }}>ลงวันที่</th>
+                            <th className="col-3" style={{ textAlign: 'center', verticalAlign: 'middle' }}>สถานที่ปฏิบัติงาน</th>
+                            <th className="col-3" style={{ textAlign: 'center', verticalAlign: 'middle' }}>วัตถุประสงค์</th>
+                            <th className="col-1" style={{ textAlign: 'center', verticalAlign: 'middle' }}>สังกัด</th>
                             {/* <th className="col-1" style={{ textAlign: 'center', verticalAlign: 'middle' }}>งบ</th> */}
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
-                                <div className='h-full'>
-                                    <input type="text" required className="form-control text-center h-full" value={state.Detail_Work[0].Number_command} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "Number_command") }} />
-                                </div>
+                                <input type="text" required className="form-control text-center" value={state.Detail_Work[0].Number_command} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "Number_command") }} />
                             </td>
                             <td>
-                                <div className=' flex'>
-                                    <div className='w-32'>
-                                        <select name="Feeder" className="form-control text-center" value={state.Detail_Work[0].Continue_Command_select} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "Continue_Command_select") }}>
-                                            <option value="ไม่ต่อเนื่อง">ไม่ต่อเนื่อง</option>
-                                            <option value="ต่อเนื่อง">ต่อเนื่อง</option>
-                                            <option value="หมายเหตุ">หมายเหตุ</option>
-                                        </select>
-                                    </div>
-                                    <div className='w-full'>
-                                        <input type="text" placeholder='เลขคำสั่งต่อเนื่อง' className="form-control text-center h-full" value={state.Detail_Work[0].Continue_Command_number} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "Continue_Command_number") }} />
-                                    </div>
-
+                                <div className='input-group mx-1 '>
+                                    <select name="Feeder" className="form-control text-center" value={state.Detail_Work[0].Continue_Command_select} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "Continue_Command_select") }}>
+                                        <option value="ไม่ต่อเนื่อง">ไม่ต่อเนื่อง</option>
+                                        <option value="ต่อเนื่อง">ต่อเนื่อง</option>
+                                    </select>
+                                    <input type={state.Detail_Work[0].Continue_Command_check} placeholder='เลขคำสั่งต่อเนื่อง' className="form-control text-center" value={state.Detail_Work[0].Continue_Command_number} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "Continue_Command_number") }} />
                                 </div>
                             </td>
                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
@@ -645,7 +639,18 @@ function Reciept() {
                                         />
                                     </LocalizationProvider>
                                 </div>
+
                             </td>
+                            <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
+                                <input type="text" required className="form-control text-center" value={state.Detail_Work[0].location_work} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "location_work") }} />
+                            </td>
+                            <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
+                                <input type="text" required className="form-control text-center" value={state.Detail_Work[0].obj} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "obj") }} />
+                            </td>
+                            <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
+                                <input type="text" required className="form-control text-center" value={state.Detail_Work[0].affiliation} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "affiliation") }} />
+                            </td>
+
                         </tr>
                     </tbody>
                 </table>
@@ -656,10 +661,11 @@ function Reciept() {
                     <thead>
                         <tr>
                             <th className="col-1" style={{ textAlign: 'center', verticalAlign: 'middle' }}>เรียน</th>
-                            <th className="col-2" style={{ textAlign: 'center', verticalAlign: 'middle' }}>สังกัด</th>
-                            <th className="col-2" style={{ textAlign: 'center', verticalAlign: 'middle' }}>จำนวนวัน/คืน</th>
-                            <th className="col-4" style={{ textAlign: 'center', verticalAlign: 'middle' }}>โดยรถยนต์</th>
-                            <th className="col-4" style={{ textAlign: 'center', verticalAlign: 'middle' }}>งบ</th>
+                            <th className="col-1" style={{ textAlign: 'center', verticalAlign: 'middle' }}>โดยรถยนต์</th>
+                            <th className="col-1" style={{ textAlign: 'center', verticalAlign: 'middle' }}>งบ</th>
+                            <th className="col-1" style={{ textAlign: 'center', verticalAlign: 'middle' }}>จำนวนวัน/คืน</th>
+                            <th className="col-1" style={{ textAlign: 'center', verticalAlign: 'middle' }}> </th>
+                            <th className="col-3" style={{ textAlign: 'center', verticalAlign: 'middle' }}>{`${state.Detail_Work[0].type_order}${state.Detail_Work[0].other_type_order}`}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -668,91 +674,48 @@ function Reciept() {
                                 <input type="text" required className="form-control text-center" value={state.Detail_Work[0].for_personal} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "for_personal") }} />
                             </td>
                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
-                                <input type="text" required className="form-control text-center mx-2" value={state.Detail_Work[0].affiliation} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "affiliation") }} />
+                                <div className='input-group mx-1 '>
+                                    <select name="Feeder" className="form-control text-center" value={state.Detail_Work[0].type_car} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "type_car") }}>
+                                        <option value="รถยนต์ กฟภ. ทะเบียน">รถยนต์กฟภ.</option>
+                                        <option value="รถยนต์ส่วนตัว ทะเบียน">รถยนต์ส่วนตัว</option>
+                                        <option value="รถโดยสารประจำทาง">รถโดยสารประจำทาง</option>
+                                    </select>
+                                    <input type="text" required className="form-control text-center" placeholder='ทะเบียน' value={state.Detail_Work[0].serial_car} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "serial_car") }} />
+                                </div>
                             </td>
                             <td>
-                                <div className='input-group mx-3'>
+                                <div className='input-group mx-1'>
+                                    <select name="Feeder" className="form-control text-center" value={state.Detail_Work[0].budget} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "budget") }}>
+                                        <option value="ทำการ">ทำการ</option>
+                                        <option value="WBS">WBS</option>
+                                        <option value="">อื่นๆ</option>
+                                    </select>
+                                    <input type="text" placeholder='ระบุ' className="form-control text-center" value={state.Detail_Work[0].other_budget} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "other_budget") }} />
+                                </div>
+
+                            </td>
+                            <td>
+                                <div className='input-group mx-1'>
                                     <input type="text" required className="form-control text-center" placeholder="วัน" value={state.Detail_Work[0].number_day} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "number_day") }} />
                                     <input type="text" required className="form-control text-center" placeholder="คืน" value={state.Detail_Work[0].number_night} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "number_night") }} />
                                 </div>
                             </td>
                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
-                                <div className='input-group mx-1 flex w-40 mx-4'>
-                                    <select name="Feeder" className="form-control text-center w-32" value={state.Detail_Work[0].type_car} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "type_car") }}>
-                                        <option value="รถยนต์ กฟภ. ทะเบียน">รถยนต์กฟภ.</option>
-                                        <option value="รถยนต์ส่วนตัว ทะเบียน">รถยนต์ส่วนตัว</option>
-                                        <option value="รถโดยสารประจำทาง">รถโดยสารประจำทาง</option>
+                                <div className='input-group mx-1 '>
+                                    <select className="form-control text-center" value={state.Detail_Work[0].type_order} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "type_order") }} >
+                                        <option value="หมายเลขใบสั่ง">หมายเลขใบสั่ง</option>
+                                        <option value="หมายเลขงาน">หมายเลขงาน</option>
+                                        <option value="">อื่นๆ</option>
                                     </select>
-                                    <div>
-                                        <input type="text" required className="form-control text-center h-full" placeholder='ทะเบียน' value={state.Detail_Work[0].serial_car} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "serial_car") }} />
-                                    </div>
-
+                                    <input type={state.Detail_Work[0].other_type_order_hidden} className="form-control text-center" value={state.Detail_Work[0].other_type_order} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "other_type_order") }} />
                                 </div>
                             </td>
                             <td>
-                                <div className='input-group mx-5'>
-                                    <div className='rounded-l-lg'>
-                                        <select name="Feeder" className="form-control text-center" value={state.Detail_Work[0].budget} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "budget") }}>
-                                            <option value="ทำการ">ทำการ</option>
-                                            <option value="WBS">WBS</option>
-                                            <option value="">อื่นๆ</option>
-                                        </select>
-                                    </div>
-                                    <div className='rounded-r-lg'>
-                                        <input type="text" placeholder='ระบุ' className="form-control text-center h-full rounded-r-lg" value={state.Detail_Work[0].other_budget} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "other_budget") }} />
-                                    </div>
-                                </div>
+                                <input type="text" required className="form-control text-center" value={state.Detail_Work[0].Number_order} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "Number_order") }} />
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <div>
-                </div>
-
-                <div >
-                    <div className='text-md font-bold text-center'>สถานที่ปฏิบัติงาน</div>
-                    <div>
-                        <input type="text" required className="form-control text-center h-full" value={state.Detail_Work[0].location_work} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "location_work") }} />
-                    </div>
-                </div>
-                <div >
-                    <div className='text-md font-bold text-center'>วัตถุประสงค์</div>
-                    <div>
-                        <input type="text" required className="form-control text-left " value={state.Detail_Work[0].obj} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "obj") }} />
-                    </div>
-                </div>
-
-                <div className='my-2 '>
-                    <div className='flex'>
-                        <div className='grow'>
-                            <div className='text-md font-bold text-center'>{`${state.Detail_Work[0].type_order}${state.Detail_Work[0].other_type_order}`}</div>
-                            <div className='flex'>
-                                <div className='mx-1 w-1/4 flex'>
-                                    <div className='w-44'>
-                                        <select className="form-control text-center" value={state.Detail_Work[0].type_order} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "type_order") }} >
-                                            <option value="หมายเลขใบสั่ง">หมายเลขใบสั่ง</option>
-                                            <option value="หมายเลขงาน">หมายเลขงาน</option>
-                                            <option value="">อื่นๆ</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <input type={"text"} className="form-control text-center h-full" value={state.Detail_Work[0].other_type_order} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "other_type_order") }} />
-                                    </div>
-                                </div>
-                                <div className='w-3/4'>
-                                    <input type="text" required className="form-control text-center h-full" value={state.Detail_Work[0].Number_order} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "Number_order") }} />
-                                </div>
-                            </div>
-                        </div>
-                        <div className='w-56'>
-                            <div className='text-md font-bold text-center'>หมายเลขโครงข่าย</div>
-                            <div>
-                                <input type="text" required className="form-control text-center h-full" value={state.Detail_Work[0].Number_network} onChange={(e) => { handleforsetdataDetail_Work(e, 0, "Number_network") }} placeholder='หมายเลขโครงข่าย' />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
 
                 {/* ---------------------------------------------------------------------------------------------------------------------- */}
                 <div className='d-flex justify-content-center align-items-center mt-3'>

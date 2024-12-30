@@ -545,14 +545,27 @@ export const ExcelExport = (props: any) => {
         var count_for_work_information = 12;
         props.Work_Infomation.map((data1: any, index1: any) => {
             if (index1 <= 18) {
-                worksheet.getCell(`A${index1 + 12}`).value = `${data1.location_from}${data1.other_location_from}`
-                if (data1.date_from_buddha != "") worksheet.getCell(`B${index1 + 12}`).value = data1.date_from_buddha
-                if (data1.time_from != "") worksheet.getCell(`C${index1 + 12}`).value = parseFloat(data1.time_from)
+                if((data1.location_from !== "" || data1.other_location_from !== "") && data1.location_from !== "ระบุสถานที่") worksheet.getCell(`A${index1 + 12}`).value = `${data1.location_from}${data1.other_location_from}`
+                else worksheet.getCell(`A${index1 + 12}`).value = ``
+                
+                if (data1.date_from_buddha !== "") worksheet.getCell(`B${index1 + 12}`).value = data1.date_from_buddha
+                else worksheet.getCell(`B${index1 + 12}`).value = ""
+
+                if (data1.time_from !== "") worksheet.getCell(`C${index1 + 12}`).value = parseFloat(data1.time_from)
+                else worksheet.getCell(`C${index1 + 12}`).value = ""
                 worksheet.getCell(`C${index1 + 12}`).numFmt = '00.00 "น."';
-                worksheet.getCell(`D${index1 + 12}`).value = `${data1.location_destination}${data1.other_location_destination}`
-                worksheet.getCell(`E${index1 + 12}`).value = data1.date_destination_buddha
-                if (data1.time_destination != "") worksheet.getCell(`F${index1 + 12}`).value = parseFloat(data1.time_destination)
+                
+                if((data1.location_destination !== "" || data1.other_location_destination !== "") &&  data1.location_destination !== "ระบุสถานที่") worksheet.getCell(`D${index1 + 12}`).value = `${data1.location_destination}${data1.other_location_destination}`
+                else worksheet.getCell(`D${index1 + 12}`).value = " "
+                
+                
+                if (data1.date_destination_buddha !== "")worksheet.getCell(`E${index1 + 12}`).value = data1.date_destination_buddha
+                else worksheet.getCell(`E${index1 + 12}`).value = ""
+                
+                if (data1.time_destination !== "") worksheet.getCell(`F${index1 + 12}`).value = parseFloat(data1.time_destination)
+                else worksheet.getCell(`F${index1 + 12}`).value = ""            
                 worksheet.getCell(`F${index1 + 12}`).numFmt = '00.00 "น."';
+
                 count_for_work_information++
             }
         })
@@ -586,7 +599,13 @@ export const ExcelExport = (props: any) => {
             }
 
             if (data1.for_work !== "" && data1.for_work !== undefined) {
-                if (((new Date(data1.date_from_for_work)).getDate() == (new Date(data1.date_destination_for_work)).getDate()) && ((new Date(data1.date_from_for_work)).getMonth() == (new Date(data1.date_destination_for_work)).getMonth()) && ((new Date(data1.date_from_for_work)).getFullYear() == (new Date(data1.date_destination_for_work)).getFullYear())) {
+                if (data1.date_from_for_work == "" && data1.date_destination_for_work == "") {
+                    worksheet.getCell(`A${index_for_work_date}`).value = ` `
+                    worksheet.getCell(`C${index_for_work_date}`).value = data1.for_work
+                    worksheet.mergeCells(`C${index_for_work_date}:R${index_for_work_date}`)
+                    index_for_work_date++
+                }
+                else if (((new Date(data1.date_from_for_work)).getDate() == (new Date(data1.date_destination_for_work)).getDate()) && ((new Date(data1.date_from_for_work)).getMonth() == (new Date(data1.date_destination_for_work)).getMonth()) && ((new Date(data1.date_from_for_work)).getFullYear() == (new Date(data1.date_destination_for_work)).getFullYear())) {
                     worksheet.getCell(`A${index_for_work_date}`).value = `${new Date(data1.date_from_for_work).getDate()} ${changedate(new Date(data1.date_from_for_work))}${(new Date(data1.date_from_for_work).getFullYear() + 543).toString().substr(-2)}`
                     worksheet.getCell(`C${index_for_work_date}`).value = data1.for_work
                     worksheet.mergeCells(`C${index_for_work_date}:R${index_for_work_date}`)
@@ -596,7 +615,7 @@ export const ExcelExport = (props: any) => {
                     worksheet.getCell(`C${index_for_work_date}`).value = data1.for_work
                     worksheet.mergeCells(`C${index_for_work_date}:R${index_for_work_date}`)
                     index_for_work_date++
-                    
+
                 } else if ((new Date(data1.date_from_for_work).getMonth() !== new Date(data1.date_destination_for_work).getMonth()) && (new Date(data1.date_from_for_work).getFullYear() == new Date(data1.date_destination_for_work).getFullYear())) {
                     worksheet.getCell(`A${index_for_work_date}`).value = `${new Date(data1.date_from_for_work).getDate()} ${changedate(new Date(data1.date_from_for_work))}-${new Date(data1.date_destination_for_work).getDate()} ${changedate(new Date(data1.date_destination_for_work))} ${(new Date(data1.date_from_for_work).getFullYear() + 543).toString().substr(-2)}`
                     worksheet.getCell(`C${index_for_work_date}`).value = data1.for_work
@@ -608,10 +627,12 @@ export const ExcelExport = (props: any) => {
                     worksheet.mergeCells(`C${index_for_work_date}:R${index_for_work_date}`)
                     index_for_work_date++
                 }
+
+
             }
         })
 
-        if(props.Detail_Work[0].budget == "WBS"){
+        if (props.Detail_Work[0].budget == "WBS") {
             worksheet.getCell(`T1`).value = number_order[0]
         }
 
@@ -648,8 +669,12 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell(`C${(71 - result1.length - 6)}`).alignment = { vertical: 'middle', horizontal: 'center' }
         worksheet.getCell(`C${(71 - result1.length - 6)}`).border = { right: { style: 'thin' }, left: { style: 'hair' }, bottom: { style: 'hair' } }
 
+        if (props.Detail_Work[0].Number_network !== "") {
+            worksheet.getCell(`C${(71 - result1.length - 5)}`).value = `${number_order.toString()} หมายเลขโครงข่าย ${props.Detail_Work[0].Number_network.toString()}`
+        } else {
+            worksheet.getCell(`C${(71 - result1.length - 5)}`).value = `${number_order.toString()}`
+        }
 
-        worksheet.getCell(`C${(71 - result1.length - 5)}`).value = `${number_order.toString()}`
         worksheet.mergeCells(`C${(71 - result1.length - 5)}:R${(71 - result1.length - 4)}`)
         worksheet.getCell(`C${(71 - result1.length - 5)}`).font = { name: 'TH SarabunPSK', size: 15, italic: false, bold: false }
         worksheet.getCell(`C${(71 - result1.length - 5)}`).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true }
@@ -848,6 +873,11 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('N13').value = data.Additional_Allowance
         worksheet.getCell('N14').value = data.Accomodation_cost
         worksheet.getCell('N15').value = data.Accomodation_All
+
+        if (props.Detail_Work[0].Number_network !== "" && data.Allowance !== 0) worksheet.getCell('R12').value = props.Detail_Work[0].Number_network
+        if (props.Detail_Work[0].Number_network !== "" && data.Additional_Allowance !== 0) worksheet.getCell('R13').value = props.Detail_Work[0].Number_network
+        if (props.Detail_Work[0].Number_network !== "" && data.Accomodation_cost !== 0) worksheet.getCell('R14').value = props.Detail_Work[0].Number_network
+        if (props.Detail_Work[0].Number_network !== "" && data.Accomodation_All !== 0) worksheet.getCell('R15').value = props.Detail_Work[0].Number_network
 
 
         worksheet.getCell('P12').value = props.Detail_Work[0].number_day
@@ -4338,15 +4368,27 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('AA82').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
         worksheet.getCell('AB82').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
 
-        if (count_for_work_information <= 16 && props.Detail_Work[0].Continue_Command_select == "ต่อเนื่อง") {
+        if (count_for_work_information <= 26 && props.Detail_Work[0].Continue_Command_select == "ต่อเนื่อง") {
             worksheet.getCell(`A${count_for_work_information + 1}`).value = `คำสั่งต่อเนื่องจาก ${props.Detail_Work[0].Continue_Command_number}`
             worksheet.mergeCells(`A${count_for_work_information + 1}:F${count_for_work_information + 2}`)
             worksheet.getCell(`A${count_for_work_information + 1}`).font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: true, }
-            worksheet.getCell('A30').value = "เป็นงาน PM มีหมายเลขใบสั่งอยู่ด้านหลัง"
-        } else if (count_for_work_information >= 16 && props.Detail_Work[0].Continue_Command_select == "ต่อเนื่อง") {
+            worksheet.getCell(`A${count_for_work_information + 1}`).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true }
+            // worksheet.getCell('A30').value = "เป็นงาน PM มีหมายเลขใบสั่งอยู่ด้านหลัง"
+        } else if (count_for_work_information >= 26 && props.Detail_Work[0].Continue_Command_select == "ต่อเนื่อง") {
             worksheet.getCell(`A30`).value = `คำสั่งต่อเนื่องจาก ${props.Detail_Work[0].Continue_Command_number}`
-        } else {
-            worksheet.getCell('A30').value = "เป็นงาน PM มีหมายเลขใบสั่งอยู่ด้านหลัง"
+         
+        }else if (count_for_work_information <= 26 && props.Detail_Work[0].Continue_Command_select == "หมายเหตุ") {
+            worksheet.getCell(`A${count_for_work_information + 1}`).value = `${props.Detail_Work[0].Continue_Command_number}`
+            worksheet.mergeCells(`A${count_for_work_information + 1}:F${count_for_work_information + 2}`)
+            worksheet.getCell(`A${count_for_work_information + 1}`).font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: true, }
+            worksheet.getCell(`A${count_for_work_information + 1}`).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true }
+            // worksheet.getCell('A30').value = "เป็นงาน PM มีหมายเลขใบสั่งอยู่ด้านหลัง"
+        }  
+        else if (count_for_work_information >= 26 && props.Detail_Work[0].Continue_Command_select == "หมายเหตุ") {
+            worksheet.getCell(`A30`).value = `${props.Detail_Work[0].Continue_Command_number}`
+         
+        }else {
+            // worksheet.getCell('A30').value = "เป็นงาน PM มีหมายเลขใบสั่งอยู่ด้านหลัง"
         }
 
 
