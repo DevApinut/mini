@@ -71,7 +71,7 @@ function Reciept() {
         //รายการเบิกของเพิ่มเติม
         Additional_buy: [{ Name_personal: "", Number_account: "", list_material: "ระบุรายการเบิก", other_list_material: "", price: "", vat: "", total_price: "", ohter_list_material_hidden: "hidden" }],
         //รายระเอียดงานว่าคำสั่งชื่อว่าอะไร
-        Detail_Work: [{ Number_command: "", Continue_Command_select: "ไม่ต่อเนื่อง", Continue_Command_check: "Hidden", Continue_Command_number: "", date_permission: "", date_permission_buddha: "", location_work: "", obj: "", type_car: "รถยนต์ กฟภ. ทะเบียน", serial_car: "", budget: "ทำการ", other_budget: "", type_order: "หมายเลขใบสั่ง", other_type_order: "", other_type_order_hidden: "Hidden", Number_order: "", affiliation: "", for_personal: "", number_day: "", number_night: "", Department_head: "", Department_head_position: "",Number_network:"" }],
+        Detail_Work: [{ Number_command: "", Continue_Command_select: "ไม่ต่อเนื่อง", Continue_Command_check: "Hidden", Continue_Command_number: "", date_permission: "", date_permission_buddha: "", location_work: "", obj: "", type_car: "รถยนต์ กฟภ. ทะเบียน", serial_car: "", budget: "ทำการ", other_budget: "", type_order: "หมายเลขใบสั่ง", other_type_order: "", other_type_order_hidden: "Hidden", Number_order: "", affiliation: "", for_personal: "", number_day: "", number_night: "", Department_head: "", Department_head_position: "", Number_network: "" }],
         data_location: [""],
         data_personal_information: [""],
         data_account_buy: [""],
@@ -827,7 +827,7 @@ function Reciept() {
                         <tr>
                             <th className="col-1" style={{ textAlign: 'center', verticalAlign: 'middle' }}>ชื่อผู้เบิก</th>
                             <th className="col-1" style={{ textAlign: 'center', verticalAlign: 'middle' }}>รหัสบัญชี</th>
-                            <th className="col-1" style={{ textAlign: 'center', verticalAlign: 'middle' }}>รายการเบิก</th>
+                            <th className="col-2" style={{ textAlign: 'center', verticalAlign: 'middle' }}>รายการเบิก</th>
                             <th className="col-1" style={{ textAlign: 'center', verticalAlign: 'middle' }}>ยอดเงิน</th>
                             <th className="col-1" style={{ textAlign: 'center', verticalAlign: 'middle' }}>ภาษีมูลค่าเพิ่ม</th>
                             <th className="col-1" style={{ textAlign: 'center', verticalAlign: 'middle' }}>รวมสุทธิ</th>
@@ -856,17 +856,22 @@ function Reciept() {
                                             <input type="text" className="form-control text-center" value={data.Number_account} onChange={(e) => { handleforsetdataaddition_buy(e, index, "Number_account") }} />
                                         </td>
                                         <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
-                                            <div className='input-group mx-1 '>
-                                                <select className="form-control text-center" value={data.list_material} onChange={(e) => { handleforsetdataaddition_buy(e, index, "list_material") }}>
-                                                    <option value="ระบุรายการเบิก">ระบุรายการเบิก</option>
-                                                    {state.data_account_buy.map((data1: any, index: any) => {
-                                                        return (
-                                                            <option value={data1}>{data1[1]}</option>
-                                                        )
-                                                    })}
-                                                    <option value="">อื่นๆ</option>
-                                                </select>
-                                                <input type={data.ohter_list_material_hidden} className="form-control text-center" value={data.ohter_list_material} onChange={(e) => { handleforsetdataaddition_buy(e, index, "ohter_list_material") }} />
+                                            <div className='flex'>
+                                                
+                                                    <select className="form-control text-center" value={data.list_material} onChange={(e) => { handleforsetdataaddition_buy(e, index, "list_material") }}>
+                                                        <option value="ระบุรายการเบิก">ระบุรายการเบิก</option>
+                                                        {state.data_account_buy.map((data1: any, index: any) => {
+                                                            return (
+                                                                <option value={data1}>{data1[1]}</option>
+                                                            )
+                                                        })}
+                                                        <option value="">อื่นๆ</option>
+                                                    </select>
+                                               
+                                                <div>
+                                                    <input type={data.ohter_list_material_hidden} className="form-control text-center h-full w-3/4" value={data.ohter_list_material} onChange={(e) => { handleforsetdataaddition_buy(e, index, "ohter_list_material") }} />
+                                                </div>
+
                                             </div>
                                         </td>
                                         <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
