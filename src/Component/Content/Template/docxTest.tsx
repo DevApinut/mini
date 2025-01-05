@@ -92,6 +92,8 @@ import PizZipUtils from 'pizzip/utils/index.js';
 import { saveAs } from 'file-saver';
 import expressionParser from 'docxtemplater/expressions';
 import axios from 'axios';
+import Footer from '../Footer/Footer';
+import Navbar1 from '../Navbar/Navbar1';
 
 const DocxTest = () => {
 
@@ -171,29 +173,42 @@ const DocxTest = () => {
             })
     }
 
+    const DeleteFile = (nameofFile:any) =>{
+        console.log(nameofFile)
+        axios.post(`${process.env.REACT_APP_API}/Deletefile`, {nameFile:nameofFile})
+        .then(res => {
+          console.log(res.data.res)
+          FetchFilename()
+        })
+        
+    }
+
     return (
         <>
-            <div className="p-2">
-                <h1>Test docxtemplater</h1>
+            {/* <div className="p-2"> */}
+                {/* <h1>Test docxtemplater</h1>
                 <button onClick={generateDocument}>Generate document</button>
                 <p>Click the button above to generate a document using ReactJS</p>
                 <p>
                     You can edit the data in your code in this example. In your app, the
                     data would come from your database for example.
-                </p>
-                <input type="file" onChange={(e) => { sendfile(e) }} />
-                <div className='flex flex-col'>
+                </p>*/}
+                <input type="file" onChange={(e) => { sendfile(e) }} /> 
+
+                <Navbar1/>
+                  <div className='flex flex-col grow'>
                     {state.Filename.map((data: any) => {
                         return (
                             <div className='flex justify-center'>
                                 <div className='btn btn-success'>{data}</div>
-                                <div>del</div>
+                                <div onClick={(e)=>{DeleteFile(data)}}>del</div>
                             </div>
                         )
                     })}
                 </div>
+                <Footer/>
 
-            </div>
+            {/* </div> */}
         </>
     )
 }
