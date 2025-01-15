@@ -71,7 +71,7 @@ function Reciept() {
         //รายการเบิกของเพิ่มเติม
         Additional_buy: [{ Name_personal: "", Number_account: "", list_material: "ระบุรายการเบิก", other_list_material: "", price: "", vat: "", total_price: "", ohter_list_material_hidden: "hidden" }],
         //รายระเอียดงานว่าคำสั่งชื่อว่าอะไร
-        Detail_Work: [{ Number_command: "", Continue_Command_select: "ไม่ต่อเนื่อง", Continue_Command_check: "Hidden", Continue_Command_number: "", date_permission: "", date_permission_buddha: "", location_work: "", obj: "", type_car: "รถยนต์ กฟภ. ทะเบียน", serial_car: "", budget: "ทำการ", other_budget: "", type_order: "หมายเลขใบสั่ง", other_type_order: "", other_type_order_hidden: "Hidden", Number_order: "", affiliation: "", for_personal: "", number_day: "", number_night: "", Department_head: "", Department_head_position: "", Number_network: "" }],
+        Detail_Work: [{ Number_command: "", Continue_Command_select: "ไม่ต่อเนื่อง", Continue_Command_check: "Hidden", Continue_Command_number: "", date_permission: "", date_permission_buddha: "", location_work: "", obj: "", type_car: "รถยนต์ กฟภ. ทะเบียน", serial_car: "", budget: "ทำการ", other_budget: "", type_order: "หมายเลขใบสั่ง", other_type_order: "", other_type_order_hidden: "Hidden", Number_order: "", affiliation: "", for_personal: "", number_day: "", number_night: "", Department_head: "", Department_head_position: "", Number_network: "", Dateofpersonel: "", DateofHeadoffice: "", DateofpersonelBudha: "", DateofHeadofficeBudha: "" }],
         data_location: [""],
         data_personal_information: [""],
         data_account_buy: [""],
@@ -543,6 +543,38 @@ function Reciept() {
     }
 
 
+    const SetDatevalueWork = async (datevalue: any, nameState: any, nameStateBudha: any) => {
+
+        let Detailwork = [...state.Detail_Work]
+        let date = new Date(datevalue)
+        const day = date.getDate();
+        let month: any = date.getMonth() + 1;
+        if (month === 1) { month = "ม.ค." }
+        else if (month === 2) { month = "ก.พ." }
+        else if (month === 3) { month = "มี.ค." }
+        else if (month === 4) { month = "เม.ย." }
+        else if (month === 5) { month = "พ.ค." }
+        else if (month === 6) { month = "มิ.ย." }
+        else if (month === 7) { month = "ก.ค." }
+        else if (month === 8) { month = "ส.ค." }
+        else if (month === 9) { month = "ก.ย." }
+        else if (month === 10) { month = "ต.ค." }
+        else if (month === 11) { month = "พ.ย." }
+        else if (month === 12) { month = "ธ.ค." }
+
+        const year = date.getFullYear() + 543
+        const Buddhayear = `${day} ${month}${year.toString().substr(-2)}`
+
+        Detailwork[0][nameStateBudha] = Buddhayear
+        Detailwork[0][nameState] = datevalue
+
+        await dispatch({ type: "setstate", payload: { name: "Detail_Work", value: Detailwork } })
+
+
+
+    }
+
+
 
 
 
@@ -857,17 +889,17 @@ function Reciept() {
                                         </td>
                                         <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                             <div className='flex'>
-                                                
-                                                    <select className="form-control text-center" value={data.list_material} onChange={(e) => { handleforsetdataaddition_buy(e, index, "list_material") }}>
-                                                        <option value="ระบุรายการเบิก">ระบุรายการเบิก</option>
-                                                        {state.data_account_buy.map((data1: any, index: any) => {
-                                                            return (
-                                                                <option value={data1}>{data1[1]}</option>
-                                                            )
-                                                        })}
-                                                        <option value="">อื่นๆ</option>
-                                                    </select>
-                                               
+
+                                                <select className="form-control text-center" value={data.list_material} onChange={(e) => { handleforsetdataaddition_buy(e, index, "list_material") }}>
+                                                    <option value="ระบุรายการเบิก">ระบุรายการเบิก</option>
+                                                    {state.data_account_buy.map((data1: any, index: any) => {
+                                                        return (
+                                                            <option value={data1}>{data1[1]}</option>
+                                                        )
+                                                    })}
+                                                    <option value="">อื่นๆ</option>
+                                                </select>
+
                                                 <div>
                                                     <input type={data.ohter_list_material_hidden} className="form-control text-center h-full w-3/4" value={data.ohter_list_material} onChange={(e) => { handleforsetdataaddition_buy(e, index, "ohter_list_material") }} />
                                                 </div>
@@ -1108,6 +1140,57 @@ function Reciept() {
 
                     </tbody>
                 </table>
+                <div className='flex flex-col'>
+                    <h3 className='text-center'>ลงวันที่</h3>
+                    <div className='flex justify-center items-center my-4'>
+                        <div className='mx-3 rounded-lg p-4 border'>
+                            <Box>
+                                {/* <Typography variant='h5'>
+                                                MUI Datepicker
+                                            </Typography> */}
+                                <LocalizationProvider dateAdapter={newAdapter} adapterLocale='th' >
+                                    <DatePicker
+                                        label="ผู้รับเงินลงวันที่"
+                                        format="DD MMMYYYY"
+                                        onChange={(newValue) => { SetDatevalueWork(newValue, "Dateofpersonel", "DateofpersonelBudha") }}
+                                        defaultValue={dayjs()}
+                                        value={dayjs(state.Detail_Work[0].Dateofpersonel)}
+                                        slotProps={{ textField: { size: 'small' } }}
+
+                                    />
+                                </LocalizationProvider>
+
+                            </Box>
+
+                        </div>
+                        <div className='mx-3 flex grow border rounded-lg p-4'>
+                            <div className='flex items-center justify-center'>
+                                {/* <div className='grow'>ผู้บังคับบัญชา</div> */}
+                                <input type="text" className='mx-2 border' value={state.Detail_Work[0].Department_head} onChange={(e)=>handleforsetdataDetail_Work(e, 0, "Department_head")} />
+                                <input type="text" className='mx-2 border' value={state.Detail_Work[0].Department_head_position} onChange={(e)=>handleforsetdataDetail_Work(e, 0, "Department_head_position")} />
+                            </div>
+
+                            <Box>
+                                {/* <Typography variant='h5'>
+                                                MUI Datepicker
+                                            </Typography> */}
+                                <LocalizationProvider dateAdapter={newAdapter} adapterLocale='th' >
+                                    <DatePicker
+                                        label="ผู้บังคับบัญชาขั้นต้นลงวันที่"
+                                        format="DD MMMYYYY"
+                                        onChange={(newValue) => { SetDatevalueWork(newValue, "DateofHeadoffice", "DateofHeadofficeBudha") }}
+                                        defaultValue={dayjs()}
+                                        value={dayjs(state.Detail_Work[0].DateofHeadoffice)}
+                                        slotProps={{ textField: { size: 'small' } }}
+
+                                    />
+                                </LocalizationProvider>
+
+                            </Box>
+                        </div>
+                    </div>
+
+                </div>
 
 
                 <div className='d-flex justify-content-center'>

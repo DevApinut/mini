@@ -538,10 +538,10 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('P1').value = `${props.Detail_Work[0].budget}${props.Detail_Work[0].other_budget}`
         worksheet.getCell('C80').value = data.Name_Personal
         worksheet.getCell('C81').value = data.Position_Personal
-        worksheet.getCell('C82').value = `${new Date().getDate()} ${changedate1(new Date())}${(new Date().getFullYear() + 543).toString().substr(-2)}`
+        worksheet.getCell('C82').value = props.Detail_Work[0].DateofpersonelBudha
         worksheet.getCell('I80').value = props.Detail_Work[0].Department_head
         worksheet.getCell('I81').value = props.Detail_Work[0].Department_head_position
-        worksheet.getCell('I82').value = `${new Date().getDate()} ${changedate1(new Date())}${(new Date().getFullYear() + 543).toString().substr(-2)}`
+        worksheet.getCell('I82').value = props.Detail_Work[0].DateofHeadofficeBudha
         var count_for_work_information = 12;
         props.Work_Infomation.map((data1: any, index1: any) => {
             if (index1 <= 18) {
@@ -3380,7 +3380,10 @@ export const ExcelExport = (props: any) => {
         worksheet.getCell('L4').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: true, }
         worksheet.getCell('M4').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
         worksheet.getCell('P4').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: true, }
-        worksheet.getCell('T4').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
+
+        if(props.Detail_Work[0].obj.length < 70 ) worksheet.getCell('T4').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
+        else worksheet.getCell('T4').font = { name: 'TH SarabunPSK', size: 14, italic: false, bold: false, }
+        
         worksheet.getCell('AA4').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
         worksheet.getCell('AB4').font = { name: 'TH SarabunPSK', size: 11, italic: false, bold: false, }
         worksheet.getCell('A5').font = { name: 'TH SarabunPSK', size: 16, italic: false, bold: false, }
