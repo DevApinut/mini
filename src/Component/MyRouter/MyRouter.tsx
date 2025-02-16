@@ -20,6 +20,7 @@ import PMTiming from "../Content/Webscraping/PMTimming";
 import Assess from "../Content/Sapassess/Assess";
 import SwitchGearDashboard from "../Content/Dashboard/SwitchGear";
 import DocxTest from "../Content/Template/docxTest";
+import Capacitor from "../Content/PM_Test/Capacitor/Capacitor";
 const Myrouter = () => {
     return (
         <BrowserRouter>
@@ -40,6 +41,7 @@ const Myrouter = () => {
                 <Route path="/PMTiming" element={<PMTiming/>} />
                 <Route path="/Assess" element={<Assess/>} />
                 <Route path="/SwitchGearDashboard" element={<SwitchGearDashboard/>} />
+                <Route path="/Capacitor" element={<SwitchGearDashboard/>} />
                 
                 <Route path="/docxTest" Component={DocxTest} />
                 {/* <Route  path="/Login" Component={Login}/>             */}
