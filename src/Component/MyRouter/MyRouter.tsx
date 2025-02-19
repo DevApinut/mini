@@ -41,7 +41,7 @@ const Myrouter = () => {
                 <Route path="/PMTiming" element={<PMTiming/>} />
                 <Route path="/Assess" element={<Assess/>} />
                 <Route path="/SwitchGearDashboard" element={<SwitchGearDashboard/>} />
-                <Route path="/Capacitor" element={<SwitchGearDashboard/>} />
+                <Route path="/Capacitor" element={<Capacitor/>} />
                 
                 <Route path="/docxTest" Component={DocxTest} />
                 {/* <Route  path="/Login" Component={Login}/>             */}
