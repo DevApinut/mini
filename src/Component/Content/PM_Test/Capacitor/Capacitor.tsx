@@ -6,7 +6,7 @@ import Result from "./Result"
 import { useReducer, useEffect } from "react"
 import axios from "axios"
 import { Audio, BallTriangle } from 'react-loader-spinner'
-import Swal from "sweetalert2"
+import Swal, { SweetAlertIcon } from "sweetalert2"
 const Capacitor = () => {
 
     useEffect(() => {
@@ -21,6 +21,7 @@ const Capacitor = () => {
 
     const FetchData = (substation: string | null = null, year: string | null = null): void => {
 
+
         // ตรวจสอบค่าที่รับเข้ามา, ถ้าไม่มีการรับค่าส่งเข้ามาให้ใช้ค่าใน state
         const params = {
             Substation: substation || state.Substationselect,
@@ -32,6 +33,7 @@ const Capacitor = () => {
                 console.log(res);
                 // dispatch ค่าต่างๆ
                 dispatch({ type: "setstate", payload: { name: "Substation", value: res.data.substation } });
+                dispatch({ type: "setstate", payload: { name: "datafromFetch", value: res.data.data } });
                 dispatch({ type: "setstate", payload: { name: "loadingStatus", value: false } });
             })
             .catch(err => {
@@ -55,6 +57,9 @@ const Capacitor = () => {
         , Insulation: [["", "", "", "", "", ""], ["", "", "", "", "", ""], ["", "", "", "", "", ""]]
         , Counter: [[""], [""], [""]]
         , Remark: [[""], [""], [""]]
+        , Capacitorstep: [["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""], ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""], ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]]
+        , datafromFetch: [[]]
+
     }
 
     const reducer = (state: any, action: any) => {
@@ -77,6 +82,7 @@ const Capacitor = () => {
         let Vaccuum = [...state.Vaccuum]
         let Counter = [...state.Counter]
         let Remark = [...state.Remark]
+        let Capacitorstep = [...state.Capacitorstep]
 
         if (TypeofTest == "Contact") {
             Contact[numberofStep][numberPhase] = DatafromChange
@@ -98,6 +104,11 @@ const Capacitor = () => {
             Remark[numberofStep][numberPhase] = DatafromChange
             Datafrompass = Remark
         }
+        else if (TypeofTest == "Capacitorstep") {
+            Capacitorstep[numberofStep][numberPhase] = DatafromChange
+            Datafrompass = Capacitorstep
+        }
+
         dispatch({ type: "setstate", payload: { name: TypeofTest, value: Datafrompass } })
     }
 
@@ -107,6 +118,7 @@ const Capacitor = () => {
         Insulation: [...state.Insulation],
         Counter: [...state.Counter],
         Remark: [...state.Remark],
+        Capacitorstep: [...state.Capacitorstep],
     }
 
     const submitdata = async (e: React.FormEvent) => {
@@ -119,6 +131,7 @@ const Capacitor = () => {
             formData1.append("Capacitor", state.numberOfCap)
             formData1.append("Counter", state.Counter)
             formData1.append("Remark", state.Remark)
+            formData1.append("Capacitorstep", state.Capacitorstep)
 
             // ใช้ forEach กับ Object.keys เพื่อวนผ่านข้อมูลใน `data`
             Object.keys(data).forEach((key: string) => {
@@ -139,17 +152,22 @@ const Capacitor = () => {
             // });
             const scriptURL = 'https://script.google.com/macros/s/AKfycbw96SGVCfHskrWYhrU5dMq6mtDFhljmy9ZZHGOhBZ1tfZ23fcYIb-RYcC-Lvnl8X7Y8/exec'
             e.preventDefault()
-            fetch(scriptURL, { method: 'POST', body: formData1 })
-                .then((response: any) => {
-                    console.log(response)
-                })
-                .catch(error => console.error('Error!', error.message))
-        }else{
+            const response = await fetch(scriptURL, { method: 'POST', body: formData1 })
+            const datafromfetch = await response.json();
+
+            const iconType = (datafromfetch.result == "success" ? "success" : "error") as SweetAlertIcon;
+
+            await Swal.fire({
+                icon: iconType,
+                text: `${datafromfetch.result}`,
+            });
+
+        } else {
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "โปรดเลือกสถานีก่อนกดSubmit",                
-              });
+                text: "โปรดเลือกสถานีก่อนกดSubmit",
+            });
         }
 
     }
@@ -186,6 +204,7 @@ const Capacitor = () => {
                             สถานี
                         </label>
                         <select className="rounded-xl w-1/2 border" onChange={async (e) => {
+                            await dispatch({ type: "setstate", payload: { name: "loadingStatus", value: true } });
                             await dispatch({ type: "setstate", payload: { name: "Substationselect", value: e.target.value } })
                             await FetchData(e.target.value)
                         }}>
@@ -228,6 +247,7 @@ const Capacitor = () => {
                         <select className="rounded-xl w-1/2 border" defaultValue={new Date().getFullYear() + 543} value={state.Yearselect}
                             onChange={async (e) => {
                                 await dispatch({ type: "setstate", payload: { name: "Yearselect", value: e.target.value } })
+                                await dispatch({ type: "setstate", payload: { name: "loadingStatus", value: true } });
                                 await FetchData(state.Substationselect, e.target.value)
                             }}>
                             {dataYear.map((year: any, index: number) => (
@@ -262,28 +282,28 @@ const Capacitor = () => {
                 </div>} */}
                 {state.switchGearOrCap == 1 && <div className="flex w-full">
                     {/*Step1 */}
-                    <Capacitorsub2 Step={1} />
+                    <Capacitorsub2 Step={1} onChngeData={onChngeData} />
 
                     {/*Step2 */}
-                    <Capacitorsub2 Step={2} />
+                    <Capacitorsub2 Step={2} onChngeData={onChngeData} />
 
                     {/*Step3 */}
-                    <Capacitorsub2 Step={3} />
+                    <Capacitorsub2 Step={3} onChngeData={onChngeData} />
                 </div>}
                 {state.switchGearOrCap == 2 && <div className="flex w-full">
                     {/*Step1 */}
-                    <Result Step={1} />
+                    <Result Step={1} datafromFetch={state.datafromFetch} />
 
                     {/*Step2 */}
-                    <Result Step={2} />
+                    <Result Step={2} datafromFetch={state.datafromFetch}/>
 
                     {/*Step3 */}
-                    <Result Step={3} />
+                    <Result Step={3} datafromFetch={state.datafromFetch}/>
                 </div>}
 
-                <div className="btn btn-success my-4" onClick={submitdata}>
+                {state.switchGearOrCap != 2 && <div className="btn btn-success my-4" onClick={submitdata}>
                     Submit
-                </div>
+                </div>}
 
 
                 <div>

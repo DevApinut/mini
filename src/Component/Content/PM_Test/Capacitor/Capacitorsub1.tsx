@@ -71,7 +71,7 @@ const Capacitorsub = (props:any) => {
                     <div>Remark</div>
                     <div className="flex justify-center rounded-lg border overflow-hidden my-2">
                         <span className="bg-slate-200 p-1 rounded-l-lg text-center items-center justify-center">RM</span>
-                        <textarea className="text-center rounded-l-lg w-full focus:outline-none" />
+                        <textarea className="text-center rounded-l-lg w-full focus:outline-none" onChange={(e)=>props.onChngeData("Remark",e.target.value,0,props.Step-1)}/>
                     </div>
                 </div>
             </div>
