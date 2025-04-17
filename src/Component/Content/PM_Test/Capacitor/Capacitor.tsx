@@ -106,7 +106,7 @@ const Capacitor = () => {
         Contact: [...state.Contact],
         Insulation: [...state.Insulation],
         Counter: [...state.Counter],
-        Remark: [...state.Insulation],
+        Remark: [...state.Remark],
     }
 
     const submitdata = async (e: React.FormEvent) => {
