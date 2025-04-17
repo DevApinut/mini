@@ -54,6 +54,7 @@ const Capacitor = () => {
         , Contact: [["", "", ""], ["", "", ""], ["", "", ""]]
         , Insulation: [["", "", "", "", "", ""], ["", "", "", "", "", ""], ["", "", "", "", "", ""]]
         , Counter: [[""], [""], [""]]
+        , Remark: [[""], [""], [""]]
     }
 
     const reducer = (state: any, action: any) => {
@@ -75,6 +76,7 @@ const Capacitor = () => {
         let Insulation = [...state.Insulation]
         let Vaccuum = [...state.Vaccuum]
         let Counter = [...state.Counter]
+        let Remark = [...state.Remark]
 
         if (TypeofTest == "Contact") {
             Contact[numberofStep][numberPhase] = DatafromChange
@@ -92,6 +94,10 @@ const Capacitor = () => {
             Counter[numberofStep][numberPhase] = DatafromChange
             Datafrompass = Counter
         }
+        else if (TypeofTest == "Remark") {
+            Remark[numberofStep][numberPhase] = DatafromChange
+            Datafrompass = Remark
+        }
         dispatch({ type: "setstate", payload: { name: TypeofTest, value: Datafrompass } })
     }
 
@@ -99,6 +105,8 @@ const Capacitor = () => {
         Vaccuum: [...state.Vaccuum],
         Contact: [...state.Contact],
         Insulation: [...state.Insulation],
+        Counter: [...state.Counter],
+        Remark: [...state.Insulation],
     }
 
     const submitdata = async (e: React.FormEvent) => {
@@ -109,6 +117,8 @@ const Capacitor = () => {
             formData1.append("Substation", state.Substationselect)
             formData1.append("Step", state.StepOfCapacitor)
             formData1.append("Capacitor", state.numberOfCap)
+            formData1.append("Counter", state.Counter)
+            formData1.append("Remark", state.Remark)
 
             // ใช้ forEach กับ Object.keys เพื่อวนผ่านข้อมูลใน `data`
             Object.keys(data).forEach((key: string) => {
@@ -131,7 +141,7 @@ const Capacitor = () => {
             e.preventDefault()
             fetch(scriptURL, { method: 'POST', body: formData1 })
                 .then((response: any) => {
-                    console.log(response.data)
+                    console.log(response)
                 })
                 .catch(error => console.error('Error!', error.message))
         }else{
